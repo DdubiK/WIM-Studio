@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //public GameObject player;
+    public float time;
+    public float playtime;
+    public float magic;
     public float jump = 3f;
     public bool isGround;
+    public bool isDamaged;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +20,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        time += Time.deltaTime;
+        playtime += Time.deltaTime;
+        magic -= 3f;
     }
     public void Jump1()
     {
@@ -42,6 +47,19 @@ public class Player : MonoBehaviour
         {
             isGround = true;
         }
+        //if (collision.gameObject.tag == "hurdle")
+        //{
+        //    Damage();
+        //    Debug.Log("damage!");
+        //}
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "hurdle")
+        {
+            Damage();
+            Debug.Log("damage!");
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -49,6 +67,44 @@ public class Player : MonoBehaviour
         {
             isGround = false;
         }
+    }
+
+    public void Damage()
+    {
+        gameObject.layer = 3;
+        //gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
+        isDamaged = true;
+        StartCoroutine("DamageEffect");
+        //Invoke("DamageOff", 4f);
+        time += Time.deltaTime;
+    }
+    public void DamageOff()
+    {
+        gameObject.layer = 0;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+    }
+    IEnumerator DamageEffect()
+    {
+        time = 0;
+        if (time < 4f)
+        {
+            while (isDamaged == true)
+            {
+                yield return new WaitForSeconds(0.1f);
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
+                yield return new WaitForSeconds(0.1f);
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                //yield return new WaitForSeconds(0.1f);
+                
+                if(time >= 4f)
+                {
+                    time = 0f;
+                    isDamaged = false;
+                    DamageOff();
+                }
+            }
+        }
+        //time = 0f;
     }
 }
 
