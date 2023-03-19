@@ -5,14 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - ground
+  - hurdle
+  - item
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - damage
   - Water
   - UI
-  - 
+  - hurdle
   - 
   - 
   - 
