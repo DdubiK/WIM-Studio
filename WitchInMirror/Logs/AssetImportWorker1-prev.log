@@ -1,17 +1,32 @@
 Using pre-set license
 Built from '2021.3/staging' branch; Version is '2021.3.15f1 (e8e88683f834) revision 15263878'; Using compiler version '192829333'; Build Type 'Release'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
 OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'ko' Physical Memory: 16171 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\2021.3.15f1\Editor\Unity.exe
 =======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
+>>>>>>> origin/main
 OS: 'Windows 10  (10.0.19044) 64bit Core' Language: 'ko' Physical Memory: 8078 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
 C:\Users\user\Desktop\Unity\2021.3.15f1\Editor\Unity.exe
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 >>>>>>> origin/main
 -adb2
 -batchMode
@@ -20,6 +35,10 @@ C:\Users\user\Desktop\Unity\2021.3.15f1\Editor\Unity.exe
 AssetImportWorker1
 -projectPath
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
 C:/Users/User/Desktop/WimStudio/WitchInMirror
 -logFile
 Logs/AssetImportWorker1.log
@@ -28,6 +47,11 @@ Logs/AssetImportWorker1.log
 Successfully changed project path to: C:/Users/User/Desktop/WimStudio/WitchInMirror
 C:/Users/User/Desktop/WimStudio/WitchInMirror
 =======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
+>>>>>>> origin/main
 C:/Users/user/Desktop/WIM Studio/WitchInMirror
 -logFile
 Logs/AssetImportWorker1.log
@@ -35,6 +59,12 @@ Logs/AssetImportWorker1.log
 49376
 Successfully changed project path to: C:/Users/user/Desktop/WIM Studio/WitchInMirror
 C:/Users/user/Desktop/WIM Studio/WitchInMirror
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 >>>>>>> origin/main
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
@@ -66,8 +96,11 @@ C:/Users/user/Desktop/WIM Studio/WitchInMirror
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
 <<<<<<< HEAD
+<<<<<<< HEAD
 Player connection [11232] Host "[IP] 192.168.0.4 [Port] 0 [Flags] 2 [Guid] 2991953830 [EditorId] 2991953830 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-6C2UJRT) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 =======
+=======
+>>>>>>> origin/main
 <<<<<<< HEAD
 Player connection [7060] Host "[IP] 192.168.123.107 [Port] 0 [Flags] 2 [Guid] 3819651728 [EditorId] 3819651728 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-UGM9VR6) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
@@ -105,6 +138,11 @@ Domain Reload Profiling:
 	ReloadAssembly (471ms)
 		BeginReloadAssembly (54ms)
 =======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
+>>>>>>> origin/main
 Player connection [9708] Host "[IP] 192.168.0.4 [Port] 0 [Flags] 2 [Guid] 1481502590 [EditorId] 1481502590 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-6C2UJRT) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 >>>>>>> origin/main
 
@@ -145,6 +183,12 @@ Domain Reload Profiling:
 =======
 	ReloadAssembly (1538ms)
 		BeginReloadAssembly (155ms)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 >>>>>>> origin/main
 			ExecutionOrderSort (0ms)
@@ -153,9 +197,12 @@ Domain Reload Profiling:
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
 <<<<<<< HEAD
+<<<<<<< HEAD
 		EndReloadAssembly (1235ms)
 			LoadAssemblies (141ms)
 =======
+=======
+>>>>>>> origin/main
 <<<<<<< HEAD
 		EndReloadAssembly (346ms)
 			LoadAssemblies (54ms)
@@ -172,6 +219,11 @@ Domain Reload Profiling:
 				ProcessInitializeOnLoadAttributes (71ms)
 				ProcessInitializeOnLoadMethodAttributes (41ms)
 =======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
+>>>>>>> origin/main
 		EndReloadAssembly (1170ms)
 			LoadAssemblies (150ms)
 >>>>>>> origin/main
@@ -195,6 +247,12 @@ Domain Reload Profiling:
 				BeforeProcessingInitializeOnLoad (4ms)
 				ProcessInitializeOnLoadAttributes (224ms)
 				ProcessInitializeOnLoadMethodAttributes (103ms)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 >>>>>>> origin/main
 				AfterProcessingInitializeOnLoad (0ms)
@@ -203,6 +261,7 @@ Domain Reload Profiling:
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
+<<<<<<< HEAD
 <<<<<<< HEAD
 Registered in 0.022205 seconds.
 Begin MonoManager ReloadAssembly
@@ -262,6 +321,8 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 =======
+=======
+>>>>>>> origin/main
 <<<<<<< HEAD
 Registered in 0.004027 seconds.
 Begin MonoManager ReloadAssembly
@@ -606,10 +667,21 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 =======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
+>>>>>>> origin/main
 Registered in 0.037997 seconds.
 Android Extension - Scanning For ADB Devices 5279 ms
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\user\Desktop\WIM Studio\WitchInMirror\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\user\Desktop\WIM Studio\WitchInMirror\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 >>>>>>> origin/main
