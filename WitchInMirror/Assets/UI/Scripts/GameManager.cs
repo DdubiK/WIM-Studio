@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.Audio;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
@@ -11,9 +11,10 @@ public class GameManager : MonoBehaviour
     public E_SCENE curScene;
 
     public GameObject pausePanel;
-    public GameObject settingPanel;
     private bool isPause = false;
-    private bool isSetting = false;
+
+    public AudioMixer audioMixer;
+    public Slider BgmSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -90,28 +91,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetSetting()
-    {
-        if (!isSetting)
-        {
-            isSetting = true;
-            Time.timeScale = 0.0f;
-            settingPanel.gameObject.SetActive(true);
-        }
-    }
-
-    public void SettingContinue()
-    {
-        if (isSetting)
-        {
-            isSetting = false;
-            Time.timeScale = 1f;
-            settingPanel.gameObject.SetActive(false);
-        }
-    }
-
     public void OnApplicationQuit()
     {
         Application.Quit();
+    }
+
+    public void SetBgmVolume()
+    {
+        audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
     }
 }
