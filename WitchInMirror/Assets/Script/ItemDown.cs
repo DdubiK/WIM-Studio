@@ -7,6 +7,7 @@ public class ItemDown : MonoBehaviour
     public float time;
     public float speed;
     public float getSpeed;
+    public float downMagic = 10f;
     public GameObject player;
     public bool isGet;
     public bool isBack;
@@ -20,12 +21,44 @@ public class ItemDown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetSystem();
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        player = collision.gameObject.GetComponent<GameObject>();
+        if (collision.gameObject.tag == "Player")
+        {
+            Get();
+        }
+        if (collision.gameObject.tag == "Player" && isBack == true)
+        {
+            GameManager3.GetInstance().magic -= downMagic;
+            Destroy(gameObject);
+        }
+    }
+
+    public void Get()
+    {
+        getSpeed = 3f;
+        speed = 0f;
+        time = 0f;
+        isGet = true;
+    }
+    public void Back()
+    {
+        isGet = false;
+        isBack = true;
+        time = 0f;
+    }
+    public void GetSystem()
+    {
         getSpeed -= Time.deltaTime;
         time += Time.deltaTime;
         transform.position += Vector3.left * speed * Time.deltaTime;
         if (isGet)
         {
-            if (time < 0.2f) transform.position += Vector3.right * getSpeed * Time.deltaTime;
+            if (time < 0.1f) transform.position += Vector3.right * getSpeed * Time.deltaTime;
             else
             {
                 Back();
@@ -45,33 +78,5 @@ public class ItemDown : MonoBehaviour
             }
 
         }
-
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        player = collision.gameObject.GetComponent<GameObject>();
-        if (collision.gameObject.tag == "Player")
-        {
-            Get();
-        }
-        if (collision.gameObject.tag == "Player" && isBack == true)
-        {
-            GameManager3.GetInstance().magic -= 10f;
-            Destroy(gameObject);
-        }
-    }
-
-    public void Get()
-    {
-        getSpeed = 3f;
-        speed = 0f;
-        time = 0f;
-        isGet = true;
-    }
-    public void Back()
-    {
-        isGet = false;
-        isBack = true;
-        time = 0f;
     }
 }

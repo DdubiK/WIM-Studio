@@ -7,6 +7,7 @@ public class ItemUp : MonoBehaviour
     public float time;
     public float speed;
     public float getSpeed;
+    public float upMagic = 10f;
     public GameObject player;
     public bool isGet;
     public bool isBack;
@@ -20,32 +21,7 @@ public class ItemUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        getSpeed -= Time.deltaTime;
-        time += Time.deltaTime;
-        transform.position += Vector3.left * speed * Time.deltaTime;
-        if(isGet)
-        {
-            if (time < 0.2f) transform.position += Vector3.right * getSpeed * Time.deltaTime;
-            else 
-            {
-                Back();
-
-            }
-        }
-        if(isBack)
-        {
-            if (time < 0.1f) transform.position += new Vector3(1f, 0.5f, 0) * getSpeed * 1.5f * Time.deltaTime;
-            else
-            {
-                player = GameManager3.GetInstance().player1;
-                Vector3 dist = player.transform.position - this.transform.position;
-                Vector3 dir = dist.normalized;
-                float fdist = dist.magnitude;
-                transform.position += dir * getSpeed * Time.deltaTime;
-            }
-
-        }
-
+        GetSystem();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -56,7 +32,7 @@ public class ItemUp : MonoBehaviour
         }
         if(collision.gameObject.tag == "Player" && isBack == true)
         {
-            GameManager3.GetInstance().magic += 10f;
+            GameManager3.GetInstance().magic += upMagic;
             Destroy(gameObject);
         }
     }
@@ -73,5 +49,31 @@ public class ItemUp : MonoBehaviour
         isGet = false;
         isBack = true;
         time = 0f;
+    }
+    public void GetSystem()
+    {
+        getSpeed -= Time.deltaTime;
+        time += Time.deltaTime;
+        transform.position += Vector3.left * speed * Time.deltaTime;
+        if (isGet)
+        {
+            if (time < 0.1f) transform.position += Vector3.right * getSpeed * Time.deltaTime;
+            else
+            {
+                Back();
+            }
+        }
+        if (isBack)
+        {
+            if (time < 0.1f) transform.position += new Vector3(1f, 0.5f, 0) * getSpeed * 1.5f * Time.deltaTime;
+            else
+            {
+                player = GameManager3.GetInstance().player1;
+                Vector3 dist = player.transform.position - this.transform.position;
+                Vector3 dir = dist.normalized;
+                float fdist = dist.magnitude;
+                transform.position += dir * getSpeed * Time.deltaTime;
+            }
+        }
     }
 }

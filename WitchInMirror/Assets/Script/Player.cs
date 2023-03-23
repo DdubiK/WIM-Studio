@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float jump = 3f;
     public bool isGround;
     public bool isDamaged;
+    public bool isShield;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +21,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        playtime += Time.deltaTime;
-        magic -= 3f;
+        timer();
+        PlayTime();
     }
     public void Jump1()
     {
@@ -40,6 +40,14 @@ public class Player : MonoBehaviour
 
         }
     }
+    public void timer()
+    {
+        time += Time.deltaTime;
+    }
+    public void PlayTime()
+    {
+        playtime += Time.deltaTime;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -55,11 +63,40 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (other.gameObject.tag == "hurdle")
         {
-            Damage();
-            Debug.Log("damage!");
+            if(isShield)
+            {
+                gameObject.transform.Find("Shield").gameObject.SetActive(false);
+                isShield = false;
+            }
+            else
+            {
+                Damage();
+                Debug.Log("isDamaged!");
+            }
         }
+        if (other.gameObject.tag == "shield")
+        {
+            gameObject.transform.Find("Shield").gameObject.SetActive(true);
+            isShield = true;
+        }
+        if (other.gameObject.tag == "magicreverse")
+        {
+            if (GameManager3.GetInstance().magicReverse == false)
+            {
+                Debug.Log("Reverse!!!");
+                GameManager3.GetInstance().magicReverse = true;
+            }
+            else
+            {
+                Debug.Log("Return!!!");
+                GameManager3.GetInstance().magicReverse = false;
+            }
+
+        }
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -85,8 +122,9 @@ public class Player : MonoBehaviour
     }
     IEnumerator DamageEffect()
     {
+        Debug.Log("start~!!!!!!");
         time = 0;
-        if (time < 4f)
+        if (time < 2.5f)
         {
             while (isDamaged == true)
             {
@@ -96,7 +134,7 @@ public class Player : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
                 //yield return new WaitForSeconds(0.1f);
                 
-                if(time >= 4f)
+                if(time >= 2.5f)
                 {
                     time = 0f;
                     isDamaged = false;
@@ -107,11 +145,3 @@ public class Player : MonoBehaviour
         //time = 0f;
     }
 }
-
-//이동거리->점수
-
-//마력수치 지속적 감소 (이동 거리비례)
-
-//루나가 마력 아이템 얻을 시 증가
-
-//로나가 마력 아이템 먹을 시 감소
