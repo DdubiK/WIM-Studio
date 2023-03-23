@@ -89,6 +89,11 @@ public class MapLvEditor : MonoBehaviour
             Timer = 0;
         }
     }
+
+    // 거리를 재서 간격으로 생성시킨다.
+    // 생성자체에 확률을 추가한다.
+    // 2개의 오브젝트를 생성하도록 한다.
+    // 이 2개의 오브젝트를 시간순서별로 관리할 수 있는 제어 시스템을 만든다.
     public void SpawnerObstacle1()
     {
         Timer += Time.deltaTime;
@@ -99,8 +104,9 @@ public class MapLvEditor : MonoBehaviour
         }
         if (before)
         {
-            if (before.transform.position.x < 1f)
+            if (before.transform.position.x < 2.0f)
             {
+                int percent = Random.Range(0, 10);
                 ObstacleBase obstacleBase = queInActivePool.Dequeue();
                 queActivePool.Enqueue(obstacleBase);
                 obstacleBase.Active();
