@@ -15,7 +15,7 @@ public class ItemUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 0.5f;
+        speed = 0.3f;
     }
 
     // Update is called once per frame
@@ -32,8 +32,18 @@ public class ItemUp : MonoBehaviour
         }
         if(collision.gameObject.tag == "Player" && isBack == true)
         {
-            GameManager3.GetInstance().magic += upMagic;
-            Destroy(gameObject);
+            if (GameManager3.GetInstance().itemReverse == false)
+            {
+                GameManager3.GetInstance().magic += upMagic;
+                Debug.Log("+magic");
+                Destroy(gameObject);
+            }
+            else
+            {
+                GameManager3.GetInstance().magic -= upMagic;
+                Debug.Log("-magic");
+                Destroy(gameObject);
+            }
         }
     }
 

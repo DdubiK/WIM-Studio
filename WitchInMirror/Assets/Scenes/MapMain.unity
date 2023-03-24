@@ -267,8 +267,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369fbae430cead645b3bdbdd843ec948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 0
+  playtime: 0
+  magic: 0
   jump: 3
+  itemreverseTime: 0
   isGround: 0
+  isDamaged: 0
+  isShield: 0
+  coroutineStart: 0
 --- !u!61 &166824661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5073,8 +5080,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369fbae430cead645b3bdbdd843ec948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 0
+  playtime: 0
+  magic: 0
   jump: 3
+  itemreverseTime: 0
   isGround: 0
+  isDamaged: 0
+  isShield: 0
+  coroutineStart: 0
 --- !u!61 &2111051779
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,9 +8,11 @@ public class Player : MonoBehaviour
     public float playtime;
     public float magic;
     public float jump = 3f;
+    public float itemreverseTime;
     public bool isGround;
     public bool isDamaged;
     public bool isShield;
+    public bool coroutineStart;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +24,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         timer();
-        PlayTime();
     }
     public void Jump1()
     {
         if (isGround)
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump);
-
         }
     }
     public void Jump2()
@@ -37,17 +37,15 @@ public class Player : MonoBehaviour
         if (isGround)
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump);
-
         }
     }
     public void timer()
     {
         time += Time.deltaTime;
-    }
-    public void PlayTime()
-    {
         playtime += Time.deltaTime;
+        itemreverseTime += Time.deltaTime;
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -55,11 +53,6 @@ public class Player : MonoBehaviour
         {
             isGround = true;
         }
-        //if (collision.gameObject.tag == "hurdle")
-        //{
-        //    Damage();
-        //    Debug.Log("damage!");
-        //}
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -94,7 +87,41 @@ public class Player : MonoBehaviour
                 Debug.Log("Return!!!");
                 GameManager3.GetInstance().magicReverse = false;
             }
-
+        }
+        if(other.gameObject.tag == "itemreverse")
+        {
+            if (GameManager3.GetInstance().itemReverse == false)
+            {
+                if (coroutineStart == false)
+                {
+                    StartCoroutine("ItemReverse");
+                    Debug.Log("ItemReverse!!!");
+                }
+                else if(coroutineStart == true)
+                {
+                    StopCoroutine("ItemReverse");
+                    itemreverseTime = 0;
+                    coroutineStart = false;
+                    StartCoroutine("ItemReverse");
+                    Debug.Log("StopCoroutine");
+                }
+            }
+            else if (GameManager3.GetInstance().itemReverse == true)
+            {
+                if (coroutineStart == false)
+                {
+                    StartCoroutine("ItemReverse");
+                    Debug.Log("ItemReverse!!!");
+                }
+                else if (coroutineStart == true)
+                {
+                    StopCoroutine("ItemReverse");
+                    itemreverseTime = 0;
+                    coroutineStart = false;
+                    StartCoroutine("ItemReverse");
+                    Debug.Log("StopCoroutine");
+                }
+            }
         }
 
     }
@@ -142,6 +169,30 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        //time = 0f;
+    }
+
+    IEnumerator ItemReverse()
+    {
+        itemreverseTime = 0;
+        coroutineStart = true;
+
+        if (itemreverseTime < 4f)
+        {
+            GameManager3.GetInstance().itemReverse = true;
+            yield return new WaitForSeconds(4f);
+            GameManager3.GetInstance().itemReverse = false;
+            itemreverseTime = 0;
+            coroutineStart = false;
+            Debug.Log("内风凭场!!!!!!!!!!!!");
+        }
+
+        //else if (itemreverseTime >= 3f)
+        //{
+        //    Debug.Log("内风凭场!!!!!!!!!!!!");
+        //    itemreverseTime = 0;
+        //    GameManager3.GetInstance().itemReverse = false;
+        //}
+
+
     }
 }

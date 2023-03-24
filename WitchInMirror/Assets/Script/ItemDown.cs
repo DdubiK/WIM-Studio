@@ -15,7 +15,7 @@ public class ItemDown : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 0.5f;
+        speed = 0.3f;
     }
 
     // Update is called once per frame
@@ -33,12 +33,22 @@ public class ItemDown : MonoBehaviour
         }
         if (collision.gameObject.tag == "Player" && isBack == true)
         {
-            GameManager3.GetInstance().magic -= downMagic;
-            Destroy(gameObject);
+            if (GameManager3.GetInstance().itemReverse == false)
+            {
+                GameManager3.GetInstance().magic -= downMagic;
+                Debug.Log("-magic");
+                Destroy(gameObject);
+            }
+            else
+            {
+                GameManager3.GetInstance().magic += downMagic;
+                Debug.Log("+magic");
+                Destroy(gameObject);
+            }
         }
     }
 
-    public void Get()
+        public void Get()
     {
         getSpeed = 3f;
         speed = 0f;
@@ -62,7 +72,6 @@ public class ItemDown : MonoBehaviour
             else
             {
                 Back();
-
             }
         }
         if (isBack)

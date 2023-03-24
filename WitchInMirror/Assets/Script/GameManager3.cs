@@ -12,6 +12,7 @@ public class GameManager3 : MonoBehaviour
     public float magic;
     public bool magicReverse;
     public bool itemReverse;
+    public bool magicStop;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -30,10 +31,13 @@ public class GameManager3 : MonoBehaviour
     }
     public void Magic()
     {
-        if(magicReverse)
+        if (magicStop == false)
         {
-            magic += Time.deltaTime * 3f;
+            if (magicReverse)
+            {
+                magic += Time.deltaTime * 3f;
+            }
+            else magic -= Time.deltaTime * 3f;
         }
-        else magic -= Time.deltaTime * 3f;
     }
 }

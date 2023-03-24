@@ -10,6 +10,7 @@ TagManager:
   - shield
   - magicreverse
   - itemreverse
+  - magicstop
   layers:
   - Default
   - TransparentFX
