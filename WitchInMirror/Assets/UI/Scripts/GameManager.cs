@@ -6,6 +6,27 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+    public static GameManager GetInstance() { return instance; }
+    public static GameManager instance = null;
+
+    private void Awake()
+    {
+        if (!instance) instance = this;
+    }
+    void Start()
+    {
+        magic = 200f;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateGUIState();
+        Magic();
+    }
+
+    #region UI
+    [Header("Scene")]
     public List<GameObject> listGUIScenes;
     public enum E_SCENE { PLAY, TITLE, GAMEOVER, MAX }
     public E_SCENE curScene;
@@ -13,22 +34,15 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
     private bool isPause = false;
 
+    [Header("Sound")]
     public AudioMixer audioMixer;
     public Slider BgmSlider;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateGUIState();
-    }
-
     GameManager gameManager;
+
+    public GameObject bar1;
+    public GameObject bar2;
+
 
     public void Initialize(GameManager gameManager)
     {
@@ -116,4 +130,32 @@ public class GameManager : MonoBehaviour
     {
         audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
     }
+
+    public void MagicUI()
+    {
+            
+    }
+
+    #endregion
+
+    #region 캐릭터
+    [Header("캐릭터")]
+    public GameObject player1;
+    public GameObject player2;
+    public float magic;
+    public bool magicReverse;
+    public bool itemReverse;
+    // Start is called before the first frame update
+   
+
+    public void Magic()
+    {
+        if (magicReverse)
+        {
+            magic += Time.deltaTime * 3f;
+        }
+        else magic -= Time.deltaTime * 3f;
+    }
+
+    #endregion
 }

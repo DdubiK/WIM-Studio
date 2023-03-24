@@ -604,6 +604,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Title
       objectReference: {fileID: 0}
+    - target: {fileID: 4212870663346568564, guid: 914c420bafadcf2458177bf167a6295f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4212870663346568567, guid: 914c420bafadcf2458177bf167a6295f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -825,6 +829,10 @@ PrefabInstance:
     - target: {fileID: 7461344323713257072, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_Name
       value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461344323713257072, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7461344323713257073, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_Pivot.x
