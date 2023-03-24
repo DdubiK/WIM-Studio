@@ -271,8 +271,14 @@ MonoBehaviour:
   playtime: 0
   magic: 0
   jump: 3
+  itemreverseTime: 0
   isGround: 0
   isDamaged: 0
+<<<<<<< HEAD
+=======
+  isShield: 0
+  coroutineStart: 0
+>>>>>>> origin/main
 --- !u!61 &166824661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5282,8 +5288,14 @@ MonoBehaviour:
   playtime: 0
   magic: 0
   jump: 3
+  itemreverseTime: 0
   isGround: 0
   isDamaged: 0
+<<<<<<< HEAD
+=======
+  isShield: 0
+  coroutineStart: 0
+>>>>>>> origin/main
 --- !u!61 &2111051779
 BoxCollider2D:
   m_ObjectHideFlags: 0

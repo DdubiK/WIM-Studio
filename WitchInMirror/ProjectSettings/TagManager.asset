@@ -7,6 +7,10 @@ TagManager:
   - ground
   - hurdle
   - item
+  - shield
+  - magicreverse
+  - itemreverse
+  - magicstop
   layers:
   - Default
   - TransparentFX

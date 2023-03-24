@@ -8,11 +8,15 @@ public class Hurdle : MonoBehaviour
     public float speed;
     void Start()
     {
-        speed = 1f;
+        speed = 0.5f;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        MoveSystem();
+    }
+    public void MoveSystem()
     {
         transform.position += Vector3.left * speed * Time.deltaTime;
     }
