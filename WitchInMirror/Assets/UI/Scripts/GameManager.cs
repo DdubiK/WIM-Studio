@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UpdateGUIState();
     }
 
     GameManager gameManager;
@@ -64,6 +64,22 @@ public class GameManager : MonoBehaviour
         }
         ShowGUIState(scene);
         curScene = scene;
+    }
+
+    public void UpdateGUIState()
+    {
+        switch (curScene)
+        {
+            case E_SCENE.PLAY:
+                Time.timeScale = 1;
+                break;
+            case E_SCENE.TITLE:
+                Time.timeScale = 0;
+                break;
+            case E_SCENE.GAMEOVER:
+                Time.timeScale = 0;
+                break;
+        }
     }
 
     public void EventSenceChange(int idx)
