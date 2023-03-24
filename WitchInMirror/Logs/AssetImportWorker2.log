@@ -9,11 +9,11 @@ C:\Users\user\Desktop\Unity\2021.3.15f1\Editor\Unity.exe
 -batchMode
 -noUpm
 -name
-AssetImportWorker0
+AssetImportWorker2
 -projectPath
 C:/Users/user/Desktop/WIM Studio/WitchInMirror
 -logFile
-Logs/AssetImportWorker0.log
+Logs/AssetImportWorker2.log
 -srvPort
 61944
 Successfully changed project path to: C:/Users/user/Desktop/WIM Studio/WitchInMirror
@@ -47,11 +47,11 @@ C:/Users/user/Desktop/WIM Studio/WitchInMirror
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [3580] Host "[IP] 192.168.17.105 [Port] 0 [Flags] 2 [Guid] 936719215 [EditorId] 936719215 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-6C2UJRT) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [23300] Host "[IP] 192.168.17.105 [Port] 0 [Flags] 2 [Guid] 3076233158 [EditorId] 3076233158 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-6C2UJRT) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [3580] Host "[IP] 192.168.17.105 [Port] 0 [Flags] 2 [Guid] 936719215 [EditorId] 936719215 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-6C2UJRT) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [23300] Host "[IP] 192.168.17.105 [Port] 0 [Flags] 2 [Guid] 3076233158 [EditorId] 3076233158 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-6C2UJRT) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 472.36 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 159.06 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.15f1 (e8e88683f834)
 [Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data/Resources/UnitySubsystems
@@ -67,45 +67,46 @@ Initialize mono
 Mono path[0] = 'C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56288
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56484
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.361085 seconds.
+Registered in 0.013987 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 142.10 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 140.95 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  7.783 seconds
+- Completed reload, in  1.198 seconds
 Domain Reload Profiling:
-	ReloadAssembly (7783ms)
-		BeginReloadAssembly (5153ms)
+	ReloadAssembly (1199ms)
+		BeginReloadAssembly (120ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (1779ms)
-			LoadAssemblies (5150ms)
+		EndReloadAssembly (890ms)
+			LoadAssemblies (117ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (1157ms)
+			SetupTypeCache (246ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (52ms)
-			SetupLoadedEditorAssemblies (485ms)
+			RebuildScriptCaches (53ms)
+			SetupLoadedEditorAssemblies (501ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (96ms)
+				InitializePlatformSupportModulesInManaged (113ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (142ms)
+				RefreshPlugins (141ms)
 				BeforeProcessingInitializeOnLoad (2ms)
-				ProcessInitializeOnLoadAttributes (160ms)
-				ProcessInitializeOnLoadMethodAttributes (85ms)
+				ProcessInitializeOnLoadAttributes (166ms)
+				ProcessInitializeOnLoadMethodAttributes (78ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 1.572191 seconds.
-Android Extension - Scanning For ADB Devices 5172 ms
+Registered in 0.013313 seconds.
+Android Extension - Scanning For ADB Devices 4940 ms
+Begin MonoManager ReloadAssembly

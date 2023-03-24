@@ -46,6 +46,11 @@ public class MapLvEditor : MonoBehaviour
 
     public ObstacleBase before;
     public int beforeidx;
+    public Vector3 beforeStartTr;
+    public float beforeinterval;
+    public bool isSpawn;
+
+    public int peroccur;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +59,7 @@ public class MapLvEditor : MonoBehaviour
     }
     public void Initialize()
     {
-        int count = 10;
+        int count = 20;
         for (int i = 0; i < count; i++)
         {
             GameObject sample = Instantiate(obstaclesDatalist[0].data.obj);
@@ -104,29 +109,44 @@ public class MapLvEditor : MonoBehaviour
         }
         if (before)
         {
-            if (before.transform.position.x < 2.0f)
+            if (!isSpawn)
             {
-                int percent = Random.Range(0, 10);
-                ObstacleBase obstacleBase = queInActivePool.Dequeue();
-                queActivePool.Enqueue(obstacleBase);
-                obstacleBase.Active();
-                while (true)
+                float distance = Mathf.Abs((before.transform.position.x - beforeStartTr.x));
+                Debug.Log("" + distance);
+                if (distance> beforeinterval)
                 {
-                    int randomidx = Random.Range(0, 4);
-                    if (beforeidx != randomidx)
+                    isSpawn = true;
+                    distance = 0;
+                    //Debug.Log("½ÇÇà");
+                    
+                    //int per = Random.Range(0, 10);
+                    //if (per <= peroccur)
+                    //{
+                    ObstacleBase obstacleBase = queInActivePool.Dequeue();
+                    queActivePool.Enqueue(obstacleBase);
+                    obstacleBase.Active();
+                    while (true)
                     {
-                        obstaclesDatalist[0].data.SetTr(randomidx);
-                        obstacleBase.transform.position = obstaclesDatalist[0].data.Spawner_tr;
-                        before = obstacleBase;
-                        beforeidx = randomidx;
-                        Timer = 0;
-                        break;
+                        int randomidx = Random.Range(0, 4);
+                        if (beforeidx != randomidx)
+                        {
+                            obstaclesDatalist[0].data.SetTr(randomidx);
+                            obstacleBase.transform.position = obstaclesDatalist[0].data.Spawner_tr;
+                            before = obstacleBase;
+                            beforeidx = randomidx;
+                            Timer = 0;
+                            break;
+                        }
+                        //}
                     }
+                    isSpawn = false;
                 }
+
             }
         }
         else if (Timer > 3f)
         {
+            //isSpawn = true;
             ObstacleBase obstacleBase = queInActivePool.Dequeue();
             queActivePool.Enqueue(obstacleBase);
             obstacleBase.Active();
@@ -135,10 +155,11 @@ public class MapLvEditor : MonoBehaviour
             obstaclesDatalist[0].data.SetTr(randomidx);
             obstacleBase.transform.position = obstaclesDatalist[0].data.Spawner_tr;
             Timer = 0;
-
+            beforeStartTr = obstacleBase.transform.position;
             before = obstacleBase;
             beforeidx = randomidx;
             Debug.Log("hh");
+            //isSpawn = false;
         }
         else return;
     }
