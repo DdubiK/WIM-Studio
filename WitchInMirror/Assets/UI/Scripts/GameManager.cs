@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         magic = 200f;
+        Maxmagic = 400;
+        Minmagic = 0;
     }
 
     // Update is called once per frame
@@ -23,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateGUIState();
         Magic();
+        MagicUI();
     }
 
     #region UI
@@ -40,8 +44,8 @@ public class GameManager : MonoBehaviour
 
     GameManager gameManager;
 
-    public GameObject bar1;
-    public GameObject bar2;
+    public GameObject bar;
+    public GameObject magicbar;
 
 
     public void Initialize(GameManager gameManager)
@@ -133,7 +137,13 @@ public class GameManager : MonoBehaviour
 
     public void MagicUI()
     {
-            
+        RectTransform rectTransform = bar.GetComponent<RectTransform>();
+        RectTransform rectTransform1 = magicbar.GetComponent<RectTransform>();
+
+        float magic_x = ((magic - Minmagic)/(Maxmagic - Minmagic)) * rectTransform.rect.width + (rectTransform.anchoredPosition.x - rectTransform.rect.width/2);
+        //Debug.Log(magic_x);
+        rectTransform1.anchoredPosition = new Vector2(magic_x, rectTransform1.anchoredPosition.y);
+
     }
 
     #endregion
@@ -145,6 +155,9 @@ public class GameManager : MonoBehaviour
     public float magic;
     public bool magicReverse;
     public bool itemReverse;
+
+    public float Maxmagic = 400;
+    public float Minmagic = 0;
     // Start is called before the first frame update
    
 
