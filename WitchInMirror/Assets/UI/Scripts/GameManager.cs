@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
     public float magic;
     public bool magicReverse;
     public bool itemReverse;
+    public bool magicStop;
 
     public float Maxmagic = 400;
     public float Minmagic = 0;
@@ -163,11 +164,14 @@ public class GameManager : MonoBehaviour
 
     public void Magic()
     {
-        if (magicReverse)
+        if (magicStop == false)
         {
-            magic += Time.deltaTime * 3f;
+            if (magicReverse)
+            {
+                magic += Time.deltaTime * 3f;
+            }
+            else magic -= Time.deltaTime * 3f;
         }
-        else magic -= Time.deltaTime * 3f;
     }
 
     #endregion

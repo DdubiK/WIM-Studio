@@ -9,6 +9,7 @@ public class GameManager3 : MonoBehaviour
 
     public GameObject player1;
     public GameObject player2;
+    public Mist mist;
     public float magic;
     public bool magicReverse;
     public bool itemReverse;
@@ -20,24 +21,13 @@ public class GameManager3 : MonoBehaviour
     }
     void Start()
     {
-        magic = 200f;
+        magic = GameManager.GetInstance().magic;
     }
    
 
     // Update is called once per frame
     void Update()
     {
-        Magic();
-    }
-    public void Magic()
-    {
-        if (magicStop == false)
-        {
-            if (magicReverse)
-            {
-                magic += Time.deltaTime * 3f;
-            }
-            else magic -= Time.deltaTime * 3f;
-        }
+        
     }
 }

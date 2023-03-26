@@ -32,23 +32,23 @@ public class ItemUp : MonoBehaviour
         }
         if(collision.gameObject.tag == "Player" && isBack == true)
         {
-<<<<<<< HEAD
+//<<<<<<< HEAD
             if (GameManager3.GetInstance().itemReverse == false)
             {
-                GameManager3.GetInstance().magic += upMagic;
+                GameManager.GetInstance().magic += upMagic;
                 Debug.Log("+magic");
                 Destroy(gameObject);
             }
             else
             {
-                GameManager3.GetInstance().magic -= upMagic;
+                GameManager.GetInstance().magic -= upMagic;
                 Debug.Log("-magic");
                 Destroy(gameObject);
             }
-=======
-            GameManager.GetInstance().magic += upMagic;
-            Destroy(gameObject);
->>>>>>> origin/main
+//=======
+            //GameManager.GetInstance().magic += upMagic;
+            //Destroy(gameObject);
+//>>>>>>> origin/main
         }
     }
 
@@ -90,5 +90,8 @@ public class ItemUp : MonoBehaviour
                 transform.position += dir * getSpeed * Time.deltaTime;
             }
         }
+        if (GameManager.GetInstance().magicStop == false) upMagic = 10f;
+        else upMagic = 0f;
+
     }
 }
