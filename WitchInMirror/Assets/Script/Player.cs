@@ -57,10 +57,10 @@ public class Player : MonoBehaviour
             isGround = true;
         }
     }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
 
-        if (other.gameObject.tag == "hurdle")
+    public void Damaged()
+    {
+        if (coroutineStart2 == false)
         {
             if (isShield)
             {
@@ -73,93 +73,128 @@ public class Player : MonoBehaviour
                 Debug.Log("isDamaged!");
             }
         }
-        if (other.gameObject.tag == "shield")
+    }
+    public void ShieldItem()
+    {
+        if (coroutineStart2 == false)
         {
             gameObject.transform.Find("Shield").gameObject.SetActive(true);
             isShield = true;
         }
-        if (other.gameObject.tag == "magicreverse")
+    }
+    public void MagicReverseItem()
+    {
+        if (GameManager.GetInstance().magicReverse == false)
         {
-            if (GameManager.GetInstance().magicReverse == false)
+            Debug.Log("Reverse!!!");
+            GameManager.GetInstance().magicReverse = true;
+        }
+        else
+        {
+            Debug.Log("Return!!!");
+            GameManager.GetInstance().magicReverse = false;
+        }
+    }
+    public void ItemReverseItem()
+    {
+        if (GameManager.GetInstance().itemReverse == false)
+        {
+            if (coroutineStart1 == false)
             {
-                Debug.Log("Reverse!!!");
-                GameManager.GetInstance().magicReverse = true;
+                StartCoroutine("ItemReverse");
+                Debug.Log("ItemReverse!!!");
             }
-            else
+            else if (coroutineStart1 == true)
             {
-                Debug.Log("Return!!!");
-                GameManager.GetInstance().magicReverse = false;
+                StopCoroutine("ItemReverse");
+                itemreverseTime = 0;
+                coroutineStart1 = false;
+                StartCoroutine("ItemReverse");
+                //Debug.Log("StopCoroutine");
             }
         }
+        else if (GameManager.GetInstance().itemReverse == true)
+        {
+            if (coroutineStart1 == false)
+            {
+                StartCoroutine("ItemReverse");
+                //Debug.Log("ItemReverse!!!");
+            }
+            else if (coroutineStart1 == true)
+            {
+                StopCoroutine("ItemReverse");
+                itemreverseTime = 0;
+                coroutineStart1 = false;
+                StartCoroutine("ItemReverse");
+                //Debug.Log("StopCoroutine");
+            }
+        }
+    }
+    public void MagicStopItem()
+    {
+        if (GameManager.GetInstance().magicStop == false)
+        {
+            if (coroutineStart2 == false)
+            {
+                StartCoroutine("MagicStop");
+                Debug.Log("magicstop!!!");
+            }
+            else if (coroutineStart2 == true)
+            {
+                StopCoroutine("MagicStop");
+                itemreverseTime = 0;
+                coroutineStart2 = false;
+                StartCoroutine("MagicStop");
+                //Debug.Log("StopCoroutine");
+            }
+        }
+        else if (GameManager.GetInstance().magicStop == true)
+        {
+            if (coroutineStart2 == false)
+            {
+                StartCoroutine("MagicStop");
+                //Debug.Log("ItemReverse!!!");
+            }
+            else if (coroutineStart2 == true)
+            {
+                StopCoroutine("MagicStop");
+                magicstopTime = 0;
+                coroutineStart2 = false;
+                StartCoroutine("MagicStop");
+                //Debug.Log("StopCoroutine");
+            }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
+        //if (coroutineStart2 == false)
+        //{
+            if (other.gameObject.tag == "hurdle")
+            {
+                Damaged();
+            }
+        //}
+        //if (coroutineStart2 == false)
+        //{
+            if (other.gameObject.tag == "shield")
+            {
+                ShieldItem();
+            }
+        //}
+
+        if (other.gameObject.tag == "magicreverse")
+        {
+            MagicReverseItem();
+        }
+
         if (other.gameObject.tag == "itemreverse")
         {
-            if (GameManager.GetInstance().itemReverse == false)
-            {
-                if (coroutineStart1 == false)
-                {
-                    StartCoroutine("ItemReverse");
-                    Debug.Log("ItemReverse!!!");
-                }
-                else if (coroutineStart1 == true)
-                {
-                    StopCoroutine("ItemReverse");
-                    itemreverseTime = 0;
-                    coroutineStart1 = false;
-                    StartCoroutine("ItemReverse");
-                    //Debug.Log("StopCoroutine");
-                }
-            }
-            else if (GameManager.GetInstance().itemReverse == true)
-            {
-                if (coroutineStart1 == false)
-                {
-                    StartCoroutine("ItemReverse");
-                    //Debug.Log("ItemReverse!!!");
-                }
-                else if (coroutineStart1 == true)
-                {
-                    StopCoroutine("ItemReverse");
-                    itemreverseTime = 0;
-                    coroutineStart1 = false;
-                    StartCoroutine("ItemReverse");
-                    //Debug.Log("StopCoroutine");
-                }
-            }
+            ItemReverseItem();
         }
         if (other.gameObject.tag == "magicstop")
         {
-            if (GameManager.GetInstance().magicStop == false)
-            {
-                if (coroutineStart2 == false)
-                {
-                    StartCoroutine("MagicStop");
-                    Debug.Log("magicstop!!!");
-                }
-                else if (coroutineStart2 == true)
-                {
-                    StopCoroutine("MagicStop");
-                    itemreverseTime = 0;
-                    coroutineStart2 = false;
-                    StartCoroutine("MagicStop");
-                    //Debug.Log("StopCoroutine");
-                }
-            }
-            else if (GameManager.GetInstance().magicStop == true)
-            {
-                if (coroutineStart2 == false)
-                {
-                    StartCoroutine("MagicStop");
-                    //Debug.Log("ItemReverse!!!");
-                }
-                else if (coroutineStart2 == true)
-                {
-                    StopCoroutine("MagicStop");
-                    magicstopTime = 0;
-                    coroutineStart2 = false;
-                    StartCoroutine("MagicStop");
-                    //Debug.Log("StopCoroutine");
-                }
-            }
+            MagicStopItem();
         }
 
     }
@@ -227,6 +262,7 @@ public class Player : MonoBehaviour
 
     IEnumerator MagicStop()
     {
+        gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
         magicstopTime = 0;
         coroutineStart2 = true;
 
@@ -237,6 +273,7 @@ public class Player : MonoBehaviour
             GameManager.GetInstance().magicStop = false;
             magicstopTime = 0;
             coroutineStart2 = false;
+            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
             Debug.Log("코루틴끝!!!!!!!!!!!!");
         }
     }

@@ -8,7 +8,7 @@ public class Hurdle : MonoBehaviour
     public float speed;
     void Start()
     {
-        speed = 0.5f;
+        //speed = 1.2f;
     }
 
     // Update is called once per frame

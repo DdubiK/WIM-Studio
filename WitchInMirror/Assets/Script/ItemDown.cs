@@ -34,16 +34,22 @@ public class ItemDown : MonoBehaviour
         if (collision.gameObject.tag == "Player" && isBack == true)
         {
 //<<<<<<< HEAD
-            if (GameManager3.GetInstance().itemReverse == false)
+            if (GameManager.GetInstance().itemReverse == false)
             {
-                GameManager.GetInstance().magic -= downMagic;
-                Debug.Log("-magic");
+                if (GameManager.GetInstance().magicStop == false)
+                {
+                    GameManager.GetInstance().magic -= downMagic;
+                    Debug.Log("-magic");
+                }
                 Destroy(gameObject);
             }
             else
             {
-                GameManager.GetInstance().magic += downMagic;
-                Debug.Log("+magic");
+                if (GameManager.GetInstance().magicStop == false)
+                {
+                    GameManager.GetInstance().magic += downMagic;
+                    Debug.Log("+magic");
+                }
                 Destroy(gameObject);
             }
 //=======
