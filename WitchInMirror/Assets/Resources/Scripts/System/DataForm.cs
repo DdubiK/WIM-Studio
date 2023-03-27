@@ -31,3 +31,16 @@ public class CharData// 임시 캐릭터 클래스
     }
 
 }
+
+
+[System.Serializable]
+public class RuningObject{
+    public int ID;
+    public GameObject Obj;
+
+    //int[,] ID =new int [6,6];
+
+    //List<int[,]> a = new List<int[,]>();
+
+
+}

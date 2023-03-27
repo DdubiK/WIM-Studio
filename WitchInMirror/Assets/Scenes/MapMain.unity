@@ -440,10 +440,12 @@ MonoBehaviour:
   magic: 0
   jump: 3
   itemreverseTime: 0
+  magicstopTime: 0
   isGround: 0
   isDamaged: 0
   isShield: 0
-  coroutineStart: 0
+  coroutineStart1: 0
+  coroutineStart2: 0
 --- !u!61 &166824661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6703,10 +6705,12 @@ MonoBehaviour:
   magic: 0
   jump: 3
   itemreverseTime: 0
+  magicstopTime: 0
   isGround: 0
   isDamaged: 0
   isShield: 0
-  coroutineStart: 0
+  coroutineStart1: 0
+  coroutineStart2: 0
 --- !u!61 &2111051779
 BoxCollider2D:
   m_ObjectHideFlags: 0
