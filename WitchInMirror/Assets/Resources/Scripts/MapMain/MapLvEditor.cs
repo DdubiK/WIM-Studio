@@ -47,11 +47,99 @@ public class MapLvEditor : MonoBehaviour
     public ObstacleBase before;
     public int beforeidx;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         Initialize();
+
+        createobj();
     }
+
+
+
+    #region 패턴 생성 풀링
+
+    public static Queue<RuningObject> queActive = new Queue<RuningObject>(); // 첫번째 장애물의 풀링작업                                                                          //[SerializeField]
+    public static Queue<RuningObject> queInActive = new Queue<RuningObject>();
+
+    public List<GameObject> runobj = new List<GameObject>();
+
+
+
+    public void createobj()
+    {
+        for (int i=0;i<18;i++)
+        {
+            for (int j=0; j<6; j++)
+            {
+                GameObject obj = new GameObject();
+                obj.name = "obj" + (i + 1)+"," + (j + 1);
+                obj.AddComponent<SpriteRenderer>();
+                obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile01");
+                obj.transform.position = new Vector3(2.5f+(i/3f),1-(j/3f),0);
+                runobj.Add(obj);
+                RuningObject a = new RuningObject();
+                a.ID = 0;
+                a.Obj = obj;
+                queActive.Enqueue(a);
+            }
+        }
+    }
+
+
+    public void pulling()
+    {
+        
+        if (queInActive.Count > 18)
+        {
+            for (int i = 0; i < 18; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    RuningObject b=queInActive.Dequeue();
+                    if(b.ID==1)
+                        b.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile01");
+                    if (b.ID == 0)
+                    {
+                        //Random
+                    }
+                    b.Obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
+                    queActive.Enqueue(b);
+                }
+            }
+        }
+    }
+
+    public void moveojb()
+    {
+
+        foreach (RuningObject element in queActive)
+        {
+            element.Obj.transform.Translate(Vector3.left * Time.deltaTime);
+
+            if (element.Obj.transform.position.x < -3.0f)
+            {
+                RuningObject b = queActive.Dequeue();
+                queInActive.Enqueue(b);
+            }
+            //element.Obj.transform.position
+        }
+
+        //for (int i = 0; i < queActive.Count; i++)
+        //{
+        //    queActive[i].transform.Translate(Vector3.left*Time.deltaTime);
+            
+        //}
+    }
+
+    #endregion
+
+
+
+
+
     public void Initialize()
     {
         int count = 10;
@@ -147,5 +235,7 @@ public class MapLvEditor : MonoBehaviour
     {
         //SpawnerObstacle();
         SpawnerObstacle1();
+        moveojb();
+        pulling();
     }
 }
