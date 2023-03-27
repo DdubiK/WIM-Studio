@@ -9,7 +9,11 @@ public class GameManager3 : MonoBehaviour
 
     public GameObject player1;
     public GameObject player2;
+    public Mist mist;
     public float magic;
+    public bool magicReverse;
+    public bool itemReverse;
+    public bool magicStop;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -17,7 +21,7 @@ public class GameManager3 : MonoBehaviour
     }
     void Start()
     {
-        
+        magic = GameManager.GetInstance().magic;
     }
    
 
