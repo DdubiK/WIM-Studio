@@ -32,6 +32,12 @@ public class CharData// 임시 캐릭터 클래스
 
 }
 
+[System.Serializable]
+public class MapPatternData
+{
+    public List<int[]> Pattern { get; set; }
+}
+
 
 [System.Serializable]
 public class RuningObject{
@@ -45,3 +51,4 @@ public class RuningObject{
 
 
 }
+

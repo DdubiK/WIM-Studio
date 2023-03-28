@@ -13,6 +13,8 @@ public class DBLoader : MonoBehaviour
     //DTO(Data Transfer Object) 계층간 데이터를 교환하기 위한 중간 객체 (DB -> CharDataList -> GameCharactor)
     public static List<CharData> CharDataList = new List<CharData>();
 
+    public static MapPatternData MapPatternArray = new MapPatternData();
+
 
 
     private void Awake()
@@ -54,6 +56,23 @@ public class DBLoader : MonoBehaviour
             Debug.LogError("Scan Failed");
 
         }
+
+        if (Resources.Load<TextAsset>("DataBase/MapDataTable") != null)
+        {
+            string jdata = Resources.Load<TextAsset>("DataBase/MapDataTable").text;
+
+
+            MapPatternArray = JsonConvert.DeserializeObject<MapPatternData>(jdata);
+           
+        }
+        else
+        {
+            Debug.LogError("Scan Failed");
+
+        }
+
+
+
 
     }
 

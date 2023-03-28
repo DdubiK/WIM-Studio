@@ -12,7 +12,7 @@ public class SLManager : MonoBehaviour
     private string m_sSaveFileDirectory;  // 저장할 폴더 경로
     private string m_sSaveFileName = "/InventoryData.json"; // 파일 이름
 
-    public CharData data;
+    public List<int[]> data = new List<int[]>();
 
 
     // Start is called before the first frame update
@@ -63,6 +63,11 @@ public class SLManager : MonoBehaviour
     {
 
 
+        List<int[]> a = new List<int[]>();
+
+        a.Add(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        a.Add(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 });
+        a.Add(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 12 });
 
         string filecheck = m_sSaveFileDirectory + m_sSaveFileName;
 
@@ -76,7 +81,8 @@ public class SLManager : MonoBehaviour
 
 
 
-            data = JsonConvert.DeserializeObject<CharData>(jdata);
+            data = JsonConvert.DeserializeObject<List<int[]>>(jdata);
+
             //GameManager.instance.getSaveLoad().gData = gData;
             //Debug.Log("파일 불러오기");
 
@@ -86,7 +92,7 @@ public class SLManager : MonoBehaviour
         else
         {
 
-            data = new CharData();
+            data = a;
 
             //Debug.Log("파일 새로 생성");
 

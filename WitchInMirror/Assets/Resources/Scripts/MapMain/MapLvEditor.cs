@@ -109,10 +109,10 @@ public class MapLvEditor : MonoBehaviour
                 }
             }
         }
-        for (int k = 0; k < _array.Length; k++)
-        {
-            Debug.Log("array" + "[" + k + "]:" + "" + _array[k].x + "," + _array[k].y);
-        }
+        //for (int k = 0; k < _array.Length; k++)
+        //{
+        //    Debug.Log("array" + "[" + k + "]:" + "" + _array[k].x + "," + _array[k].y);
+        //}
     }
     public void createobj()
     {
@@ -259,7 +259,7 @@ public class MapLvEditor : MonoBehaviour
                         //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile03");
                     }
                     //a.Obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
-                    Debug.Log("poolposidx" + poolposidx);
+                    //Debug.Log("poolposidx" + poolposidx);
                     a.Obj.transform.position = Poolposlist[poolposidx];
 
                     
