@@ -94,7 +94,7 @@ public class ItemUp : MonoBehaviour
             if (time < 0.1f) transform.position += new Vector3(1f, 0.5f, 0) * getSpeed * 1.5f * Time.deltaTime;
             else
             {
-                player = GameManager.GetInstance().player1;
+                player = GameManager.GetInstance().player[0];
                 Vector3 dist = player.transform.position - this.transform.position;
                 Vector3 dir = dist.normalized;
                 float fdist = dist.magnitude;
