@@ -12,6 +12,8 @@ TagManager:
   - itemreverse
   - magicstop
   - mist
+  - magicup
+  - magicdown
   layers:
   - Default
   - TransparentFX

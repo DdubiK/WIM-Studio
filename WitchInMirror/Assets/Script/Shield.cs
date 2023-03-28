@@ -19,9 +19,13 @@ public class Shield : MonoBehaviour
     {
         if (collision.gameObject.tag == "hurdle")
         {
-            Player player = transform.GetComponentInParent<Player>();
-            player.isShield = false;
-            gameObject.SetActive(false);
+            ShieldActive();
         }
+    }
+    public void ShieldActive()
+    {
+        Player player = transform.GetComponentInParent<Player>();
+        player.isShield = false;
+        gameObject.SetActive(false);
     }
 }

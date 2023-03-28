@@ -33,29 +33,33 @@ public class ItemUp : MonoBehaviour
         if(collision.gameObject.tag == "Player" && isBack == true)
         {
             //<<<<<<< HEAD
-            
-            if (GameManager.GetInstance().itemReverse == false)
-            {
-                if (GameManager.GetInstance().magicStop == false)
-                {
-                    GameManager.GetInstance().magic += upMagic;
-                    Debug.Log("+magic");
-                }
-                Destroy(gameObject);
-            }
-            else
-            {
-                if (GameManager.GetInstance().magicStop == false)
-                {
-                    GameManager.GetInstance().magic -= upMagic;
-                    Debug.Log("-magic");
-                }
-                Destroy(gameObject);
-            }
+            MagicUpDown();
+
 //=======
-            //GameManager.GetInstance().magic += upMagic;
-            //Destroy(gameObject);
+//GameManager.GetInstance().magic += upMagic;
+//Destroy(gameObject);
 //>>>>>>> origin/main
+        }
+    }
+    public void MagicUpDown()
+    {
+        if (GameManager.GetInstance().itemReverse == false)
+        {
+            if (GameManager.GetInstance().magicStop == false)
+            {
+                GameManager.GetInstance().magic += upMagic;
+                Debug.Log("+magic");
+            }
+            Destroy(gameObject);
+        }
+        else
+        {
+            if (GameManager.GetInstance().magicStop == false)
+            {
+                GameManager.GetInstance().magic -= upMagic;
+                Debug.Log("-magic");
+            }
+            Destroy(gameObject);
         }
     }
 
