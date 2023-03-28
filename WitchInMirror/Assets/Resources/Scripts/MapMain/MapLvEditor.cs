@@ -266,7 +266,11 @@ public class MapLvEditor : MonoBehaviour
                         //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile03");
                     }
                     //a.Obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
+<<<<<<< HEAD
                     Debug.Log("poolposidx" + a.Obj.transform.position);
+=======
+                    //Debug.Log("poolposidx" + poolposidx);
+>>>>>>> origin/main
                     a.Obj.transform.position = Poolposlist[poolposidx];
                     resourceidx++;
                     poolposidx++;

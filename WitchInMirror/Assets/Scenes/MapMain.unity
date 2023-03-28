@@ -5894,6 +5894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1851234464}
   - component: {fileID: 1851234465}
+  - component: {fileID: 1851234466}
   m_Layer: 0
   m_Name: MapLvEditor
   m_TagString: Untagged
@@ -6139,6 +6140,18 @@ MonoBehaviour:
   Effectobj: []
   Effectani: []
   aniList: []
+--- !u!114 &1851234466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851234462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07d1913529d455479c7ee551370203c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1867507948
 GameObject:
   m_ObjectHideFlags: 0
