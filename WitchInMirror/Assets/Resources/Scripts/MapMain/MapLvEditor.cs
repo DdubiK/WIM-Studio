@@ -62,7 +62,7 @@ public class MapLvEditor : MonoBehaviour
     {
         array = new int[18] { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 };
         array1 = new int[18] { 3, 0, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2 };
-        SetPosList(18, 6, ref Initposlist);
+        SetPosList(24, 6, ref Initposlist);
         SetPosList(6, 6, ref Poolposlist, 2.5f);
         Initialize();
         createobj();
@@ -83,11 +83,13 @@ public class MapLvEditor : MonoBehaviour
     public GameObject Player2;
     public int obstaclePercent;
     public int itemPercent;
-    public Vector3[] Initposlist = new Vector3[108];
+    public Vector3[] Initposlist = new Vector3[144];
     public Vector3[] Poolposlist = new Vector3[36];
 
     public int posidx = 0;
     public int poolposidx = 0;
+
+    public RuningObject last_obj;
     public void SetPosList(int _row, int _col, ref Vector3[] _array, float _Setx = 0)
     {
         for (int i = 0; i < _row; i++)
@@ -109,15 +111,15 @@ public class MapLvEditor : MonoBehaviour
                 }
             }
         }
-        for (int k = 0; k < _array.Length; k++)
-        {
-            Debug.Log("array" + "[" + k + "]:" + "" + _array[k].x + "," + _array[k].y);
-        }
+        //for (int k = 0; k < _array.Length; k++)
+        //{
+        //    Debug.Log("array" + "[" + k + "]:" + "" + _array[k].x + "," + _array[k].y);
+        //}
     }
     public void createobj()
     {
 
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < 24; i++)
         {
             for (int j = 0; j < 6; j++)
             {
@@ -185,6 +187,11 @@ public class MapLvEditor : MonoBehaviour
                 queActive.Enqueue(a);
                 resourceidx++;
                 posidx++;
+                if (i == 23 && j == 5)
+                {
+                    last_obj = a;
+                }
+
                 if (resourceidx >= array.Length)
                 { // 인덱스가 배열 범위를 벗어나면 0으로 초기화
                     resourceidx = 0;
@@ -199,7 +206,7 @@ public class MapLvEditor : MonoBehaviour
     public void pulling()
     {
 
-        if (queInActive.Count > 36)
+        if (queInActive.Count > 36 && (2.5f - last_obj.Obj.transform.position.x) >= 0.3f)
         {
             for (int i = 0; i < 6; i++)
             {
@@ -259,10 +266,8 @@ public class MapLvEditor : MonoBehaviour
                         //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile03");
                     }
                     //a.Obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
-                    Debug.Log("poolposidx" + poolposidx);
+                    Debug.Log("poolposidx" + a.Obj.transform.position);
                     a.Obj.transform.position = Poolposlist[poolposidx];
-
-                    
                     resourceidx++;
                     poolposidx++;
                     if (resourceidx >= array1.Length)
@@ -270,9 +275,14 @@ public class MapLvEditor : MonoBehaviour
                         resourceidx = 0;
                     }
                     queActive.Enqueue(a);
+                    if(i==5&&j==5)
+                    {
+                        last_obj = a;
+                    }
                 }
             }
             poolposidx = 0;
+            resourceidx = 0;
 
         }
 
