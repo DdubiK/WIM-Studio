@@ -46,14 +46,25 @@ public class MapLvEditor : MonoBehaviour
 
     public ObstacleBase before;
     public int beforeidx;
-
-
+    public int[] array = new int[18];
+    public int[] array1 = new int[18];
+    int resourceidx = 0;
+    public string[] resourcePaths = new string[]
+{
+    null,
+    "Map/Texture/Projectile01",
+    "Map/Texture/Projectile02",
+    "Map/Texture/Projectile03",
+};
 
     // Start is called before the first frame update
     void Start()
     {
+        array = new int[18] { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 };
+        array1 = new int[18] { 3, 0, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2 };
+        SetPosList(18, 6, ref Initposlist);
+        SetPosList(6, 6, ref Poolposlist, 2.5f);
         Initialize();
-
         createobj();
     }
 
@@ -66,76 +77,304 @@ public class MapLvEditor : MonoBehaviour
 
     public List<GameObject> runobj = new List<GameObject>();
 
+    public float objmoveSpeed;
 
+    public GameObject Player1;
+    public GameObject Player2;
+    public int obstaclePercent;
+    public int itemPercent;
+    public Vector3[] Initposlist = new Vector3[108];
+    public Vector3[] Poolposlist = new Vector3[36];
 
-    public void createobj()
+    public int posidx = 0;
+    public int poolposidx = 0;
+    public void SetPosList(int _row, int _col, ref Vector3[] _array, float _Setx = 0)
     {
-        for (int i=0;i<18;i++)
+        for (int i = 0; i < _row; i++)
         {
-            for (int j=0; j<6; j++)
+            for (int j = 0; j < _col; j++)
             {
-                GameObject obj = new GameObject();
-                obj.name = "obj" + (i + 1)+"," + (j + 1);
-                obj.AddComponent<SpriteRenderer>();
-                obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile01");
-                obj.transform.position = new Vector3(2.5f+(i/3f),1-(j/3f),0);
-                runobj.Add(obj);
-                RuningObject a = new RuningObject();
-                a.ID = 0;
-                a.Obj = obj;
-                queActive.Enqueue(a);
+
+                int index = i * _col + j;
+                if (index < _array.Length)
+                {
+                    if (j < 3)
+                    {
+                        _array[index] = new Vector3(_Setx + (float)i * 0.3f, 0.9f - (float)j * 0.35f);
+                    }
+                    else
+                    {
+                        _array[index] = new Vector3(_Setx + (float)i * 0.3f, -0.2f - (float)(j - 3) * 0.35f);
+                    }
+                }
             }
         }
+        for (int k = 0; k < _array.Length; k++)
+        {
+            Debug.Log("array" + "[" + k + "]:" + "" + _array[k].x + "," + _array[k].y);
+        }
+    }
+    public void createobj()
+    {
+
+        for (int i = 0; i < 18; i++)
+        {
+            for (int j = 0; j < 6; j++)
+            {
+                GameObject obj = new GameObject();
+                obj.name = "obj" + (i + 1) + "," + (j + 1);
+                obj.AddComponent<SpriteRenderer>();
+                //obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile01");
+                obj.transform.position = Initposlist[posidx];
+                //obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
+                runobj.Add(obj);
+                RuningObject a = new RuningObject();
+                a.ID = array[resourceidx];
+                //Debug.Log("arrayrint:" + array[resourceidx] + ",ID:" + a.ID);
+                a.Obj = obj;
+                if (a.ID == 0) //없음
+                {
+                    a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                }
+                else if (a.ID == 1) //장애물
+                {
+                    int percent = Random.Range(0, 10);
+                    string resourcePath = resourcePaths[a.ID];
+                    if (percent <= obstaclePercent)
+                    {
+                        if (resourcePath != null)
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                        }
+                    }
+                    else
+                    {
+                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        a.ID = 0;
+                    }
+                    //a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                }
+                else if (a.ID == 2) //마력
+                {
+                    string resourcePath = resourcePaths[a.ID];
+                    if (resourcePath != null)
+                    {
+                        a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                    }
+                    //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile02");
+                }
+                else if (a.ID == 3) //아이템
+                {
+                    int percent = Random.Range(0, 10);
+                    string resourcePath = resourcePaths[a.ID];
+                    if (percent <= itemPercent)
+                    {
+                        if (resourcePath != null)
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                        }
+                    }
+                    else
+                    {
+                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        a.ID = 0;
+                    }
+                    //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile03");
+                }
+                a.Obj.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                queActive.Enqueue(a);
+                resourceidx++;
+                posidx++;
+                if (resourceidx >= array.Length)
+                { // 인덱스가 배열 범위를 벗어나면 0으로 초기화
+                    resourceidx = 0;
+                }
+            }
+        }
+        posidx = 0;
+        resourceidx = 0;
     }
 
 
     public void pulling()
     {
-        
-        if (queInActive.Count > 18)
+
+        if (queInActive.Count > 36)
         {
-            for (int i = 0; i < 18; i++)
+            for (int i = 0; i < 6; i++)
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    RuningObject b=queInActive.Dequeue();
-                    if(b.ID==1)
-                        b.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile01");
-                    if (b.ID == 0)
+                    RuningObject a = queInActive.Dequeue();
+                    a.ID = array1[resourceidx];
+                    a.colcheck = false;
+                    a.Obj.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                    //Debug.Log("arrayrint:" + array1[resourceidx] + ",ID:" + b.ID+"resourceidx"+resourceidx);
+                    if (a.ID == 0) //없음
                     {
-                        //Random
+                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
                     }
-                    b.Obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
-                    queActive.Enqueue(b);
+                    else if (a.ID == 1) //장애물
+                    {
+                        int percent = Random.Range(0, 10);
+                        string resourcePath = resourcePaths[a.ID];
+                        if (percent <= obstaclePercent)
+                        {
+                            if (resourcePath != null)
+                            {
+                                a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                            }
+                        }
+                        else
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                            a.ID = 0;
+                        }
+                    }
+                    else if (a.ID == 2) //마력
+                    {
+                        string resourcePath = resourcePaths[a.ID];
+                        if (resourcePath != null)
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                        }
+                        //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile02");
+                    }
+                    else if (a.ID == 3) //아이템
+                    {
+                        int percent = Random.Range(0, 10);
+                        string resourcePath = resourcePaths[a.ID];
+                        if (percent <= itemPercent)
+                        {
+                            if (resourcePath != null)
+                            {
+                                a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                            }
+                        }
+                        else
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                            a.ID = 0;
+                        }
+                        //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile03");
+                    }
+                    //a.Obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
+                    Debug.Log("poolposidx" + poolposidx);
+                    a.Obj.transform.position = Poolposlist[poolposidx];
+
+                    
+                    resourceidx++;
+                    poolposidx++;
+                    if (resourceidx >= array1.Length)
+                    { // 인덱스가 배열 범위를 벗어나면 0으로 초기화
+                        resourceidx = 0;
+                    }
+                    queActive.Enqueue(a);
                 }
             }
+            poolposidx = 0;
+
+        }
+
+    }
+    #region 이펙트 풀링
+    public List<GameObject> Effectobj = new List<GameObject>();
+    public List<Animator> Effectani = new List<Animator>();
+    public static Queue<Animator> EffectActive = new Queue<Animator>();
+    public static Queue<Animator> EffectInActive = new Queue<Animator>();
+    public List<Animator> aniList;
+    public void InitEffect()
+    {
+        for(int i=0;i<5;i++)
+        {
+            Effectani[i] = new Animator();
+            EffectInActive.Enqueue(Effectani[i]);
         }
     }
 
+    #endregion
     public void moveojb()
     {
-
-        foreach (RuningObject element in queActive)
+        if (queActive.Count > 0)
         {
-            element.Obj.transform.Translate(Vector3.left * Time.deltaTime);
+            int sample = 0;
+            foreach (RuningObject element in queActive)
+            {
+                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed);
 
-            if (element.Obj.transform.position.x < -3.0f)
+                if (element.Obj.transform.position.x < -3.0f)
+                {
+                    sample++;
+                }
+
+                if ((element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f || (element.Obj.transform.position - Player2.transform.position).magnitude < 0.15f)
+                {
+                    if (!element.colcheck)
+                    {
+                        Debug.Log("충돌");
+                        element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+
+                        switch (element.ID)
+                        {
+                            case 0:
+                                //Method 실행
+                                //이펙트 생성 및 실행
+                                if (element.effect)
+                                {
+                                    element.effect.AddComponent<Animator>();
+                                    Animator ani = element.effect.GetComponent<Animator>();
+                                    ani.runtimeAnimatorController = aniList[0].runtimeAnimatorController;
+                                }
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                        }
+
+                        element.colcheck = true;
+                    }//Debug.Log("닿음");
+                }
+                //element.Obj.transform.position
+            }
+            for (int i = 0; i < sample; i++)
             {
                 RuningObject b = queActive.Dequeue();
+                if (!b.Obj.GetComponent<Animator>())
+                {
+                    
+                }
                 queInActive.Enqueue(b);
             }
-            //element.Obj.transform.position
         }
+        //int count = queActive.Count; // for 루프에서 큐의 크기를 미리 저장해둡니다.
+        //for (int i = 0; i < count; i++)
+        //{
+        //    RuningObject element = queActive.Dequeue(); // 큐에서 요소를 꺼냅니다.
+        //    element.Obj.transform.Translate(Vector3.left * Time.deltaTime);
+
+        //    if (element.Obj.transform.position.x < -3.0f)
+        //    {
+        //        queInActive.Enqueue(element);
+        //    }
+        //    //else
+        //    //{
+        //    //    queActive.Enqueue(element);
+        //    //}
+        //}
 
         //for (int i = 0; i < queActive.Count; i++)
         //{
         //    queActive[i].transform.Translate(Vector3.left*Time.deltaTime);
-            
+
         //}
     }
 
     #endregion
+    public void CheckCol()
+    {
 
+    }
 
 
 
@@ -234,7 +473,7 @@ public class MapLvEditor : MonoBehaviour
     void Update()
     {
         //SpawnerObstacle();
-        SpawnerObstacle1();
+        //SpawnerObstacle1();
         moveojb();
         pulling();
     }
