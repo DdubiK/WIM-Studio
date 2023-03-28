@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
         RectTransform rectTransform = bar.GetComponent<RectTransform>();
         RectTransform rectTransform1 = magicbar.GetComponent<RectTransform>();
 
-        float magic_x = ((magic - Minmagic)/(Maxmagic - Minmagic)) * rectTransform.rect.width + (rectTransform.anchoredPosition.x - rectTransform.rect.width/2);
+        float magic_x = ((magic - Minmagic) / (Maxmagic - Minmagic)) * rectTransform.rect.width + (rectTransform.anchoredPosition.x - rectTransform.rect.width / 2);
         //Debug.Log(magic_x);
         rectTransform1.anchoredPosition = new Vector2(magic_x, rectTransform1.anchoredPosition.y);
 

@@ -32,17 +32,24 @@ public class ItemUp : MonoBehaviour
         }
         if(collision.gameObject.tag == "Player" && isBack == true)
         {
-//<<<<<<< HEAD
-            if (GameManager3.GetInstance().itemReverse == false)
+            //<<<<<<< HEAD
+            
+            if (GameManager.GetInstance().itemReverse == false)
             {
-                GameManager.GetInstance().magic += upMagic;
-                Debug.Log("+magic");
+                if (GameManager.GetInstance().magicStop == false)
+                {
+                    GameManager.GetInstance().magic += upMagic;
+                    Debug.Log("+magic");
+                }
                 Destroy(gameObject);
             }
             else
             {
-                GameManager.GetInstance().magic -= upMagic;
-                Debug.Log("-magic");
+                if (GameManager.GetInstance().magicStop == false)
+                {
+                    GameManager.GetInstance().magic -= upMagic;
+                    Debug.Log("-magic");
+                }
                 Destroy(gameObject);
             }
 //=======
