@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -165,6 +167,18 @@ public class Player : MonoBehaviour
             }
         }
     }
+    public void MagicItem(int _idx)
+    {
+        switch(_idx)
+            {
+            case 1:
+                GameManager.GetInstance().magic += 50f;
+                break;
+            case 2:
+                GameManager.GetInstance().magic -= 50f;
+                break;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -196,6 +210,15 @@ public class Player : MonoBehaviour
         {
             MagicStopItem();
         }
+        if (other.gameObject.tag == "magicup")
+        {
+            MagicItem(0);
+        }
+        if (other.gameObject.tag == "magicdown")
+        {
+            MagicItem(1);
+        }
+
 
     }
     private void OnCollisionExit2D(Collision2D collision)
