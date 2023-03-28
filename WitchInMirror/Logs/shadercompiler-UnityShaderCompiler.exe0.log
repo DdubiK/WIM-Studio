@@ -1,3 +1,7 @@
-Base path: 'C:/Program Files/Unity 2021.3.15f1/Editor/Data', plugins path 'C:/Program Files/Unity 2021.3.15f1/Editor/Data/PlaybackEngines'
+<<<<<<< HEAD
+Base path: 'C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data', plugins path 'C:/Users/user/Desktop/Unity/2021.3.15f1/Editor/Data/PlaybackEngines'
+=======
+Base path: 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2021.3.15f1/Editor/Data/PlaybackEngines'
+>>>>>>> origin/main
 Cmd: initializeCompiler
 

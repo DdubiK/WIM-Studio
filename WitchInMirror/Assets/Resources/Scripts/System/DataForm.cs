@@ -32,15 +32,23 @@ public class CharData// 임시 캐릭터 클래스
 
 }
 
+[System.Serializable]
+public class MapPatternData
+{
+    public List<int[]> Pattern { get; set; }
+}
+
 
 [System.Serializable]
 public class RuningObject{
     public int ID;
     public GameObject Obj;
-
+    public bool colcheck = false;
+    public GameObject effect;
     //int[,] ID =new int [6,6];
 
     //List<int[,]> a = new List<int[,]>();
 
 
 }
+
