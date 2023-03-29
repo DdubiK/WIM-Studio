@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GetInstance() { return instance; }
     public static GameManager instance = null;
-    public MapEditor mapEditor;
+    
     private void Awake()
     {
         if (!instance) instance = this;
@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CharStart();
-        mapEditor.MapEditorInit();
         UIStart();
+        MapStart();
     }
 
     // Update is called once per frame
@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour
     {
         UIUpdate();
         CharUpdate();
-        mapEditor.moveojb();
-        mapEditor.pulling();
+        MapUpdate();
     }
 
     #region UI
@@ -249,7 +248,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log(Vector3.Distance(player[0].transform.position, disToGround));
         //Debug.Log(Vector3.Distance(player[0].transform.position, disToJumpPos));
 
-        if (!isGround && Vector3.Distance(player[0].transform.position, disToJumpPos) < 0.1f)
+        if (!isGround && Vector3.Distance(player[0].transform.position, disToJumpPos) < 0.2f)
         {
             jumpUp = false;
         }
@@ -541,7 +540,19 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region 맵 에디터
+    public MapEditor mapEditor;
 
+    void MapStart()
+    {
+        mapEditor.MapEditorInit();
+        
+    }
+
+    void MapUpdate()
+    {
+        mapEditor.moveojb();
+        mapEditor.pulling();
+    }
 
     #endregion
     #region 추가용
