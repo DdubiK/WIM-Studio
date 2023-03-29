@@ -100,7 +100,7 @@ public class ItemDown : MonoBehaviour
                 transform.position += dir * getSpeed * Time.deltaTime;
             }
         }
-        if (GameManager3.GetInstance().magicStop == false) downMagic = 10f;
+       // if (GameManager3.GetInstance().magicStop == false) downMagic = 10f;
         else downMagic = 0f;
     }
 }
