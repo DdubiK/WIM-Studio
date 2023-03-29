@@ -60,10 +60,25 @@ public class MapLvEditor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        array = new int[18] { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 };
+        array = new int[18] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         array1 = new int[18] { 3, 0, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2 };
         SetPosList(24, 6, ref Initposlist);
         SetPosList(6, 6, ref Poolposlist, 2.5f);
+        int[] arr = new int[36] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        int[] arr1 = new int[36] { 0,2,1,0,2,0,2,0,1,0,0,0,0,2,0,2,0,0,0,2,0,1,0,0,0,0,0,0,2,1,0,0,1,2,0,0 };
+        int[] arr2 = new int[36] { 0, 2, 1, 1, 2, 0, 2, 0, 1, 1, 0, 2, 0, 2, 1, 1, 2, 0, 2, 0, 1, 1, 0, 2, 0, 2, 1, 1, 2, 0, 2, 0, 1, 1, 0, 2 };
+        int[] arr3 = new int[36] { 0,0,2,0,1,0,0,0,2,0,1,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,2,3,0,0,0,0,2,1,0,0 };
+        int[] arr4 = new int[36] { 0,2,0,2,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,2,0,0 };
+        int[] arr5 = new int[36] { 0,2,0,2,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0 };
+        int[] arr6 = new int[36] { 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 };
+        int[] arr7 = new int[36] { 0,0,2,2,0,0,0,2,0,1,0,0,0,0,2,2,0,0,0,0,2,2,0,0,0,2,0,1,0,0,0,0,2,2,0,0 };
+        //int[]
+        some.Add(arr);
+        //some.Add(arr1);
+        //some.Add(arr2);
+        //some.Add(arr3);
+        some.Add(arr6);
+        some.Add(arr7);
         Initialize();
         createobj();
     }
@@ -199,11 +214,12 @@ public class MapLvEditor : MonoBehaviour
         posidx = 0;
         resourceidx = 0;
     }
+    public List<int[]> some = new List<int[]>();
 
 
     public void pulling()
     {
-
+        int Randoms = Random.Range(0, 3);
         if (queInActive.Count > 36 && (2.5f - last_obj.Obj.transform.position.x) >= 0.3f)
         {
             for (int i = 0; i < 6; i++)
@@ -211,7 +227,8 @@ public class MapLvEditor : MonoBehaviour
                 for (int j = 0; j < 6; j++)
                 {
                     RuningObject a = queInActive.Dequeue();
-                    a.ID = DBLoader.MapPatternArray.Pattern[3][resourceidx];
+                    a.ID = some[Randoms][resourceidx];
+                    //a.ID = DBLoader.MapPatternArray.Pattern[4][resourceidx];
                     a.colcheck = false;
                     a.Obj.GetComponent<SpriteRenderer>().sortingOrder = 2;
                     //Debug.Log("arrayrint:" + array1[resourceidx] + ",ID:" + b.ID+"resourceidx"+resourceidx);
@@ -267,7 +284,7 @@ public class MapLvEditor : MonoBehaviour
                     a.Obj.transform.position = Poolposlist[poolposidx];
                     resourceidx++;
                     poolposidx++;
-                    if (resourceidx >= array1.Length)
+                    if (resourceidx >= some[Randoms].Length)
                     { // 인덱스가 배열 범위를 벗어나면 0으로 초기화
                         resourceidx = 0;
                     }
@@ -334,7 +351,7 @@ public class MapLvEditor : MonoBehaviour
                                 }
                                 break;
                             case 1:
-                                GameManager.instance.MagicUpDown();
+                                //GameManager.instance.MagicUpDown();
                                 //Debug.Log("충돌"+element.Obj.name);
                                 break;
                             case 2:
