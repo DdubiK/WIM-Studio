@@ -40,7 +40,8 @@ public class GameManager : MonoBehaviour
 
     [Header("»ç¿îµå")]
     public AudioMixer audioMixer;
-    public Slider BgmSlider;
+    public Slider BGMSlider;
+    public Slider SFXSlider;
     public AudioSource audioSource;
     public List<AudioClip> audioClip;
 
@@ -159,9 +160,14 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void SetBgmVolume()
+    public void SetBGMVolume()
     {
-        audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
+        audioMixer.SetFloat("BGM", Mathf.Log10(BGMSlider.value) * 20);
+    }
+    
+    public void SetSFXVolume()
+    {
+        audioMixer.SetFloat("SFX", Mathf.Log10(SFXSlider.value) * 20);
     }
 
     public void MagicUI()
