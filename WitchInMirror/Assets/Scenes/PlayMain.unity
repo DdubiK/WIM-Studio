@@ -3419,14 +3419,30 @@ MonoBehaviour:
   BgmSlider: {fileID: 0}
   bar: {fileID: 0}
   magicbar: {fileID: 0}
-  player1: {fileID: 2111051777}
-  player2: {fileID: 4356403032371714052}
-  magic: 0
-  magicReverse: 0
-  itemReverse: 0
-  magicStop: 0
+  player:
+  - {fileID: 2111051777}
+  - {fileID: 4356403032371714052}
+  jump: 3
+  isGround: 0
+  jumpUp: 0
+  disToGround: {x: 0, y: 0, z: 0}
+  disToJumpPos: {x: 0, y: 0, z: 0}
   Maxmagic: 400
   Minmagic: 0
+  magic: 0
+  upMagic: 10
+  magicstopTime: 0
+  magicReverse: 0
+  magicStop: 0
+  time: 0
+  playtime: 0
+  itemReverse: 0
+  itemreverseTime: 0
+  mist: {fileID: 0}
+  isDamaged: 0
+  isShield: 0
+  coroutineStart1: 0
+  coroutineStart2: 0
 --- !u!4 &1069511362
 Transform:
   m_ObjectHideFlags: 0

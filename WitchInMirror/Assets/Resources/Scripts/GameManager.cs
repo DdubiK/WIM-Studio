@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GetInstance() { return instance; }
     public static GameManager instance = null;
-
+    public MapEditor mapEditor;
     private void Awake()
     {
         if (!instance) instance = this;
@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CharStart();
+        mapEditor.MapEditorInit();
     }
 
     // Update is called once per frame
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
     {
         UIUpdate();
         CharUpdate();
+        mapEditor.moveojb();
+        mapEditor.pulling();
     }
 
     #region UI
@@ -497,9 +500,12 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region 맵 에디터
+
+
+    #endregion
     #region 추가용
 
 
     #endregion
-
 }

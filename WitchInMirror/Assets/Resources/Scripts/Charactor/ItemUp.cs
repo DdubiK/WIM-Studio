@@ -101,8 +101,8 @@ public class ItemUp : MonoBehaviour
                 transform.position += dir * getSpeed * Time.deltaTime;
             }
         }
-        if (GameManager.GetInstance().magicStop == false) upMagic = 10f;
-        else upMagic = 0f;
+        //if (GameManager.GetInstance().magicStop == false) upMagic = 10f;
+        //else upMagic = 0f;
 
     }
 }
