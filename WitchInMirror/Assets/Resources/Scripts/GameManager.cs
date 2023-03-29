@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GetInstance() { return instance; }
     public static GameManager instance = null;
-
+    public MapEditor mapEditor;
     private void Awake()
     {
         if (!instance) instance = this;
@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CharStart();
+        mapEditor.MapEditorInit();
+        UIStart();
     }
 
     // Update is called once per frame
@@ -24,6 +26,8 @@ public class GameManager : MonoBehaviour
     {
         UIUpdate();
         CharUpdate();
+        mapEditor.moveojb();
+        mapEditor.pulling();
     }
 
     #region UI
@@ -38,6 +42,8 @@ public class GameManager : MonoBehaviour
     [Header("사운드")]
     public AudioMixer audioMixer;
     public Slider BgmSlider;
+    public AudioSource audioSource;
+    public List<AudioClip> audioClip;
 
     public GameObject bar;
     public GameObject magicbar;
@@ -45,13 +51,32 @@ public class GameManager : MonoBehaviour
 
     void UIStart()
     {
-
+        audioSource = this.GetComponent<AudioSource>();
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump1"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump2"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump3"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump4"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump5"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump7"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump8"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump9"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump12"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump13"));
+        audioSource.clip = audioClip[0];
     }
 
     void UIUpdate()
     {
         MagicUI();
         UpdateGUIState();
+    }
+
+    void SoundPlay(int soundnumber)
+    {
+        if (soundnumber > audioClip.Count) { return; }
+        audioSource.clip = audioClip[soundnumber];
+
+        audioSource.Play();
     }
 
     public void Initialize(GameManager gameManager)
@@ -151,6 +176,21 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void MagicCheck()
+    {
+        if (magic <= Minmagic)
+        {
+            magic = Minmagic;
+            Debug.Log("GameOver");
+            return;
+        }
+        if (magic >= Maxmagic) 
+        {
+            magic = Maxmagic;
+            return;
+        }
+    }
+
     #endregion
 
     #region 캐릭터, 마력
@@ -233,6 +273,8 @@ public class GameManager : MonoBehaviour
             isGround = false;
             jumpUp = true;
             GroundCheck += GroundChecking;
+
+            SoundPlay(2);
         }
     }
 
@@ -274,10 +316,11 @@ public class GameManager : MonoBehaviour
         {
             if (magicReverse)
             {
-                magic += Time.deltaTime * 3f;
+                magic += Time.deltaTime * 30f;
             }
-            else magic -= Time.deltaTime * 3f;
+            else magic -= Time.deltaTime * 30f;
         }
+        MagicCheck();
     }
 
 
@@ -497,9 +540,12 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region 맵 에디터
+
+
+    #endregion
     #region 추가용
 
 
     #endregion
-
 }
