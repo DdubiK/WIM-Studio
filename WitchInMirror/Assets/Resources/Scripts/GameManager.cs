@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GetInstance() { return instance; }
     public static GameManager instance = null;
+
+    
     
     private void Awake()
     {
@@ -16,27 +18,98 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        SetGUIState(E_SCENE.TITLE);
         CharStart();
         UIStart();
         MapStart();
+        SceneUpdate += UIUpdate;
     }
 
     // Update is called once per frame
     void Update()
     {
-        UIUpdate();
-        CharUpdate();
-        MapUpdate();
+        SceneUpdate?.Invoke();
     }
 
-    #region UI
+
+    #region 씬
     [Header("씬")]
     public List<GameObject> listGUIScenes;
-    public enum E_SCENE { PLAY, TITLE, GAMEOVER, MAX }
+    public Action SceneUpdate = null;
     public E_SCENE curScene;
-
     public GameObject pausePanel;
     private bool isPause = false;
+
+
+
+    public void ShowGUIState(E_SCENE scene)
+    {
+        for (int idx = 0; idx < (int)E_SCENE.MAX; idx++)
+        {
+            if ((E_SCENE)idx == scene)
+                listGUIScenes[(int)idx].SetActive(true);
+            else
+                listGUIScenes[(int)idx].SetActive(false);
+        }
+    }
+
+
+    //public void Initialize(GameManager gameManager)
+    //{
+    //    gameObject.SetActive(true);
+    //    SetGUIState(curScene);
+    //}
+
+    public void SetGUIState(E_SCENE scene)
+    {
+        switch (scene)
+        {
+            case E_SCENE.TITLE:
+                Time.timeScale = 0;
+                break;
+            case E_SCENE.PLAY:
+                Time.timeScale = 1;
+                resetCharState();
+                SceneUpdate += CharUpdate;
+                SceneUpdate += MapUpdate;
+                break;
+            case E_SCENE.GAMEOVER:
+                Time.timeScale = 0;
+                //SceneUpdate -= UIUpdate;
+                SceneUpdate -= CharUpdate;
+                SceneUpdate -= MapUpdate;
+                break;
+        }
+        ShowGUIState(scene);
+        curScene = scene;
+    }
+
+    //public void UpdateGUIState()
+    //{
+    //    switch (curScene)
+    //    {
+    //        case E_SCENE.PLAY:
+    //            Time.timeScale = 1;
+    //            break;
+    //        case E_SCENE.TITLE:
+    //            Time.timeScale = 0;
+    //            break;
+    //        case E_SCENE.GAMEOVER:
+    //            Time.timeScale = 0;
+    //            break;
+    //    }
+    //}
+
+    public void EventSenceChange(int idx)
+    {
+        Debug.Log("check");
+        SetGUIState((E_SCENE)idx);
+    }
+
+    #endregion
+
+
+    #region UI
 
     [Header("사운드")]
     public AudioMixer audioMixer;
@@ -51,6 +124,7 @@ public class GameManager : MonoBehaviour
 
     void UIStart()
     {
+        
         audioSource = this.GetComponent<AudioSource>();
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump1"));
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump2"));
@@ -63,13 +137,20 @@ public class GameManager : MonoBehaviour
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump12"));
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump13"));
         audioSource.clip = audioClip[0];
+
+
+        //float vol;
+        //audioMixer.GetFloat("SFX", out vol);
+        //SFXSlider.value = vol;
+        SFXSlider.value = 0.5f;
     }
 
     void UIUpdate()
     {
         MagicUI();
-        UpdateGUIState();
+        //UpdateGUIState();
     }
+
 
     void SoundPlay(int soundnumber)
     {
@@ -79,61 +160,11 @@ public class GameManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public void Initialize(GameManager gameManager)
-    {
-        gameObject.SetActive(true);
-        SetGUIState(curScene);
-    }
 
-    public void ShowGUIState(E_SCENE scene)
-    {
-        for (E_SCENE idx = E_SCENE.PLAY; idx < E_SCENE.MAX; idx++)
-        {
-            if (idx == scene)
-                listGUIScenes[(int)idx].SetActive(true);
-            else
-                listGUIScenes[(int)idx].SetActive(false);
-        }
-    }
 
-    public void SetGUIState(E_SCENE scene)
-    {
-        switch (scene)
-        {
-            case E_SCENE.PLAY:
-                Time.timeScale = 1;
-                break;
-            case E_SCENE.TITLE:
-                Time.timeScale = 0;
-                break;
-            case E_SCENE.GAMEOVER:
-                Time.timeScale = 0;
-                break;
-        }
-        ShowGUIState(scene);
-        curScene = scene;
-    }
 
-    public void UpdateGUIState()
-    {
-        switch (curScene)
-        {
-            case E_SCENE.PLAY:
-                Time.timeScale = 1;
-                break;
-            case E_SCENE.TITLE:
-                Time.timeScale = 0;
-                break;
-            case E_SCENE.GAMEOVER:
-                Time.timeScale = 0;
-                break;
-        }
-    }
 
-    public void EventSenceChange(int idx)
-    {
-        SetGUIState((E_SCENE)idx);
-    }
+
 
     public void SetPause()
     {
@@ -172,12 +203,12 @@ public class GameManager : MonoBehaviour
 
     public void MagicUI()
     {
-        //RectTransform rectTransform = bar.GetComponent<RectTransform>();
-        //RectTransform rectTransform1 = magicbar.GetComponent<RectTransform>();
+        RectTransform rectTransform = bar.GetComponent<RectTransform>();
+        RectTransform rectTransform1 = magicbar.GetComponent<RectTransform>();
 
-        //float magic_x = ((magic - Minmagic) / (Maxmagic - Minmagic)) * rectTransform.rect.width + (rectTransform.anchoredPosition.x - rectTransform.rect.width / 2);
-        ////Debug.Log(magic_x);
-        //rectTransform1.anchoredPosition = new Vector2(magic_x, rectTransform1.anchoredPosition.y);
+        float magic_x = ((magic - Minmagic) / (Maxmagic - Minmagic)) * rectTransform.rect.width + (rectTransform.anchoredPosition.x - rectTransform.rect.width / 2);
+        //Debug.Log(magic_x);
+        rectTransform1.anchoredPosition = new Vector2(magic_x, rectTransform1.anchoredPosition.y);
 
     }
 
@@ -186,12 +217,14 @@ public class GameManager : MonoBehaviour
         if (magic <= Minmagic)
         {
             magic = Minmagic;
-            Debug.Log("GameOver");
+            SetGUIState(E_SCENE.GAMEOVER);
+            //Debug.Log("GameOver");
             return;
         }
         if (magic >= Maxmagic) 
         {
             magic = Maxmagic;
+            SetGUIState(E_SCENE.GAMEOVER);
             return;
         }
     }
@@ -202,6 +235,7 @@ public class GameManager : MonoBehaviour
     [Header("캐릭터")]
     public GameObject[] player = new GameObject[2];
     public float jump = 3f;
+    public float Score = 0;
     public bool isGround;
     public bool jumpUp;
     public Vector3 disToGround;
@@ -230,6 +264,7 @@ public class GameManager : MonoBehaviour
         magic = 200f;
         Maxmagic = 400;
         Minmagic = 0;
+        Score = 0;
         isGround = true;
         jumpUp = false;
         disToGround = new Vector3(-1.9f, 0, 0);
@@ -312,6 +347,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("-magic");
             }
         }
+        Score += 100;
     }
 
 
@@ -326,6 +362,18 @@ public class GameManager : MonoBehaviour
             else magic -= Time.deltaTime * 30f;
         }
         MagicCheck();
+    }
+
+
+    public void resetCharState()
+    {
+        magic = 200f;
+        Maxmagic = 400;
+        Minmagic = 0;
+        isGround = true;
+        jumpUp = false;
+        Score = 0;
+
     }
 
 
@@ -561,8 +609,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-    #region 추가용
 
-
-    #endregion
+    
 }
