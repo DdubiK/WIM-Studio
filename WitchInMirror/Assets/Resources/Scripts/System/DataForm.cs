@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public enum E_SCENE { TITLE,PLAY,GAMEOVER, MAX }
+
 
 [System.Serializable]//직렬화 : 스크립트가 씬에 존재하지 않아도 직렬로 연결되어 있기 때문에 Public으로 정의하면 읽어올 수 있다.
 public class CharData// 임시 캐릭터 클래스
