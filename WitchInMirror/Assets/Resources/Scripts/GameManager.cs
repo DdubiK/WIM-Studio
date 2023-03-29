@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
                 break;
             case E_SCENE.PLAY:
                 Time.timeScale = 1;
+                mapEditor.ResetPooling();
                 resetCharState();
                 SceneUpdate += CharUpdate;
                 SceneUpdate += MapUpdate;
@@ -606,6 +607,11 @@ public class GameManager : MonoBehaviour
     {
         mapEditor.moveojb();
         mapEditor.pulling();
+    }
+   
+    void MapReset()
+    {
+        
     }
 
     #endregion

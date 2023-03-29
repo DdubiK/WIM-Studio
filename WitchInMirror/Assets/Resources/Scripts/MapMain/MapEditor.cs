@@ -32,7 +32,36 @@ public class MapEditor : MonoBehaviour
     public int poolposidx = 0;
 
     public RuningObject last_obj;
+    #region 리스타트 초기화
+    public void ResetPooling()
+    {
+        int count = 0;
+        int count1 = 144;
+        foreach (RuningObject element in queActive)
+        {
+            queInActive.Enqueue(element);
+            count++;
+        }
+        for (int i = 0; i < count; i++)
+        {
+            RuningObject a = queActive.Dequeue();
+            a.Obj.transform.position = new Vector3(-10f, 0);
+            a.colcheck = false;
+        }
+        Debug.Log("queActive:" + queActive.Count);
+        Debug.Log("queInActive:" + queInActive.Count);
 
+        for (int i = 0; i < count1; i++)
+        {
+            queActive.Enqueue(queInActive.Dequeue());
+        }
+        //foreach (RuningObject element in queInActive)
+        //{
+        //    queActive.Enqueue(queInActive.Dequeue());
+        //}
+    }
+
+    #endregion
 
     #region 벡터 위치값 배열 생성
     public void SetPosList(int _row, int _col, ref Vector3[] _array, float _Setx = 0)

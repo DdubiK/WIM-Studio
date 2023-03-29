@@ -1354,6 +1354,7 @@ MonoBehaviour:
   - {fileID: 2111051777}
   - {fileID: 4356403032371714052}
   jump: 3
+  Score: 0
   isGround: 0
   jumpUp: 0
   disToGround: {x: 0, y: 0, z: 0}
