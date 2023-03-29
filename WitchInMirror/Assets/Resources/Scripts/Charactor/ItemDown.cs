@@ -47,7 +47,7 @@ public class ItemDown : MonoBehaviour
         {
             if (GameManager.GetInstance().magicStop == false)
             {
-                GameManager.GetInstance().magic -= downMagic;
+                //GameManager.GetInstance().magic -= downMagic;
                 Debug.Log("-magic");
             }
             Destroy(gameObject);
@@ -56,7 +56,7 @@ public class ItemDown : MonoBehaviour
         {
             if (GameManager.GetInstance().magicStop == false)
             {
-                GameManager.GetInstance().magic += downMagic;
+                //GameManager.GetInstance().magic += downMagic;
                 Debug.Log("+magic");
             }
             Destroy(gameObject);

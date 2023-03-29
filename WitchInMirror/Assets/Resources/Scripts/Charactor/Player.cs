@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public bool isShield;
     public bool coroutineStart1;//ItemReverseCoroutineStart
     public bool coroutineStart2;//MagicStopCoroutineStart
+    //public GameObject effect;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
     {
         time += Time.deltaTime;
         playtime += Time.deltaTime;
-        itemreverseTime += Time.deltaTime;
+        //itemreverseTime += Time.deltaTime;
         magicstopTime += Time.deltaTime;
     }
 
@@ -167,10 +168,16 @@ public class Player : MonoBehaviour
             }
         }
     }
+    //public void Pooling()
+    //{
+    //    var effect = GameManager3.GetEffect();
+    //    var transform = this.transform.position;
+    //    effect.make(transform);
+    //}
     public void MagicItem(int _idx)
     {
         switch(_idx)
-            {
+        {
             case 1:
                 GameManager.GetInstance().magic += 50f;
                 break;
@@ -179,6 +186,19 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+    public void GetMagic(int _idx)
+    {
+        switch (_idx)
+        {
+            case 1:
+                GameManager.GetInstance().magic += 3f;
+                break;
+            case 2:
+                GameManager.GetInstance().magic -= 3f;
+                break;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -218,6 +238,16 @@ public class Player : MonoBehaviour
         {
             MagicItem(1);
         }
+        if (other.gameObject.tag == "getmagicup")
+        {
+            MagicItem(0);
+        }
+        if (other.gameObject.tag == "getmagicdown")
+        {
+            MagicItem(1);
+        }
+
+
 
 
     }
@@ -271,16 +301,27 @@ public class Player : MonoBehaviour
     {
         itemreverseTime = 0;
         coroutineStart1 = true;
-
-        if (itemreverseTime < 10f)
+        GameManager.GetInstance().itemReverse = true;
+        while (itemreverseTime < 10f)
         {
-            GameManager.GetInstance().itemReverse = true;
-            yield return new WaitForSeconds(10f);
-            GameManager.GetInstance().itemReverse = false;
-            itemreverseTime = 0;
-            coroutineStart1 = false;
-            Debug.Log("内风凭场!!!!!!!!!!!!");
+            itemreverseTime++;
+            yield return new WaitForSeconds(1f);
         }
+        GameManager.GetInstance().itemReverse = false;
+        itemreverseTime = 0;
+        coroutineStart1 = false;
+        Debug.Log("内风凭场!!!!!!!!!!!!");
+
+        //if (itemreverseTime < 10f)
+        //{
+        //    itemreverseTime += Time.deltaTime;
+        //    GameManager.GetInstance().itemReverse = true;
+        //    yield return new WaitForSeconds(10f);
+        //    GameManager.GetInstance().itemReverse = false;
+        //    itemreverseTime = 0;
+        //    coroutineStart1 = false;
+        //    Debug.Log("内风凭场!!!!!!!!!!!!");
+        //}
     }
 
     IEnumerator MagicStop()
@@ -288,17 +329,18 @@ public class Player : MonoBehaviour
         gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
         magicstopTime = 0;
         coroutineStart2 = true;
+        GameManager.GetInstance().magicStop = true;
 
-        if (magicstopTime < 4f)
+        while (magicstopTime < 10f)
         {
-            GameManager.GetInstance().magicStop = true;
-            yield return new WaitForSeconds(4f);
-            GameManager.GetInstance().magicStop = false;
-            magicstopTime = 0;
-            coroutineStart2 = false;
-            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
-            Debug.Log("内风凭场!!!!!!!!!!!!");
+            magicstopTime++;
+            yield return new WaitForSeconds(1f);
         }
+        GameManager.GetInstance().magicStop = false;
+        magicstopTime = 0;
+        coroutineStart2 = false;
+        gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        Debug.Log("内风凭场!!!!!!!!!!!!");
     }
 }
 

@@ -11,6 +11,7 @@ public class ItemUp : MonoBehaviour
     public GameObject player;
     public bool isGet;
     public bool isBack;
+    public GameObject effect;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class ItemUp : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             Get();
+            Pooling();
         }
         if(collision.gameObject.tag == "Player" && isBack == true)
         {
@@ -41,13 +43,19 @@ public class ItemUp : MonoBehaviour
 //>>>>>>> origin/main
         }
     }
+    public void Pooling()
+    {
+        var effect = GameManager3.GetEffect();
+        var transform = this.transform.position;
+        effect.make(transform);
+    }
     public void MagicUpDown()
     {
         if (GameManager.GetInstance().itemReverse == false)
         {
             if (GameManager.GetInstance().magicStop == false)
             {
-                GameManager.GetInstance().magic += upMagic;
+                //GameManager.GetInstance().magic += upMagic;
                 Debug.Log("+magic");
             }
             Destroy(gameObject);
@@ -56,7 +64,7 @@ public class ItemUp : MonoBehaviour
         {
             if (GameManager.GetInstance().magicStop == false)
             {
-                GameManager.GetInstance().magic -= upMagic;
+                //GameManager.GetInstance().magic -= upMagic;
                 Debug.Log("-magic");
             }
             Destroy(gameObject);
