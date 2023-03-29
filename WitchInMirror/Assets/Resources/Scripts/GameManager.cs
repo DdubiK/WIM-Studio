@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour
     public Slider BGMSlider;
     public Slider SFXSlider;
     public AudioSource audioSource;
+    public AudioSource bgmSource;
     public List<AudioClip> audioClip;
 
     public GameObject bar;
@@ -138,12 +139,16 @@ public class GameManager : MonoBehaviour
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump12"));
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump13"));
         audioSource.clip = audioClip[0];
+<<<<<<< HEAD
+        audioSource.clip = bgmSource.clip;
+=======
 
 
         //float vol;
         //audioMixer.GetFloat("SFX", out vol);
         //SFXSlider.value = vol;
         SFXSlider.value = 0.5f;
+>>>>>>> origin/main
     }
 
     void UIUpdate()
