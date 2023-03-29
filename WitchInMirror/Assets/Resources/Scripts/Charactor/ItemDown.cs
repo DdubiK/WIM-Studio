@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemUp : MonoBehaviour
+public class ItemDown : MonoBehaviour
 {
     public float time;
     public float speed;
     public float getSpeed;
-    public float upMagic = 10f;
+    public float downMagic = 10f;
     public GameObject player;
     public bool isGet;
     public bool isBack;
@@ -22,21 +22,21 @@ public class ItemUp : MonoBehaviour
     void Update()
     {
         GetSystem();
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         player = collision.gameObject.GetComponent<GameObject>();
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             Get();
         }
-        if(collision.gameObject.tag == "Player" && isBack == true)
+        if (collision.gameObject.tag == "Player" && isBack == true)
         {
             //<<<<<<< HEAD
             MagicUpDown();
-
-//=======
-//GameManager.GetInstance().magic += upMagic;
+//=======MagicUpDown()
+//GameManager.GetInstance().magic -= downMagic;
 //Destroy(gameObject);
 //>>>>>>> origin/main
         }
@@ -47,8 +47,8 @@ public class ItemUp : MonoBehaviour
         {
             if (GameManager.GetInstance().magicStop == false)
             {
-                GameManager.GetInstance().magic += upMagic;
-                Debug.Log("+magic");
+                GameManager.GetInstance().magic -= downMagic;
+                Debug.Log("-magic");
             }
             Destroy(gameObject);
         }
@@ -56,14 +56,13 @@ public class ItemUp : MonoBehaviour
         {
             if (GameManager.GetInstance().magicStop == false)
             {
-                GameManager.GetInstance().magic -= upMagic;
-                Debug.Log("-magic");
+                GameManager.GetInstance().magic += downMagic;
+                Debug.Log("+magic");
             }
             Destroy(gameObject);
         }
     }
-
-    public void Get()
+        public void Get()
     {
         getSpeed = 3f;
         speed = 0f;
@@ -91,18 +90,17 @@ public class ItemUp : MonoBehaviour
         }
         if (isBack)
         {
-            if (time < 0.1f) transform.position += new Vector3(1f, 0.5f, 0) * getSpeed * 1.5f * Time.deltaTime;
+            if (time < 0.1f) transform.position += new Vector3(1f, -0.5f, 0) * getSpeed * 1.5f * Time.deltaTime;
             else
             {
-                player = GameManager.GetInstance().player1;
+                player = GameManager.GetInstance().player[1];
                 Vector3 dist = player.transform.position - this.transform.position;
                 Vector3 dir = dist.normalized;
                 float fdist = dist.magnitude;
                 transform.position += dir * getSpeed * Time.deltaTime;
             }
         }
-        if (GameManager.GetInstance().magicStop == false) upMagic = 10f;
-        else upMagic = 0f;
-
+       // if (GameManager3.GetInstance().magicStop == false) downMagic = 10f;
+        else downMagic = 0f;
     }
 }

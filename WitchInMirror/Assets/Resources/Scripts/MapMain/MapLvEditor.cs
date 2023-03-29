@@ -2,37 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct Obstacle
-{
-    public GameObject obj;
-    public int tr_idx;
-    public Vector3 Spawner_tr;
+//[System.Serializable]
+//public struct Obstacle
+//{
+//    public GameObject obj;
+//    public int tr_idx;
+//    public Vector3 Spawner_tr;
 
-    public Vector3 SetTr(int _tr_idx)
-    {
-        switch (_tr_idx)
-        {
-            case 0:
-                Spawner_tr.y = 0.9f;
-                Spawner_tr.x = 3.0f;
-                break;
-            case 1:
-                Spawner_tr.y = 0.2f;
-                Spawner_tr.x = 3.0f;
-                break;
-            case 2:
-                Spawner_tr.y = -0.2f;
-                Spawner_tr.x = 3.0f;
-                break;
-            case 3:
-                Spawner_tr.y = -0.9f;
-                Spawner_tr.x = 3.0f;
-                break;
-        }
-        return Spawner_tr;
-    }
-}
+//    public Vector3 SetTr(int _tr_idx)
+//    {
+//        switch (_tr_idx)
+//        {
+//            case 0:
+//                Spawner_tr.y = 0.9f;
+//                Spawner_tr.x = 3.0f;
+//                break;
+//            case 1:
+//                Spawner_tr.y = 0.2f;
+//                Spawner_tr.x = 3.0f;
+//                break;
+//            case 2:
+//                Spawner_tr.y = -0.2f;
+//                Spawner_tr.x = 3.0f;
+//                break;
+//            case 3:
+//                Spawner_tr.y = -0.9f;
+//                Spawner_tr.x = 3.0f;
+//                break;
+//        }
+//        return Spawner_tr;
+//    }
+//}
 
 public class MapLvEditor : MonoBehaviour
 {
@@ -67,8 +67,6 @@ public class MapLvEditor : MonoBehaviour
         Initialize();
         createobj();
     }
-
-
 
     #region 패턴 생성 풀링
 
@@ -316,11 +314,11 @@ public class MapLvEditor : MonoBehaviour
                     sample++;
                 }
 
-                if ((element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f || (element.Obj.transform.position - Player2.transform.position).magnitude < 0.15f)
+                if (!element.colcheck &&
+                    ( (element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f || (element.Obj.transform.position - Player2.transform.position).magnitude < 0.15f))
                 {
-                    if (!element.colcheck)
-                    {
-                        Debug.Log("충돌");
+                    
+                        //Debug.Log("충돌");
                         element.Obj.GetComponent<SpriteRenderer>().sprite = null;
 
                         switch (element.ID)
@@ -336,13 +334,14 @@ public class MapLvEditor : MonoBehaviour
                                 }
                                 break;
                             case 1:
+                                GameManager.instance.MagicUpDown();
+                                //Debug.Log("충돌"+element.Obj.name);
                                 break;
                             case 2:
                                 break;
                         }
 
                         element.colcheck = true;
-                    }//Debug.Log("닿음");
                 }
                 //element.Obj.transform.position
             }
@@ -384,8 +383,6 @@ public class MapLvEditor : MonoBehaviour
     {
 
     }
-
-
 
 
     public void Initialize()

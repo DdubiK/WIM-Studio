@@ -52,3 +52,37 @@ public class RuningObject{
 
 }
 
+
+[System.Serializable]
+public struct Obstacle
+{
+    public GameObject obj;
+    public int tr_idx;
+    public Vector3 Spawner_tr;
+
+    public Vector3 SetTr(int _tr_idx)
+    {
+        switch (_tr_idx)
+        {
+            case 0:
+                Spawner_tr.y = 0.9f;
+                Spawner_tr.x = 3.0f;
+                break;
+            case 1:
+                Spawner_tr.y = 0.2f;
+                Spawner_tr.x = 3.0f;
+                break;
+            case 2:
+                Spawner_tr.y = -0.2f;
+                Spawner_tr.x = 3.0f;
+                break;
+            case 3:
+                Spawner_tr.y = -0.9f;
+                Spawner_tr.x = 3.0f;
+                break;
+        }
+        return Spawner_tr;
+    }
+}
+
+
