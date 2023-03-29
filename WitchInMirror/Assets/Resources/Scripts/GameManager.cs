@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public Slider BGMSlider;
     public Slider SFXSlider;
     public AudioSource audioSource;
+    public AudioSource bgmSource;
     public List<AudioClip> audioClip;
 
     public GameObject bar;
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump12"));
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump13"));
         audioSource.clip = audioClip[0];
+        audioSource.clip = bgmSource.clip;
     }
 
     void UIUpdate()

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6969a9c78e69bc43985e22781c7f2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapEditor: {fileID: 0}
   listGUIScenes:
   - {fileID: 123215998}
   - {fileID: 1836770073}
@@ -159,7 +160,36 @@ MonoBehaviour:
   curScene: 0
   pausePanel: {fileID: 1504070498}
   audioMixer: {fileID: 0}
-  BgmSlider: {fileID: 0}
+  BGMSlider: {fileID: 0}
+  SFXSlider: {fileID: 0}
+  audioSource: {fileID: 0}
+  audioClip: []
+  bar: {fileID: 0}
+  magicbar: {fileID: 0}
+  player:
+  - {fileID: 0}
+  - {fileID: 0}
+  jump: 3
+  isGround: 0
+  jumpUp: 0
+  disToGround: {x: 0, y: 0, z: 0}
+  disToJumpPos: {x: 0, y: 0, z: 0}
+  Maxmagic: 400
+  Minmagic: 0
+  magic: 0
+  upMagic: 10
+  magicstopTime: 0
+  magicReverse: 0
+  magicStop: 0
+  time: 0
+  playtime: 0
+  itemReverse: 0
+  itemreverseTime: 0
+  mist: {fileID: 0}
+  isDamaged: 0
+  isShield: 0
+  coroutineStart1: 0
+  coroutineStart2: 0
 --- !u!4 &42085353
 Transform:
   m_ObjectHideFlags: 0
@@ -832,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7461344323713257072, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7461344323713257073, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_Pivot.x
