@@ -295,12 +295,12 @@ public class GameManager : MonoBehaviour
         //Debug.Log(Vector3.Distance(player[0].transform.position, disToGround));
         //Debug.Log(Vector3.Distance(player[0].transform.position, disToJumpPos));
 
-        if (!isGround && Vector3.Distance(player[0].transform.position, disToJumpPos) < 0.2f)
+        if (!isGround && Vector3.Distance(player[0].transform.position, disToJumpPos) < 0.5f)
         {
             jumpUp = false;
         }
 
-        if (!isGround && !jumpUp && Vector3.Distance(player[0].transform.position,disToGround)<=0.2f)
+        if (!isGround && !jumpUp && Vector3.Distance(player[0].transform.position,disToGround)<=0.5f)
         {
             isGround = true;
             GroundCheck -= GroundChecking;
