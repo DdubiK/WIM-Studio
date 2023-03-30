@@ -179,10 +179,10 @@ public class Player : MonoBehaviour
         switch(_idx)
         {
             case 1:
-                GameManager.GetInstance().magic += 50f;
+                GameManager.GetInstance().magic += 50;
                 break;
             case 2:
-                GameManager.GetInstance().magic -= 50f;
+                GameManager.GetInstance().magic -= 50;
                 break;
         }
     }
@@ -191,10 +191,10 @@ public class Player : MonoBehaviour
         switch (_idx)
         {
             case 1:
-                GameManager.GetInstance().magic += 3f;
+                GameManager.GetInstance().magic += 3;
                 break;
             case 2:
-                GameManager.GetInstance().magic -= 3f;
+                GameManager.GetInstance().magic -= 3;
                 break;
         }
     }
