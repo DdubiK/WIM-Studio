@@ -10,7 +10,7 @@ public class MapEditor : MonoBehaviour
         SetPosList(6, 6, ref Poolposlist, 2.5f);
         createobj();
     }
-    // Start is called before the first frame update
+
 
     #region 패턴 생성 풀링
 
@@ -18,6 +18,11 @@ public class MapEditor : MonoBehaviour
     public static Queue<RuningObject> queInActive = new Queue<RuningObject>();
 
     public List<GameObject> runobj = new List<GameObject>();
+
+
+    public List<GameObject> EffectobjList = new List<GameObject>();
+
+
 
     public float objmoveSpeed;
 
@@ -91,9 +96,10 @@ public class MapEditor : MonoBehaviour
         //}
     }
     #endregion
+
     #region 첫 Pattern 생성
-    public int[] array = new int[18]{ 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 }; //임시 첫 패턴 배열
-int resourceidx = 0; //오브젝트 리소스 접근 idx
+
+    int resourceidx = 0; //오브젝트 리소스 접근 idx
     public string[] resourcePaths = new string[] //아이템 리소스 파일 위치
 {
     null,
@@ -115,7 +121,7 @@ int resourceidx = 0; //오브젝트 리소스 접근 idx
                 //obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
                 runobj.Add(obj);
                 RuningObject a = new RuningObject();
-                a.ID = array[resourceidx];
+                a.ID = 0;
                 //Debug.Log("arrayrint:" + array[resourceidx] + ",ID:" + a.ID);
                 a.Obj = obj;
                 //오브젝트 ID 값에 따른 리소스 할당
@@ -175,7 +181,7 @@ int resourceidx = 0; //오브젝트 리소스 접근 idx
                     last_obj = a;
                 }
 
-                if (resourceidx >= array.Length) // 오브젝트 인덱스가 배열 범위를 벗어나면 0으로 초기화
+                if (resourceidx >= 18) // 오브젝트 인덱스가 배열 범위를 벗어나면 0으로 초기화
                 { 
                     resourceidx = 0;
                 }
@@ -183,8 +189,24 @@ int resourceidx = 0; //오브젝트 리소스 접근 idx
         }
         posidx = 0;
         resourceidx = 0;
+
+
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    GameObject EObj = new GameObject();
+        //    EObj.name = "Eobj" + (i + 1);
+        //    EObj.AddComponent<SpriteRenderer>();
+        //    EObj.transform.position = new Vector2(-20,0);
+        //    EffectobjList.Add(EObj) ;
+
+        //    EffectInActive.Enqueue(EObj);
+        //}
+        Initialize(5);
+
+
     }
     #endregion
+
     #region 오브젝트 풀링
     public void pulling()
     {
@@ -266,19 +288,77 @@ int resourceidx = 0; //오브젝트 리소스 접근 idx
 
     }
     #endregion
+
+    #region 이펙트 생성
+    //public GameObject effectpoolingPrefeb;
+    public Queue<Effect> effectpoolingQueue = new Queue<Effect>();
+
+    public void Initialize(int _Count)
+    {
+        for (int i = 0; i < _Count; i++)
+        {
+            effectpoolingQueue.Enqueue(CreateNewObject());
+        }
+    }
+    public Effect CreateNewObject()
+    {
+
+        GameObject EObj = new GameObject();
+        EObj.name = "Eobj";
+        EObj.AddComponent<SpriteRenderer>();
+        EObj.AddComponent<Effect>();
+        EObj.transform.position = new Vector2(-20, 0);
+
+        var newObj = EObj.GetComponent<Effect>();
+        newObj.gameObject.SetActive(false);
+        //newObj.transform.SetParent(this.transform);
+
+        return newObj;
+
+    }
+
+    public Effect GetEffect()
+    {
+        if (effectpoolingQueue.Count > 0f)
+        {
+            var obj = effectpoolingQueue.Dequeue();
+            //obj.transform.SetParent(null);
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+        else
+        {
+            var newObj = CreateNewObject();
+            newObj.gameObject.SetActive(false);
+            //newObj.transform.SetParent(null);
+            return newObj;
+        }
+    }
+    public void ReturnObject(Effect obj)
+    {
+        obj.gameObject.SetActive(false);
+        //obj.transform.SetParent(this.transform);
+        effectpoolingQueue.Enqueue(obj);
+    }
+
+
+
+    #endregion
+
+
     #region 이펙트 풀링
     public List<GameObject> Effectobj = new List<GameObject>();
     public List<Animator> Effectani = new List<Animator>();
-    public static Queue<Animator> EffectActive = new Queue<Animator>();
-    public static Queue<Animator> EffectInActive = new Queue<Animator>();
+    public static Queue<GameObject> EffectActive = new Queue<GameObject>();
+    public static Queue<GameObject> EffectInActive = new Queue<GameObject>();
     public List<Animator> aniList;
     public void InitEffect()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            Effectani[i] = new Animator();
-            EffectInActive.Enqueue(Effectani[i]);
-        }
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Effectani[i] = new Animator();
+        //    EffectInActive.Enqueue(Effectani[i]);
+        //}
     }
 
     #endregion
@@ -297,34 +377,61 @@ int resourceidx = 0; //오브젝트 리소스 접근 idx
                     sample++;
                 }
 
-                if (!element.colcheck &&
-                    ((element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f || (element.Obj.transform.position - Player2.transform.position).magnitude < 0.15f))
+                if (!element.colcheck)
                 {
-
-                    //Debug.Log("충돌");
-                    element.Obj.GetComponent<SpriteRenderer>().sprite = null;
-
-                    switch (element.ID)
-                    {
-                        case 0:
-                            //Method 실행
-                            //이펙트 생성 및 실행
-                            if (element.effect)
-                            {
-                                element.effect.AddComponent<Animator>();
-                                Animator ani = element.effect.GetComponent<Animator>();
-                                ani.runtimeAnimatorController = aniList[0].runtimeAnimatorController;
-                            }
-                            break;
-                        case 1:
-                            GameManager.instance.MagicUpDown();
-                            //Debug.Log("충돌"+element.Obj.name);
-                            break;
-                        case 2:
-                            break;
+                    bool p1 = false;
+                    bool p2 = false;
+                    if((element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f){
+                        p1 = true;
                     }
+                    if ((element.Obj.transform.position - Player2.transform.position).magnitude < 0.15f)
+                    {
+                        p2 = true;
+                    }
+                    //Debug.Log("충돌");
 
-                    element.colcheck = true;
+                    if (p1 || p2)
+                    {
+
+                        switch (element.ID)
+                        {
+                            case 0:
+                                //Method 실행
+                                //이펙트 생성 및 실행
+                                if (element.effect)
+                                {
+                                    element.effect.AddComponent<Animator>();
+                                    Animator ani = element.effect.GetComponent<Animator>();
+                                    ani.runtimeAnimatorController = aniList[0].runtimeAnimatorController;
+                                }
+                                break;
+                            case 1:
+                                GameManager.instance.MagicUpDown();
+                                GameManager.instance.UpScore(10);
+                                Effect Eobj = GetEffect();
+                                if (p1)
+                                {   
+                                    Eobj.player = GameManager.instance.player[0];
+                                }
+                                if (p2)
+                                {
+                                    Eobj.player = GameManager.instance.player[1];
+                                    Eobj.downCheck = true;
+                                }
+                                Eobj.transform.position = element.Obj.transform.position;
+                                Eobj.Get();
+                                Eobj.Pooling();
+                                Sprite b = element.Obj.GetComponent<SpriteRenderer>().sprite;
+                                Eobj.GetComponent<SpriteRenderer>().sprite = b;
+                                //Debug.Log("충돌"+element.Obj.name);
+                                break;
+                            case 2:
+                                break;
+                        }
+                        element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        element.colcheck = true;
+                    }
+                    
                 }
                 //element.Obj.transform.position
             }
@@ -338,6 +445,9 @@ int resourceidx = 0; //오브젝트 리소스 접근 idx
                 queInActive.Enqueue(b);
             }
         }
+
+
+
     }
     #endregion
 
