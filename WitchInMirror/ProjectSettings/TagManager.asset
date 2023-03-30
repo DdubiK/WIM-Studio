@@ -16,6 +16,7 @@ TagManager:
   - magicdown
   - getmagicup
   - getmagicdown
+  - Canvas
   layers:
   - Default
   - TransparentFX

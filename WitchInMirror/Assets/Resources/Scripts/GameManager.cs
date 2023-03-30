@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager GetInstance() { return instance; }
@@ -34,13 +35,87 @@ public class GameManager : MonoBehaviour
 
     #region 씬
     [Header("씬")]
-    public List<GameObject> listGUIScenes;
     public Action SceneUpdate = null;
     public E_SCENE curScene;
-    public GameObject pausePanel;
+
+
+    public void EventSenceChange(int idx)
+    {
+        Debug.Log("check");
+        SetGUIState((E_SCENE)idx);
+    }
+
+    #endregion
+
+
+    #region UI
+    [Header("UI")]
+    public List<GameObject> listGUIScenes;
     private bool isPause = false;
+    public GameObject pausePanel;
+    public GameObject objCanvas;
+    public TextMeshProUGUI textScore;
+
+    [Header("사운드")]
+    public AudioMixer audioMixer;
+    public Slider BGMSlider;
+    public Slider SFXSlider;
+    public AudioSource audioSource;
+    public AudioSource bgmSource;
+    public List<AudioClip> audioClip;
+
+    public GameObject bar;
+    public GameObject magicbar;
 
 
+    void UIStart()
+    {
+        objCanvas = GameObject.FindGameObjectWithTag("Canvas");
+        audioSource = this.GetComponent<AudioSource>();
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump1"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump2"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump3"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump4"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump5"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump7"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump8"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump9"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump12"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump13"));
+        audioSource.clip = audioClip[0];
+
+        audioSource.clip = bgmSource.clip;
+        UIratio();
+
+        SFXSlider.value = 0.5f;
+        BGMSlider.value = 0.5f;
+
+    }
+
+    void UIUpdate()
+    {
+        MagicUI();
+        //UpdateGUIState();
+    }
+
+
+    void SoundPlay(int soundnumber)
+    {
+        if (soundnumber > audioClip.Count) { return; }
+        audioSource.clip = audioClip[soundnumber];
+
+        audioSource.Play();
+    }
+
+
+
+    public void UIratio()
+    {
+        RectTransform rtCanvas = objCanvas.GetComponent<RectTransform>();
+        listGUIScenes[0].GetComponent<RectTransform>().sizeDelta = rtCanvas.sizeDelta;
+        listGUIScenes[1].GetComponent<RectTransform>().sizeDelta = rtCanvas.sizeDelta;
+        listGUIScenes[2].GetComponent<RectTransform>().sizeDelta = rtCanvas.sizeDelta;
+    }
 
     public void ShowGUIState(E_SCENE scene)
     {
@@ -76,6 +151,7 @@ public class GameManager : MonoBehaviour
                 break;
             case E_SCENE.GAMEOVER:
                 Time.timeScale = 0;
+                textScore.text = "Score : " + Score;
                 //SceneUpdate -= UIUpdate;
                 SceneUpdate -= CharUpdate;
                 SceneUpdate -= MapUpdate;
@@ -100,74 +176,6 @@ public class GameManager : MonoBehaviour
     //            break;
     //    }
     //}
-
-    public void EventSenceChange(int idx)
-    {
-        Debug.Log("check");
-        SetGUIState((E_SCENE)idx);
-    }
-
-    #endregion
-
-
-    #region UI
-
-    [Header("사운드")]
-    public AudioMixer audioMixer;
-    public Slider BGMSlider;
-    public Slider SFXSlider;
-    public AudioSource audioSource;
-    public AudioSource bgmSource;
-    public List<AudioClip> audioClip;
-
-    public GameObject bar;
-    public GameObject magicbar;
-
-
-    void UIStart()
-    {
-        
-        audioSource = this.GetComponent<AudioSource>();
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump1"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump2"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump3"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump4"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump5"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump7"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump8"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump9"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump12"));
-        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump13"));
-        audioSource.clip = audioClip[0];
-
-        audioSource.clip = bgmSource.clip;
-
-
-
-        //float vol;
-        //audioMixer.GetFloat("SFX", out vol);
-        //SFXSlider.value = vol;
-        SFXSlider.value = 0.5f;
-
-    }
-
-    void UIUpdate()
-    {
-        MagicUI();
-        //UpdateGUIState();
-    }
-
-
-    void SoundPlay(int soundnumber)
-    {
-        if (soundnumber > audioClip.Count) { return; }
-        audioSource.clip = audioClip[soundnumber];
-
-        audioSource.Play();
-    }
-
-
-
 
 
 
@@ -256,6 +264,7 @@ public class GameManager : MonoBehaviour
     public float magicstopTime;
     public bool magicReverse;
     public bool magicStop;
+    public float magicDecreasePer = 15f;
 
     [Header("시스템")]
     public float time;
@@ -286,7 +295,10 @@ public class GameManager : MonoBehaviour
         GroundCheck?.Invoke();//액션에 함수가 들어왔을때 실행 아닐땐 넘기기
     }
 
-
+    public void UpScore(int _point)
+    {
+        Score += _point;
+    }
 
     //거리로 점프 체크
     public void GroundChecking()
@@ -363,9 +375,9 @@ public class GameManager : MonoBehaviour
         {
             if (magicReverse)
             {
-                magic += Time.deltaTime * 30f;
+                magic += Time.deltaTime * magicDecreasePer;
             }
-            else magic -= Time.deltaTime * 30f;
+            else magic -= Time.deltaTime * magicDecreasePer;
         }
         MagicCheck();
     }
@@ -605,7 +617,6 @@ public class GameManager : MonoBehaviour
     void MapStart()
     {
         mapEditor.MapEditorInit();
-        
     }
 
     void MapUpdate()
