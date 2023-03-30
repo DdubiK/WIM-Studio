@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
     {
         MagicUI();
         //UpdateGUIState();
+        MagicLow();
     }
 
 
@@ -232,6 +233,18 @@ public class GameManager : MonoBehaviour
             magic = Maxmagic;
             SetGUIState(E_SCENE.GAMEOVER);
             return;
+        }
+    }
+
+    public void MagicLow()
+    {
+        if (magic <= 60)
+        {
+            Debug.Log("QQ");
+        }
+        else if (magic >= 360)
+        {
+            Debug.Log("WW");
         }
     }
 
