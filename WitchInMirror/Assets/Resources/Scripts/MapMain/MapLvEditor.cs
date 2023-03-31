@@ -231,10 +231,11 @@ public class MapLvEditor : MonoBehaviour
                     //a.ID = DBLoader.MapPatternArray.Pattern[4][resourceidx];
                     a.colcheck = false;
                     a.Obj.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                    a.Obj.transform.position = Poolposlist[poolposidx];
                     //Debug.Log("arrayrint:" + array1[resourceidx] + ",ID:" + b.ID+"resourceidx"+resourceidx);
                     if (a.ID == 0) //없음
                     {
-                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        a.Obj.GetComponent<SpriteRenderer>().sprite = null; 
                     }
                     else if (a.ID == 1) //장애물
                     {
@@ -259,10 +260,10 @@ public class MapLvEditor : MonoBehaviour
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                        }
+                        }   
                         //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile02");
                     }
-                    else if (a.ID == 3) //아이템
+                    else if (a.ID == 3) //마력
                     {
                         int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
@@ -281,7 +282,7 @@ public class MapLvEditor : MonoBehaviour
                         //a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile03");
                     }
                     //a.Obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
-                    a.Obj.transform.position = Poolposlist[poolposidx];
+
                     resourceidx++;
                     poolposidx++;
                     if (resourceidx >= some[Randoms].Length)

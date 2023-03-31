@@ -116,61 +116,16 @@ public class MapEditor : MonoBehaviour
                 GameObject obj = new GameObject();
                 obj.name = "obj" + (i + 1) + "," + (j + 1);
                 obj.AddComponent<SpriteRenderer>();
-                //obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Map/Texture/Projectile01");
-                obj.transform.position = Initposlist[posidx];
-                //obj.transform.position = new Vector3(2.5f + (i / 3f), 1 - (j / 3f), 0);
                 runobj.Add(obj);
                 RuningObject a = new RuningObject();
                 a.ID = 0;
-                //Debug.Log("arrayrint:" + array[resourceidx] + ",ID:" + a.ID);
                 a.Obj = obj;
                 //오브젝트 ID 값에 따른 리소스 할당
                 if (a.ID == 0) //없음
                 {
                     a.Obj.GetComponent<SpriteRenderer>().sprite = null;
                 }
-                else if (a.ID == 1) //장애물
-                {
-                    int percent = Random.Range(0, 10);
-                    string resourcePath = resourcePaths[a.ID];
-                    if (percent <= obstaclePercent)
-                    {
-                        if (resourcePath != null)
-                        {
-                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                        }
-                    }
-                    else
-                    {
-                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
-                        a.ID = 0;
-                    }
-                }
-                else if (a.ID == 2) //마력
-                {
-                    string resourcePath = resourcePaths[a.ID];
-                    if (resourcePath != null)
-                    {
-                        a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                    }
-                }
-                else if (a.ID == 3) //아이템
-                {
-                    int percent = Random.Range(0, 10);
-                    string resourcePath = resourcePaths[a.ID];
-                    if (percent <= itemPercent)
-                    {
-                        if (resourcePath != null)
-                        {
-                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                        }
-                    }
-                    else
-                    {
-                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
-                        a.ID = 0;
-                    }
-                }
+                obj.transform.position = Initposlist[posidx];
                 a.Obj.GetComponent<SpriteRenderer>().sortingOrder = 2;
                 queActive.Enqueue(a);
                 //오브젝트 리소스 idx 값 증가 , 벡터 idx값 증가
@@ -210,7 +165,7 @@ public class MapEditor : MonoBehaviour
     #region 오브젝트 풀링
     public void pulling()
     {
-
+        int RandomPattern = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count);
         if (queInActive.Count > 36 && (2.5f - last_obj.Obj.transform.position.x) >= 0.3f)
         {
             for (int i = 0; i < 6; i++)
@@ -218,9 +173,10 @@ public class MapEditor : MonoBehaviour
                 for (int j = 0; j < 6; j++)
                 {
                     RuningObject a = queInActive.Dequeue();
-                    a.ID = DBLoader.MapPatternArray.Pattern[3][resourceidx];
+                    a.ID = DBLoader.MapPatternArray.Pattern[RandomPattern][resourceidx];
                     a.colcheck = false;
                     a.Obj.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                    a.Obj.transform.position = Poolposlist[poolposidx];
                     if (a.ID == 0) //없음
                     {
                         a.Obj.GetComponent<SpriteRenderer>().sprite = null;
@@ -248,7 +204,7 @@ public class MapEditor : MonoBehaviour
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                        }
+                        }   
                     }
                     else if (a.ID == 3) //아이템
                     {
@@ -267,10 +223,9 @@ public class MapEditor : MonoBehaviour
                             a.ID = 0;
                         }
                     }
-                    a.Obj.transform.position = Poolposlist[poolposidx];
                     resourceidx++;
                     poolposidx++;
-                    if (resourceidx >= DBLoader.MapPatternArray.Pattern[3].Length) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
+                    if (resourceidx >= DBLoader.MapPatternArray.Pattern[RandomPattern].Length) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
                     { 
                         resourceidx = 0;
                     }
