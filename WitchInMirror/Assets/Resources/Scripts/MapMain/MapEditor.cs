@@ -229,24 +229,24 @@ public class MapEditor : MonoBehaviour
                         }
 
                     }
-                    else if (a.ID == 4) //마력
-                    {
-                        int percent = Random.Range(0, 10);
-                        string resourcePath = resourcePaths[a.ID];
-                        if (percent <= itemPercent)
-                        {
-                            if (resourcePath != null)
-                            {
-                                a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                            }
-                        }
-                        else
-                        {
-                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
-                            a.ID = 0;
-                        }
+                    //else if (a.ID == 4) //마력
+                    //{
+                    //    int percent = Random.Range(0, 10);
+                    //    string resourcePath = resourcePaths[a.ID];
+                    //    if (percent <= itemPercent)
+                    //    {
+                    //        if (resourcePath != null)
+                    //        {
+                    //            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                    //        a.ID = 0;
+                    //    }
 
-                    }
+                    //}
                     resourceidx++;
                     poolposidx++;
                     if (resourceidx >= DBLoader.MapPatternArray.Pattern[RandomPattern].Length) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
@@ -359,7 +359,7 @@ public class MapEditor : MonoBehaviour
                 if (!element.colcheck)
                 {
                     bool p1 = false;
-                    Debug.Log("충돌네임:" + element.Obj.name+"element ID:"+element.ID);
+                    //Debug.Log("충돌네임:" + element.Obj.name+"element ID:"+element.ID);
                     bool p2 = false;
                     if((element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f){
                         p1 = true;
@@ -405,6 +405,7 @@ public class MapEditor : MonoBehaviour
                                     Eobj.player = GameManager.instance.player[1];
                                     Eobj.downCheck = true;
                                 }
+                                GameManager.instance.SoundPlay(1);
                                 Eobj.transform.position = element.Obj.transform.position;
                                 Eobj.Get();
                                 Eobj.Pooling();

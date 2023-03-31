@@ -45,6 +45,55 @@ public class GameManager : MonoBehaviour
         SetGUIState((E_SCENE)idx);
     }
 
+    //public void Initialize(GameManager gameManager)
+    //{
+    //    gameObject.SetActive(true);
+    //    SetGUIState(curScene);
+    //}
+
+    public void SetGUIState(E_SCENE scene)
+    {
+        switch (scene)
+        {
+            case E_SCENE.TITLE:
+                Time.timeScale = 0;
+                break;
+            case E_SCENE.PLAY:
+                Time.timeScale = 1;
+                mapEditor.ResetPooling();
+                resetCharState();
+                SceneUpdate += CharUpdate;
+                SceneUpdate += MapUpdate;
+                break;
+            case E_SCENE.GAMEOVER:
+                Time.timeScale = 0;
+                textScore.text = "" + Score;
+                //SceneUpdate -= UIUpdate;
+                SceneUpdate -= CharUpdate;
+                SceneUpdate -= MapUpdate;
+                break;
+        }
+        ShowGUIState(scene);
+        curScene = scene;
+    }
+
+    //public void UpdateGUIState()
+    //{
+    //    switch (curScene)
+    //    {
+    //        case E_SCENE.PLAY:
+    //            Time.timeScale = 1;
+    //            break;
+    //        case E_SCENE.TITLE:
+    //            Time.timeScale = 0;
+    //            break;
+    //        case E_SCENE.GAMEOVER:
+    //            Time.timeScale = 0;
+    //            break;
+    //    }
+    //}
+
+
     #endregion
 
 
@@ -99,7 +148,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void SoundPlay(int soundnumber)
+    public void SoundPlay(int soundnumber)
     {
         if (soundnumber > audioClip.Count) { return; }
         audioSource.clip = audioClip[soundnumber];
@@ -129,57 +178,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //public void Initialize(GameManager gameManager)
-    //{
-    //    gameObject.SetActive(true);
-    //    SetGUIState(curScene);
-    //}
-
-    public void SetGUIState(E_SCENE scene)
-    {
-        switch (scene)
-        {
-            case E_SCENE.TITLE:
-                Time.timeScale = 0;
-                break;
-            case E_SCENE.PLAY:
-                Time.timeScale = 1;
-                mapEditor.ResetPooling();
-                resetCharState();
-                SceneUpdate += CharUpdate;
-                SceneUpdate += MapUpdate;
-                break;
-            case E_SCENE.GAMEOVER:
-                Time.timeScale = 0;
-                //textScore.text = "Score : " + Score;
-                //SceneUpdate -= UIUpdate;
-                SceneUpdate -= CharUpdate;
-                SceneUpdate -= MapUpdate;
-                break;
-        }
-        ShowGUIState(scene);
-        curScene = scene;
-    }
-
-    //public void UpdateGUIState()
-    //{
-    //    switch (curScene)
-    //    {
-    //        case E_SCENE.PLAY:
-    //            Time.timeScale = 1;
-    //            break;
-    //        case E_SCENE.TITLE:
-    //            Time.timeScale = 0;
-    //            break;
-    //        case E_SCENE.GAMEOVER:
-    //            Time.timeScale = 0;
-    //            break;
-    //    }
-    //}
-
-
-
-
 
     public void MagicLow()
     {
@@ -192,6 +190,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("WW");
         }
     }
+
+
     #endregion
 
 
@@ -323,15 +323,15 @@ public class GameManager : MonoBehaviour
     public void GroundChecking()
     {
         //distanc로 거리 체크 하여 설정
-        //Debug.Log(Vector3.Distance(player[0].transform.position, disToGround));
-        //Debug.Log(Vector3.Distance(player[0].transform.position, disToJumpPos));
+        //Debug.Log(Vector2.Distance(player[0].transform.position, disToGround));
+        //Debug.Log(Vector2.Distance(player[0].transform.position, disToJumpPos));
 
-        if (!isGround && Vector3.Distance(player[0].transform.position, disToJumpPos) < 0.5f)
+        if (!isGround && Vector2.Distance(player[0].transform.position, disToJumpPos) < 0.5f)
         {
             jumpUp = false;
         }
 
-        if (!isGround && !jumpUp && Vector3.Distance(player[0].transform.position,disToGround)<=0.5f)
+        if (!isGround && !jumpUp && Vector2.Distance(player[0].transform.position,disToGround)<=0.5f)
         {
             isGround = true;
             GroundCheck -= GroundChecking;
@@ -410,16 +410,16 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    //마력 감소율 시간에 따라 증가
     public void Magic()
     {
         if (magicStop == false)
         {
             if (magicReverse)
             {
-                magic += Time.deltaTime * magicDecreasePer;
+                magic += Time.deltaTime * magicDecreasePer*((int)time*0.1f);
             }
-            else magic -= Time.deltaTime * magicDecreasePer;
+            else magic -= Time.deltaTime * magicDecreasePer * ((int)time * 0.1f);
         }
         MagicCheck();
     }
