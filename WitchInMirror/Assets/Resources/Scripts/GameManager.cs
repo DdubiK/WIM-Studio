@@ -417,9 +417,9 @@ public class GameManager : MonoBehaviour
         {
             if (magicReverse)
             {
-                magic += Time.deltaTime * magicDecreasePer*((int)time*0.1f);
+                magic += Time.deltaTime * magicDecreasePer*((int)playtime * 0.1f);
             }
-            else magic -= Time.deltaTime * magicDecreasePer * ((int)time * 0.1f);
+            else magic -= Time.deltaTime * magicDecreasePer * ((int)playtime * 0.1f);
         }
         MagicCheck();
     }
@@ -433,7 +433,7 @@ public class GameManager : MonoBehaviour
         isGround = true;
         jumpUp = false;
         Score = 0;
-
+        playtime =0;
     }
 
 
