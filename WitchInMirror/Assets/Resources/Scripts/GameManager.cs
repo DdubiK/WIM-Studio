@@ -19,11 +19,11 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        //SetGUIState(E_SCENE.TITLE);
+        SetGUIState(E_SCENE.TITLE);
         CharStart();
-        //UIStart();
-        //MapStart();
-        //SceneUpdate += UIUpdate;
+        UIStart();
+        MapStart();
+        SceneUpdate += UIUpdate;
     }
 
     // Update is called once per frame
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         audioSource.clip = audioClip[0];
 
         audioSource.clip = bgmSource.clip;
-        //UIratio();
+        UIratio();
 
         SFXSlider.value = 0.5f;
         BGMSlider.value = 0.5f;
