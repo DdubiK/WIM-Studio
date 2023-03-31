@@ -105,6 +105,7 @@ public class MapEditor : MonoBehaviour
     null,
     "Map/Texture/Projectile01",
     "Map/Texture/Projectile02",
+    "Map/Texture/Projectile02",
     "Map/Texture/Projectile03",
 };
     public void createobj()
@@ -204,9 +205,13 @@ public class MapEditor : MonoBehaviour
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                        }   
-                    }
-                    else if (a.ID == 3) //아이템
+                        }
+                        if (j >= 3 && j < 6)
+                        {
+                            a.ID = 3;
+                        }
+                    }                
+                    else if (a.ID == 3) //마력
                     {
                         int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
@@ -222,6 +227,25 @@ public class MapEditor : MonoBehaviour
                             a.Obj.GetComponent<SpriteRenderer>().sprite = null;
                             a.ID = 0;
                         }
+
+                    }
+                    else if (a.ID == 4) //마력
+                    {
+                        int percent = Random.Range(0, 10);
+                        string resourcePath = resourcePaths[a.ID];
+                        if (percent <= itemPercent)
+                        {
+                            if (resourcePath != null)
+                            {
+                                a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                            }
+                        }
+                        else
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                            a.ID = 0;
+                        }
+
                     }
                     resourceidx++;
                     poolposidx++;
@@ -335,6 +359,7 @@ public class MapEditor : MonoBehaviour
                 if (!element.colcheck)
                 {
                     bool p1 = false;
+                    Debug.Log("충돌네임:" + element.Obj.name+"element ID:"+element.ID);
                     bool p2 = false;
                     if((element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f){
                         p1 = true;
@@ -361,11 +386,18 @@ public class MapEditor : MonoBehaviour
                                 }
                                 break;
                             case 1:
-                                GameManager.instance.MagicUpDown();
+
+                                //Debug.Log("충돌"+element.Obj.name);
+                                break;
+                            case 2:
+                                
+                            case 3:
+                                if(element.ID==2) GameManager.instance.MagicUp();
+                                if (element.ID == 3) GameManager.instance.MagicDown();
                                 GameManager.instance.UpScore(10);
                                 Effect Eobj = GetEffect();
                                 if (p1)
-                                {   
+                                {
                                     Eobj.player = GameManager.instance.player[0];
                                 }
                                 if (p2)
@@ -378,12 +410,13 @@ public class MapEditor : MonoBehaviour
                                 Eobj.Pooling();
                                 Sprite b = element.Obj.GetComponent<SpriteRenderer>().sprite;
                                 Eobj.GetComponent<SpriteRenderer>().sprite = b;
-                                //Debug.Log("충돌"+element.Obj.name);
+                                element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
-                            case 2:
+                            case 4:
+                                element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
                         }
-                        element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        
                         element.colcheck = true;
                     }
                     

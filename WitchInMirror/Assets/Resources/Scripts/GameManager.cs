@@ -366,7 +366,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void MagicUpDown()
+    public void MagicUp()
     {
         if (itemReverse == false)
         {
@@ -386,6 +386,29 @@ public class GameManager : MonoBehaviour
         }
         Score += 100;
     }
+
+    public void MagicDown()
+    {
+        if (itemReverse == false)
+        {
+            if (magicStop == false)
+            {
+                magic -= upMagic;
+                Debug.Log("+magic");
+            }
+        }
+        else
+        {
+            if (magicStop == false)
+            {
+                magic += upMagic;
+                Debug.Log("-magic");
+            }
+        }
+        Score += 100;
+    }
+
+
 
 
     public void Magic()
