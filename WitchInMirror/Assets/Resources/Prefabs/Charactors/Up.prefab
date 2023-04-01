@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1631680950187497127}
   - component: {fileID: 1631680950187497124}
   - component: {fileID: 1631680950187497125}
+  - component: {fileID: 952782019593515393}
   m_Layer: 0
   m_Name: Up
   m_TagString: item
@@ -117,6 +118,22 @@ MonoBehaviour:
   time: 0
   speed: 0
   getSpeed: 0
+  upMagic: 10
   player: {fileID: 0}
   isGet: 0
   isBack: 0
+  effect: {fileID: 0}
+--- !u!114 &952782019593515393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631680950187497122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d001904765a7b4598b465ad1f97b84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  getMagic: {fileID: 6537462732729559021, guid: 3bd49e67ec224f845b167a159378338e, type: 3}
