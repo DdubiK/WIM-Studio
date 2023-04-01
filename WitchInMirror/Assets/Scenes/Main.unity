@@ -487,7 +487,6 @@ GameObject:
   m_Component:
   - component: {fileID: 303108850}
   - component: {fileID: 303108853}
-  - component: {fileID: 303108851}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -510,18 +509,6 @@ Transform:
   m_Father: {fileID: 2111051783}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &303108851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303108849}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde2be4424136224e8016ff35bad5d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &303108853
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -883,18 +870,14 @@ MonoBehaviour:
   Minmagic: 0
   magic: 200
   upMagic: 10
-  magicstopTime: 0
   magicReverse: 0
   magicStop: 0
   magicDecreasePer: 10
-  time: 0
   playtime: 0
   itemReverse: 0
-  itemreverseTime: 0
   mist: {fileID: 418039970}
   isDamaged: 0
   isShield: 0
-  coroutineStart1: 0
   coroutineStart2: 0
   mapEditor: {fileID: 431284961}
 --- !u!114 &431284959
@@ -1023,7 +1006,7 @@ MonoBehaviour:
   Player1: {fileID: 2111051777}
   Player2: {fileID: 4356403032371714052}
   obstaclePercent: 0
-  itemPercent: 0
+  itemPercent: 5
   Initposlist:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -1208,16 +1191,19 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   posidx: 0
   poolposidx: 0
-  last_obj:
-    ID: 0
-    Obj: {fileID: 0}
-    colcheck: 0
-    effect: {fileID: 0}
   resourcePaths:
   - 
   - Map/Texture/Projectile01
   - Map/Texture/Projectile02
   - Map/Texture/Projectile03
+  - Map/Texture/Projectile03
+  - Map/Texture/Projectile03
+  - Map/Texture/Projectile03
+  last_obj:
+    ID: 0
+    Obj: {fileID: 0}
+    colcheck: 0
+    effect: {fileID: 0}
   Effectobj: []
   Effectani: []
   aniList: []
@@ -3255,6 +3241,62 @@ PrefabInstance:
     - target: {fileID: 3155737030511631254, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
       propertyPath: m_Name
       value: Mist
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155737030511631254, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119752341055945020, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054191851278795, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054191879079970, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054192101435392, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054192613128217, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054192621747155, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054192757670064, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054192930445220, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054193094499597, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054193195744156, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054193349809362, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054193386718107, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907054193561497477, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
@@ -5580,18 +5622,6 @@ PrefabInstance:
       objectReference: {fileID: 431284957}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
---- !u!114 &2127251988927530244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7434585555813971269}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde2be4424136224e8016ff35bad5d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &3694000733399434662
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6070,7 +6100,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4979139974642752990}
   - component: {fileID: 3694000733399434662}
-  - component: {fileID: 2127251988927530244}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged

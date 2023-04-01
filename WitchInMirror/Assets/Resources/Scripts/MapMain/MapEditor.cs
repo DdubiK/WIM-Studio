@@ -8,7 +8,26 @@ public class MapEditor : MonoBehaviour
     {
         SetPosList(24, 6, ref Initposlist);
         SetPosList(6, 6, ref Poolposlist, 2.5f);
+        PathInit();
         createobj();
+
+
+    }
+    public void PathInit()
+    {
+        resourcePaths = new string[] //아이템 리소스 파일 위치
+{
+    null,
+    "Map/Texture/Enemy01_idle",
+    "Map/Texture/Projectile01",
+    "Map/Texture/Projectile02",
+    "Map/Texture/Projectile03",
+    "Map/Texture/Projectile04",
+    "Map/Texture/Projectile05",
+    "Map/Texture/Projectile06",
+    "Map/Texture/Item03_Heart",
+    "Map/Texture/Item01_PowerUp"
+};
     }
 
 
@@ -35,6 +54,9 @@ public class MapEditor : MonoBehaviour
 
     public int posidx = 0;
     public int poolposidx = 0;
+
+    int resourceidx = 0; //오브젝트 리소스 접근 idx
+    public string[] resourcePaths; //아이템 리소스 파일 위치
 
     public RuningObject last_obj;
     #region 리스타트 초기화
@@ -99,15 +121,6 @@ public class MapEditor : MonoBehaviour
 
     #region 첫 Pattern 생성
 
-    int resourceidx = 0; //오브젝트 리소스 접근 idx
-    public string[] resourcePaths = new string[] //아이템 리소스 파일 위치
-{
-    null,
-    "Map/Texture/Projectile01",
-    "Map/Texture/Projectile02",
-    "Map/Texture/Projectile02",
-    "Map/Texture/Projectile03",
-};
     public void createobj()
     {
         for (int i = 0; i < 24; i++)
@@ -138,7 +151,7 @@ public class MapEditor : MonoBehaviour
                 }
 
                 if (resourceidx >= 18) // 오브젝트 인덱스가 배열 범위를 벗어나면 0으로 초기화
-                { 
+                {
                     resourceidx = 0;
                 }
             }
@@ -180,9 +193,47 @@ public class MapEditor : MonoBehaviour
                     a.Obj.transform.position = Poolposlist[poolposidx];
                     if (a.ID == 0) //없음
                     {
-                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        int percent = Random.Range(0, 100);
+                        if (percent >= itemPercent)
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        //if (percent < itemPercent)
+                        //{
+                        //    int ran = Random.Range(0, 100);
+                        //    if (ran <= 65) a.ID = 0; //안나올 확률
+                        //    if (ran <= 77 && ran > 65) a.ID = 4;
+                        //    if (ran <= 85 && ran > 77) a.ID = 5;
+                        //    if (ran <= 90 && ran > 85) a.ID = 6;
+                        //    if (ran <= 93 && ran > 90) a.ID = 7;
+                        //    if (ran <= 96 && ran > 93) a.ID = 8;
+                        //    if (ran <= 100 && ran > 96) a.ID = 9;
+                        //}
+                        if (percent < itemPercent)
+                        {
+                            int[] itemProbabilities = { 65, 12, 8, 3, 3, 4, 5 }; //각 4,5,6,7,8,9 인덱스 확률
+                            int ran = Random.Range(0, 100);
+                            int cumulativeProbability = 0;
+                            for (int k = 0; k < itemProbabilities.Length; k++)
+                            {
+                                cumulativeProbability += itemProbabilities[k];
+                                if (ran < cumulativeProbability)
+                                {
+                                    a.ID = k + 4;
+                                    break;
+                                }
+                            }
+                            if (j >= 3 && j < 6)
+                            {
+                                int downitemper = 7;
+                                int reran = Random.Range(0, 10);
+                                if(reran <= downitemper)
+                                {
+                                    a.ID = 0;
+                                    a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                }
+                            }
+                        }
                     }
-                    else if (a.ID == 1) //장애물
+                    if (a.ID == 1) //장애물
                     {
                         int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
@@ -199,7 +250,7 @@ public class MapEditor : MonoBehaviour
                             a.ID = 0;
                         }
                     }
-                    else if (a.ID == 2) //마력
+                    if (a.ID == 2) //마력
                     {
                         string resourcePath = resourcePaths[a.ID];
                         if (resourcePath != null)
@@ -210,47 +261,30 @@ public class MapEditor : MonoBehaviour
                         {
                             a.ID = 3;
                         }
-                    }                
-                    else if (a.ID == 3) //마력
+                    }
+                    if (a.ID == 3) //마력
                     {
-                        int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
-                        if (percent <= itemPercent)
+                        if (resourcePath != null)
                         {
-                            if (resourcePath != null)
-                            {
-                                a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                            }
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
                         }
-                        else
+                    }
+                    if (a.ID > 3) //아이템(4 : 마력대폭증가 , 5: 마력대폭감소 , 6: 쉴드 , 7: 체질변화 , 8: 아이템성질변화 , 9: 거대화 )  
+                    {
+                        //int percent = Random.Range(0, 10);
+                        string resourcePath = resourcePaths[a.ID];
+
+                        if (resourcePath != null)
                         {
-                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
-                            a.ID = 0;
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
                         }
 
                     }
-                    //else if (a.ID == 4) //마력
-                    //{
-                    //    int percent = Random.Range(0, 10);
-                    //    string resourcePath = resourcePaths[a.ID];
-                    //    if (percent <= itemPercent)
-                    //    {
-                    //        if (resourcePath != null)
-                    //        {
-                    //            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
-                    //        a.ID = 0;
-                    //    }
-
-                    //}
                     resourceidx++;
                     poolposidx++;
                     if (resourceidx >= DBLoader.MapPatternArray.Pattern[RandomPattern].Length) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
-                    { 
+                    {
                         resourceidx = 0;
                     }
                     queActive.Enqueue(a); //마지막 오브젝트 정보 참조
@@ -258,6 +292,7 @@ public class MapEditor : MonoBehaviour
                     {
                         last_obj = a;
                     }
+                    //Debug.Log("obj:" + a.Obj.name + ",ID:" + a.ID);
                 }
             }
             poolposidx = 0;
@@ -358,13 +393,18 @@ public class MapEditor : MonoBehaviour
 
                 if (!element.colcheck)
                 {
+                    float checkDistance = 0;
+                    if (!GameManager.instance.magicStop) checkDistance = 0.15f;
+                    if (GameManager.instance.magicStop) checkDistance = 0.3f;
+
                     bool p1 = false;
                     //Debug.Log("충돌네임:" + element.Obj.name+"element ID:"+element.ID);
                     bool p2 = false;
-                    if((element.Obj.transform.position - Player1.transform.position).magnitude < 0.15f){
+                    if ((element.Obj.transform.position - Player1.transform.position).magnitude < checkDistance)
+                    {
                         p1 = true;
                     }
-                    if ((element.Obj.transform.position - Player2.transform.position).magnitude < 0.15f)
+                    if ((element.Obj.transform.position - Player2.transform.position).magnitude < checkDistance)
                     {
                         p2 = true;
                     }
@@ -378,21 +418,22 @@ public class MapEditor : MonoBehaviour
                             case 0:
                                 //Method 실행
                                 //이펙트 생성 및 실행
-                                if (element.effect)
-                                {
-                                    element.effect.AddComponent<Animator>();
-                                    Animator ani = element.effect.GetComponent<Animator>();
-                                    ani.runtimeAnimatorController = aniList[0].runtimeAnimatorController;
-                                }
+                                //if (element.effect)
+                                //{
+                                //    element.effect.AddComponent<Animator>();
+                                //    Animator ani = element.effect.GetComponent<Animator>();
+                                //    ani.runtimeAnimatorController = aniList[0].runtimeAnimatorController;
+                                //}
                                 break;
                             case 1:
+                                Debug.Log("장애물 1");
+                                GameManager.instance.Damaged();
 
                                 //Debug.Log("충돌"+element.Obj.name);
                                 break;
                             case 2:
-                                
                             case 3:
-                                if(element.ID==2) GameManager.instance.MagicUp();
+                                if (element.ID == 2) GameManager.instance.MagicUp();
                                 if (element.ID == 3) GameManager.instance.MagicDown();
                                 GameManager.instance.UpScore(10);
                                 Effect Eobj = GetEffect();
@@ -414,13 +455,36 @@ public class MapEditor : MonoBehaviour
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
                             case 4:
+                            case 5:
+                                if (element.ID == 4) GameManager.instance.MagicItem(1);
+                                if (element.ID == 5) GameManager.instance.MagicItem(2);
+                                Debug.Log("아이템 4,5 == 마력 대폭 증가/감소 아이템");
+                                element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                break;
+                            case 6:
+                                Debug.Log("아이템 6 == 쉴드");
+                                GameManager.instance.ShieldItem();
+                                element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                break;
+                            case 7:
+                                Debug.Log("아이템 7 == 체질변화(지속감소되는 마력이 증가/감소)");
+                                GameManager.instance.MagicReverseItem();
+                                element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                break;
+                            case 8:
+                                Debug.Log("아이템 8 == 아이템성질변화(+면 -로 반대로 10초 유지)");
+                                GameManager.instance.ItemReverseItem();
+                                element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                break;
+                            case 9:
+                                Debug.Log("아이템 9 == 거대화");
+                                GameManager.instance.MagicStopItem();
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
                         }
-                        
                         element.colcheck = true;
                     }
-                    
+
                 }
                 //element.Obj.transform.position
             }

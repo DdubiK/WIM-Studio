@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameManager GetInstance() { return instance; }
     public static GameManager instance = null;
 
-    
-    
+
+
     private void Awake()
     {
         if (!instance) instance = this;
@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviour
     {
         audioMixer.SetFloat("BGM", Mathf.Log10(BGMSlider.value) * 20);
     }
-    
+
     public void SetSFXVolume()
     {
         audioMixer.SetFloat("SFX", Mathf.Log10(SFXSlider.value) * 20);
@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log("GameOver");
             return;
         }
-        if (magic >= Maxmagic) 
+        if (magic >= Maxmagic)
         {
             magic = Maxmagic;
             SetGUIState(E_SCENE.GAMEOVER);
@@ -280,18 +280,16 @@ public class GameManager : MonoBehaviour
     public float Minmagic = 0;
     public float magic;
     public float upMagic = 10f;
-    public float magicstopTime;
+    //public float magicstopTime;
     public bool magicReverse;
     public bool magicStop;
     public float magicDecreasePer = 15f;
 
     [Header("시스템")]
-    public float time;
+    //public float time;
     public float playtime;
     public bool itemReverse;
-    public float itemreverseTime;
-
-
+    //public float itemreverseTime;
 
     void CharStart()
     {
@@ -330,14 +328,12 @@ public class GameManager : MonoBehaviour
         {
             jumpUp = false;
         }
-
-        if (!isGround && !jumpUp && Vector2.Distance(player[0].transform.position,disToGround)<=0.5f)
+        if (!isGround && !jumpUp && Vector2.Distance(player[0].transform.position, disToGround) <= 0.5f)
         {
             isGround = true;
             GroundCheck -= GroundChecking;
             return;
         }
-        
     }
 
 
@@ -355,13 +351,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void timer()
     {
-        time += Time.deltaTime;
+        //time += Time.deltaTime;
         playtime += Time.deltaTime;
-        itemreverseTime += Time.deltaTime;
-        magicstopTime += Time.deltaTime;
+        //itemreverseTime += Time.deltaTime;
+        //magicstopTime += Time.deltaTime;
     }
 
 
@@ -374,6 +369,11 @@ public class GameManager : MonoBehaviour
             {
                 magic += upMagic;
                 Debug.Log("+magic");
+            }
+            if (magicStop == true)
+            {
+                magic += upMagic;
+                Debug.Log("-magic");
             }
         }
         else
@@ -404,6 +404,11 @@ public class GameManager : MonoBehaviour
                 magic += upMagic;
                 Debug.Log("-magic");
             }
+            if (magicStop == true)
+            {
+                magic += upMagic;
+                Debug.Log("-magic");
+            }
         }
         Score += 100;
     }
@@ -417,13 +422,12 @@ public class GameManager : MonoBehaviour
         {
             if (magicReverse)
             {
-                magic += Time.deltaTime * magicDecreasePer*((int)playtime * 0.1f);
+                magic += Time.deltaTime * magicDecreasePer * ((int)playtime * 0.1f);
             }
             else magic -= Time.deltaTime * magicDecreasePer * ((int)playtime * 0.1f);
         }
         MagicCheck();
     }
-
 
     public void resetCharState()
     {
@@ -433,7 +437,8 @@ public class GameManager : MonoBehaviour
         isGround = true;
         jumpUp = false;
         Score = 0;
-        playtime =0;
+        playtime = 0;
+        resetInit();
     }
 
 
@@ -444,27 +449,58 @@ public class GameManager : MonoBehaviour
     public Mist mist;
     public bool isDamaged;
     public bool isShield;
-    public bool coroutineStart1;//ItemReverseCoroutineStart
+    //public bool coroutineStart1;//ItemReverseCoroutineStart
     public bool coroutineStart2;//MagicStopCoroutineStart
 
+    public void resetInit()
+    {
+
+        //기존 장애물 충돌로 안개 생성 시 없애기
+        mist.mistInit();
+
+        //무적 상태 시 없애기
+        isDamaged = false;
+
+        //쉴드 적용 시 없애기
+        isShield = false;
+        player[0].gameObject.transform.Find("Shield").gameObject.SetActive(false);
+        player[1].gameObject.transform.Find("Shield").gameObject.SetActive(false);
+
+        //체질 변화 원래대로
+        magicReverse = false;
+        StopCoroutine("MagicReverse");
+
+        //아이템 성질 변화 원래대로
+        itemReverse = false;
+        StopCoroutine("ItemReverse");
+
+        //거대화 원래대로
+        magicStop = false;
+        player[0].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        player[1].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        StopCoroutine("MagicStop");
+
+
+    }
 
     public void ShieldItem()
     {
-        if (coroutineStart2 == false)
+        if (magicStop == false)
         {
-            gameObject.transform.Find("Shield").gameObject.SetActive(true);
+            player[0].gameObject.transform.Find("Shield").gameObject.SetActive(true);
+            player[1].gameObject.transform.Find("Shield").gameObject.SetActive(true);
             isShield = true;
         }
     }
 
-
     public void Damaged()
     {
-        if (coroutineStart2 == false)
+        if (magicStop == false)
         {
             if (isShield)
             {
-                gameObject.transform.Find("Shield").gameObject.SetActive(false);
+                player[0].gameObject.transform.Find("Shield").gameObject.SetActive(false);
+                player[1].gameObject.transform.Find("Shield").gameObject.SetActive(false);
                 isShield = false;
             }
             else
@@ -478,88 +514,94 @@ public class GameManager : MonoBehaviour
 
     public void MagicReverseItem()
     {
-        if (magicReverse == false)
-        {
-            Debug.Log("Reverse!!!");
-            magicReverse = true;
-        }
-        else
-        {
-            Debug.Log("Return!!!");
-            magicReverse = false;
-        }
+        StopCoroutine("MagicReverse");
+        StartCoroutine("MagicReverse");
+        //if (magicReverse == false)
+        //{
+        //    Debug.Log("Reverse!!!");
+        //    magicReverse = true;
+        //}
+        //else
+        //{
+        //    Debug.Log("Return!!!");
+        //    magicReverse = false;
+        //}
     }
 
     public void ItemReverseItem()
     {
-        if (itemReverse == false)
-        {
-            if (coroutineStart1 == false)
-            {
-                StartCoroutine("ItemReverse");
-                Debug.Log("ItemReverse!!!");
-            }
-            else if (coroutineStart1 == true)
-            {
-                StopCoroutine("ItemReverse");
-                itemreverseTime = 0;
-                coroutineStart1 = false;
-                StartCoroutine("ItemReverse");
-                //Debug.Log("StopCoroutine");
-            }
-        }
-        else if (GetInstance().itemReverse == true)
-        {
-            if (coroutineStart1 == false)
-            {
-                StartCoroutine("ItemReverse");
-                //Debug.Log("ItemReverse!!!");
-            }
-            else if (coroutineStart1 == true)
-            {
-                StopCoroutine("ItemReverse");
-                itemreverseTime = 0;
-                coroutineStart1 = false;
-                StartCoroutine("ItemReverse");
-                //Debug.Log("StopCoroutine");
-            }
-        }
+        StopCoroutine("ItemReverse");
+        StartCoroutine("ItemReverse");
+        //if (itemReverse == false)
+        //{
+        //    if (coroutineStart1 == false)
+        //    {
+        //        StartCoroutine("ItemReverse");
+        //        Debug.Log("ItemReverse!!!");
+        //    }
+        //    else if (coroutineStart1 == true)
+        //    {
+        //        StopCoroutine("ItemReverse");
+        //        //itemreverseTime = 0;
+        //        coroutineStart1 = false;
+        //        StartCoroutine("ItemReverse");
+        //        //Debug.Log("StopCoroutine");
+        //    }
+        //}
+        //else if (GetInstance().itemReverse == true)
+        //{
+        //    if (coroutineStart1 == false)
+        //    {
+        //        StartCoroutine("ItemReverse");
+        //        //Debug.Log("ItemReverse!!!");
+        //    }
+        //    else if (coroutineStart1 == true)
+        //    {
+        //        StopCoroutine("ItemReverse");
+        //        //itemreverseTime = 0;
+        //        coroutineStart1 = false;
+        //        StartCoroutine("ItemReverse");
+        //        //Debug.Log("StopCoroutine");
+        //    }
+        //}
     }
 
     public void MagicStopItem()
     {
-        if (magicStop == false)
-        {
-            if (coroutineStart2 == false)
-            {
-                StartCoroutine("MagicStop");
-                Debug.Log("magicstop!!!");
-            }
-            else if (coroutineStart2 == true)
-            {
-                StopCoroutine("MagicStop");
-                itemreverseTime = 0;
-                coroutineStart2 = false;
-                StartCoroutine("MagicStop");
-                //Debug.Log("StopCoroutine");
-            }
-        }
-        else if (magicStop == true)
-        {
-            if (coroutineStart2 == false)
-            {
-                StartCoroutine("MagicStop");
-                //Debug.Log("ItemReverse!!!");
-            }
-            else if (coroutineStart2 == true)
-            {
-                StopCoroutine("MagicStop");
-                magicstopTime = 0;
-                coroutineStart2 = false;
-                StartCoroutine("MagicStop");
-                //Debug.Log("StopCoroutine");
-            }
-        }
+        StopCoroutine("MagicStop");
+        StartCoroutine("MagicStop");
+        //if (magicStop == false)
+        //{
+        //    if (coroutineStart2 == false)
+        //    {
+        //        StartCoroutine("MagicStop");
+        //        Debug.Log("magicstop!!!");
+        //    }
+        //    else if (coroutineStart2 == true)
+        //    {
+        //        StopCoroutine("MagicStop");
+        //        //itemreverseTime = 0;
+        //        coroutineStart2 = false;
+        //        StartCoroutine("MagicStop");
+        //        //Debug.Log("StopCoroutine");
+        //    }
+        //}
+        //else if (magicStop == true)
+        //{
+        //    if (coroutineStart2 == false)
+        //    {
+        //        StartCoroutine("MagicStop");
+        //        //Debug.Log("ItemReverse!!!");
+        //    }
+        //    else if (coroutineStart2 == true)
+        //    {
+        //        StopCoroutine("MagicStop");
+        //        magicstopTime = 0;
+        //        coroutineStart2 = false;
+        //        StartCoroutine("MagicStop");
+        //        //Debug.Log("StopCoroutine");
+        //    }
+        //}
     }
 
     public void MagicItem(int _idx)
@@ -578,74 +620,84 @@ public class GameManager : MonoBehaviour
     public void Damage()
     {
         mist.RandomPos();
-        gameObject.layer = 3;
         //gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
         isDamaged = true;
         StartCoroutine("DamageEffect");
         //Invoke("DamageOff", 4f);
-        time += Time.deltaTime;
+        //time += Time.deltaTime;
     }
     public void DamageOff()
     {
-        gameObject.layer = 0;
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        isDamaged = false;
+        player[0].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        player[1].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
     IEnumerator DamageEffect()
     {
         Debug.Log("start~!!!!!!");
-        time = 0;
-        if (time < 2.5f)
+        float timer = 0;
+        while (isDamaged)
         {
-            while (isDamaged == true)
+            timer += Time.deltaTime;
+            if (timer < 2.5f)
             {
+                timer += 0.1f;
+                player[0].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
+                player[1].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
                 yield return new WaitForSeconds(0.1f);
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
+                timer += 0.1f;
+                player[0].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                player[1].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
                 yield return new WaitForSeconds(0.1f);
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-
-                if (time >= 2.5f)
-                {
-                    time = 0f;
-                    isDamaged = false;
-                    DamageOff();
-                }
+            }
+            else
+            {
+                DamageOff();
+                break;
             }
         }
     }
 
     IEnumerator ItemReverse()
     {
-        itemreverseTime = 0;
-        coroutineStart1 = true;
+        itemReverse = true;
+        yield return new WaitForSeconds(3f);
+        itemReverse = false;
+        //Debug.Log("코루틴끝!!!!!!!!!!!!");
 
-        if (itemreverseTime < 10f)
+    }
+    IEnumerator MagicReverse()
+    {
+        Debug.Log("코루틴 시작");
+        switch (magicReverse)
         {
-            GameManager.GetInstance().itemReverse = true;
-            yield return new WaitForSeconds(10f);
-            GameManager.GetInstance().itemReverse = false;
-            itemreverseTime = 0;
-            coroutineStart1 = false;
-            Debug.Log("코루틴끝!!!!!!!!!!!!");
+            case true:
+                magicReverse = false;
+                break;
+            case false:
+                magicReverse = true;
+                break;
         }
+        yield return new WaitForSeconds(10f);
+
+        magicReverse = false;
+        Debug.Log("코루틴 끝");
+
     }
 
     IEnumerator MagicStop()
     {
-        gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
-        magicstopTime = 0;
-        coroutineStart2 = true;
-
-        if (magicstopTime < 4f)
-        {
-            GameManager.GetInstance().magicStop = true;
-            yield return new WaitForSeconds(4f);
-            GameManager.GetInstance().magicStop = false;
-            magicstopTime = 0;
-            coroutineStart2 = false;
-            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
-            Debug.Log("코루틴끝!!!!!!!!!!!!");
-        }
+        Debug.Log("코루틴 시작");
+        magicStop = true;
+        player[0].gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
+        player[1].gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
+        yield return new WaitForSeconds(3f);
+        magicStop = false;
+        player[0].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        player[1].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        Debug.Log("코루틴 끝");
     }
+
 
 
 
@@ -666,13 +718,13 @@ public class GameManager : MonoBehaviour
         mapEditor.moveojb();
         mapEditor.pulling();
     }
-   
+
     void MapReset()
     {
-        
+
     }
 
     #endregion
 
-    
+
 }

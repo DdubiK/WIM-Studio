@@ -670,9 +670,7 @@ MonoBehaviour:
   min: 0
   max: 12
   count: 0
-  mistTime: 0
   addList: 0
-  coroutineStart: 0
 --- !u!4 &209586970
 Transform:
   m_ObjectHideFlags: 0
@@ -3171,7 +3169,7 @@ PrefabInstance:
     - target: {fileID: 3272904967542663214, guid: bf1c4dec16912814f8ebfa7c1201ca41, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 5b4ef9c0c3818b54695f7df1af29322f, type: 2}
+      objectReference: {fileID: 9100000, guid: 1bbba77e9e092af4a88b91a87740752e, type: 2}
     - target: {fileID: 3272904967542663215, guid: bf1c4dec16912814f8ebfa7c1201ca41, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -8717,7 +8715,7 @@ PrefabInstance:
     - target: {fileID: 3272904967542663214, guid: bf1c4dec16912814f8ebfa7c1201ca41, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 5b4ef9c0c3818b54695f7df1af29322f, type: 2}
+      objectReference: {fileID: 9100000, guid: 1bbba77e9e092af4a88b91a87740752e, type: 2}
     - target: {fileID: 3272904967542663215, guid: bf1c4dec16912814f8ebfa7c1201ca41, type: 3}
       propertyPath: m_Mass
       value: 1

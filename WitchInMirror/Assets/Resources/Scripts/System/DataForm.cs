@@ -48,10 +48,6 @@ public class RuningObject{
     public GameObject Obj;
     public bool colcheck = false;
     public GameObject effect;
-    //int[,] ID =new int [6,6];
-
-    //List<int[,]> a = new List<int[,]>();
-
 
 }
 
