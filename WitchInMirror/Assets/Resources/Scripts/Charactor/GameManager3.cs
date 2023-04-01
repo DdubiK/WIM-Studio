@@ -26,7 +26,7 @@ public class GameManager3 : MonoBehaviour
     }
     void Start()
     {
-        magic = GameManager.GetInstance().magic;
+        //magic = GameManager.GetInstance().magic;
     }
     //public void Initialize(int _Count)
     //{

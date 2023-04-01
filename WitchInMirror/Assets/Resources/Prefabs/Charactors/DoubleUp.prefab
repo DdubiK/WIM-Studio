@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 3287035329930886702}
   - component: {fileID: 3957011759583117964}
   - component: {fileID: 3235638453599454704}
-  - component: {fileID: 6349455958405345308}
-  - component: {fileID: -7564852096681266565}
+  - component: {fileID: 6345170029801403942}
   m_Layer: 0
   m_Name: DoubleUp
   m_TagString: magicup
@@ -103,20 +102,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.000492692}
   serializedVersion: 2
   m_Radius: 0.06581932
---- !u!114 &6349455958405345308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014873110624154321}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a7688f1c5df1554484e46c2bd2760a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
---- !u!114 &-7564852096681266565
+--- !u!114 &6345170029801403942
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +111,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1014873110624154321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c9a10352703164897addbd37bd6ea0, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b6cfc5164b0389429fe2319addabd74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  IdleEffect: {fileID: 1844191813266838, guid: 968c924d2be019d4b9e67647551eec3e, type: 3}
+  getItem: {fileID: 1845240806346120, guid: b395d5d6eb4b4b846acc021ee036b744, type: 3}
