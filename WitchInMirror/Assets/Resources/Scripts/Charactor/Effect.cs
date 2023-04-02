@@ -12,6 +12,7 @@ public class Effect : MonoBehaviour
     public bool isBack;
     public Action action = null;
     public GameObject player;
+    public GameObject idleeffect;
     public bool downCheck = false;
 
     void Update()

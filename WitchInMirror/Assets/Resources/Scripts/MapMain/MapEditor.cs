@@ -170,7 +170,7 @@ public class MapEditor : MonoBehaviour
 
         //    EffectInActive.Enqueue(EObj);
         //}
-        Initialize(5);
+        Initialize(10);
 
 
     }
@@ -279,6 +279,10 @@ public class MapEditor : MonoBehaviour
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
                         }
+                        Effect Eobj = GetEffect();
+                        Eobj.idleeffect = effectIdx[3];
+                        a.effect.transform.position = this.gameObject.transform.position;
+                        a.effect.transform.parent = this.gameObject.transform;
 
                     }
                     resourceidx++;
@@ -306,21 +310,41 @@ public class MapEditor : MonoBehaviour
     #region 이펙트 생성
     //public GameObject effectpoolingPrefeb;
     public Queue<Effect> effectpoolingQueue = new Queue<Effect>();
-
+    public List<GameObject> effectIdx = new List<GameObject>();
+    public string[] effectPaths = new string[] //아이템 리소스 파일 위치
+{
+    null,
+    "Prefabs/Effects/GetItemEffect",
+    "Prefabs/Effects/GetMagicEffect",
+    "Prefabs/Effects/ItemIdle",
+    "Prefabs/Effects/MapEffect1",
+    "Prefabs/Effects/MapEffect2",
+    "Prefabs/Effects/MapEffect3",
+    "Prefabs/Effects/MapEffect4",
+    "Prefabs/Effects/Mist",
+    "Prefabs/Effects/SuperMode1",
+    "Prefabs/Effects/SuperMode2",
+};
     public void Initialize(int _Count)
     {
         for (int i = 0; i < _Count; i++)
         {
             effectpoolingQueue.Enqueue(CreateNewObject());
         }
+        
+        for (int j = 0; j < effectPaths.Length; j++)
+        {
+            GameObject effectprefab = Resources.Load<GameObject>(effectPaths[j]);
+            effectIdx.Add(effectprefab);
+        }
     }
     public Effect CreateNewObject()
     {
-
         GameObject EObj = new GameObject();
         EObj.name = "Eobj";
         EObj.AddComponent<SpriteRenderer>();
         EObj.AddComponent<Effect>();
+        EObj.AddComponent<ParticleSystem>();
         EObj.transform.position = new Vector2(-20, 0);
 
         var newObj = EObj.GetComponent<Effect>();
@@ -328,7 +352,6 @@ public class MapEditor : MonoBehaviour
         //newObj.transform.SetParent(this.transform);
 
         return newObj;
-
     }
 
     public Effect GetEffect()
@@ -359,23 +382,6 @@ public class MapEditor : MonoBehaviour
 
     #endregion
 
-
-    #region 이펙트 풀링
-    public List<GameObject> Effectobj = new List<GameObject>();
-    public List<Animator> Effectani = new List<Animator>();
-    public static Queue<GameObject> EffectActive = new Queue<GameObject>();
-    public static Queue<GameObject> EffectInActive = new Queue<GameObject>();
-    public List<Animator> aniList;
-    public void InitEffect()
-    {
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    Effectani[i] = new Animator();
-        //    EffectInActive.Enqueue(Effectani[i]);
-        //}
-    }
-
-    #endregion
     #region 오브젝트 중재자
     public void moveojb()
     {
@@ -448,6 +454,8 @@ public class MapEditor : MonoBehaviour
                                 }
                                 GameManager.instance.SoundPlay(1);
                                 Eobj.transform.position = element.Obj.transform.position;
+                                ParticleSystem particle = Eobj.GetComponent<ParticleSystem>();
+                                //particle = ;
                                 Eobj.Get();
                                 Eobj.Pooling();
                                 Sprite b = element.Obj.GetComponent<SpriteRenderer>().sprite;
@@ -458,6 +466,7 @@ public class MapEditor : MonoBehaviour
                             case 5:
                                 if (element.ID == 4) GameManager.instance.MagicItem(1);
                                 if (element.ID == 5) GameManager.instance.MagicItem(2);
+                                element.effect = effectIdx[3];
                                 Debug.Log("아이템 4,5 == 마력 대폭 증가/감소 아이템");
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
