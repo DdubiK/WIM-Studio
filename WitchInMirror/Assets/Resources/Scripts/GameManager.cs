@@ -191,13 +191,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    #endregion
-
-
-    #region UI
-
-
     public void SetPause()
     {
         if (!isPause)
@@ -262,9 +255,11 @@ public class GameManager : MonoBehaviour
     }
 
 
+
     #endregion
 
-    #region 캐릭터, 마력
+
+    #region 캐릭터, 마력, 시스템
     [Header("캐릭터")]
     public GameObject[] player = new GameObject[2];
     public float jump = 3f;
@@ -274,6 +269,7 @@ public class GameManager : MonoBehaviour
     public Vector3 disToGround;
     public Vector3 disToJumpPos;
     public Action GroundCheck = null;
+    public bool doublejump = false;
 
     [Header("마력")]
     public float Maxmagic = 400;
@@ -291,12 +287,19 @@ public class GameManager : MonoBehaviour
     public bool itemReverse;
     //public float itemreverseTime;
 
+    //스테이지 레벨 증가
+    public float StageLvTimer=0;
+    public float StageLvTime=10;
+    public int StageLv = 0; 
+
+
     void CharStart()
     {
         magic = 200f;
         Maxmagic = 400;
         Minmagic = 0;
         Score = 0;
+        StageLvTime = 10;
         isGround = true;
         jumpUp = false;
         disToGround = new Vector3(-1.9f, 0, 0);
@@ -309,6 +312,7 @@ public class GameManager : MonoBehaviour
         Magic();
         MagicUI();
         timer();
+        LvUPTimer();
         GroundCheck?.Invoke();//액션에 함수가 들어왔을때 실행 아닐땐 넘기기
     }
 
@@ -324,13 +328,15 @@ public class GameManager : MonoBehaviour
         //Debug.Log(Vector2.Distance(player[0].transform.position, disToGround));
         //Debug.Log(Vector2.Distance(player[0].transform.position, disToJumpPos));
 
-        if (!isGround && Vector2.Distance(player[0].transform.position, disToJumpPos) < 0.5f)
+        if (!isGround && Vector2.Distance(player[0].transform.position, disToJumpPos) < 0.2f)
         {
             jumpUp = false;
+            Debug.Log(Vector2.Distance(player[0].transform.position, disToJumpPos));
         }
         if (!isGround && !jumpUp && Vector2.Distance(player[0].transform.position, disToGround) <= 0.5f)
         {
             isGround = true;
+            doublejump = false;
             GroundCheck -= GroundChecking;
             return;
         }
@@ -346,7 +352,15 @@ public class GameManager : MonoBehaviour
             isGround = false;
             jumpUp = true;
             GroundCheck += GroundChecking;
+            
+            SoundPlay(2);
+        }
+        if (!isGround&&!jumpUp&& !doublejump && !isGiant && GroundCheck== GroundChecking)
+        {
 
+            player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump*0.7f);
+            player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump * 0.7f);
+            doublejump = true;
             SoundPlay(2);
         }
     }
@@ -422,12 +436,25 @@ public class GameManager : MonoBehaviour
         {
             if (magicReverse)
             {
-                magic += Time.deltaTime * magicDecreasePer * ((int)playtime * 0.1f);
+                magic += Time.deltaTime * magicDecreasePer * (1+StageLv * 0.1f);
             }
-            else magic -= Time.deltaTime * magicDecreasePer * ((int)playtime * 0.1f);
+            else magic -= Time.deltaTime * magicDecreasePer * (1 + StageLv * 0.1f);
         }
         MagicCheck();
     }
+
+    //시간에따른 스테이지 레벨 증가
+    public void LvUPTimer()
+    {
+        if (StageLvTimer >= StageLvTime)
+        {
+            StageLvTimer = 0;
+            StageLv++;
+        }
+        else
+            StageLvTimer += Time.deltaTime;
+    }
+
 
     public void resetCharState()
     {
@@ -436,8 +463,11 @@ public class GameManager : MonoBehaviour
         Minmagic = 0;
         isGround = true;
         jumpUp = false;
+        isGiant = false;
         Score = 0;
         playtime = 0;
+        StageLvTimer = 0;
+        StageLv = 0;
         resetInit();
     }
 
@@ -449,6 +479,7 @@ public class GameManager : MonoBehaviour
     public Mist mist;
     public bool isDamaged;
     public bool isShield;
+    public bool isGiant=false;
     //public bool coroutineStart1;//ItemReverseCoroutineStart
     public bool coroutineStart2;//MagicStopCoroutineStart
 
@@ -689,10 +720,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("코루틴 시작");
         magicStop = true;
+        isGiant = true;
         player[0].gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
         player[1].gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
         yield return new WaitForSeconds(3f);
         magicStop = false;
+        isGiant = false;
         player[0].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         player[1].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         Debug.Log("코루틴 끝");

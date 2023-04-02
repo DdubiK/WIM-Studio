@@ -279,10 +279,10 @@ public class MapEditor : MonoBehaviour
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
                         }
-                        Effect Eobj = GetEffect();
-                        Eobj.idleeffect = effectIdx[3];
-                        a.effect.transform.position = this.gameObject.transform.position;
-                        a.effect.transform.parent = this.gameObject.transform;
+                        //Effect Eobj = GetEffect();
+                        //Eobj.idleeffect = effectIdx[3];
+                        //a.effect.transform.position = this.gameObject.transform.position;
+                        //a.effect.transform.parent = this.gameObject.transform;
 
                     }
                     resourceidx++;
@@ -344,7 +344,7 @@ public class MapEditor : MonoBehaviour
         EObj.name = "Eobj";
         EObj.AddComponent<SpriteRenderer>();
         EObj.AddComponent<Effect>();
-        EObj.AddComponent<ParticleSystem>();
+        //EObj.AddComponent<ParticleSystem>();
         EObj.transform.position = new Vector2(-20, 0);
 
         var newObj = EObj.GetComponent<Effect>();
@@ -390,7 +390,7 @@ public class MapEditor : MonoBehaviour
             int sample = 0;
             foreach (RuningObject element in queActive)
             {
-                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed);
+                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed*(1+GameManager.instance.StageLv*0.5f));//스테이지 레벨에 따른 장애물 속도 증가
 
                 if (element.Obj.transform.position.x < -3.0f)
                 {
