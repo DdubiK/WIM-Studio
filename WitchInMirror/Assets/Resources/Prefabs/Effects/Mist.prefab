@@ -61,9 +61,7 @@ MonoBehaviour:
   min: 0
   max: 12
   count: 0
-  mistTime: 0
   addList: 0
-  coroutineStart: 0
 --- !u!1001 &3155737030665062101
 PrefabInstance:
   m_ObjectHideFlags: 0
