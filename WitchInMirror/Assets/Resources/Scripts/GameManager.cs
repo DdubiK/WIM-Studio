@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
 
     public void MagicLow()
     {
-        if (magic <= 60 || magic >= 340)
+        if (magic <= 120 || magic >= 680)
         {
             danger.SetActive(true);
         }
