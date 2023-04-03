@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
     private bool isPause = false;
     public GameObject pausePanel;
     public GameObject objCanvas;
+    public GameObject danger;
     public TextMeshProUGUI textScore;
 
     [Header("»ç¿îµå")]
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour
     {
         MagicUI();
         //UpdateGUIState();
+        MagicLow();
     }
 
 
@@ -181,13 +183,13 @@ public class GameManager : MonoBehaviour
 
     public void MagicLow()
     {
-        if (magic <= 60)
+        if (magic <= 60 || magic >= 340)
         {
-            Debug.Log("QQ");
+            danger.SetActive(true);
         }
-        else if (magic >= 360)
+        else 
         {
-            Debug.Log("WW");
+            danger.SetActive(false);
         }
     }
 
