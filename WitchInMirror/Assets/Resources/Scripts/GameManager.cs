@@ -297,8 +297,8 @@ public class GameManager : MonoBehaviour
 
     void CharStart()
     {
-        magic = 200f;
-        Maxmagic = 400;
+        magic = 400f;
+        Maxmagic = 800;
         Minmagic = 0;
         Score = 0;
         StageLvTime = 10;
@@ -451,7 +451,7 @@ public class GameManager : MonoBehaviour
         if (StageLvTimer >= StageLvTime)
         {
             StageLvTimer = 0;
-            StageLv++;
+            //StageLv++;
         }
         else
             StageLvTimer += Time.deltaTime;
@@ -460,8 +460,8 @@ public class GameManager : MonoBehaviour
 
     public void resetCharState()
     {
-        magic = 200f;
-        Maxmagic = 400;
+        magic = 400f;
+        Maxmagic = 800;
         Minmagic = 0;
         isGround = true;
         jumpUp = false;
@@ -512,6 +512,8 @@ public class GameManager : MonoBehaviour
         player[0].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         player[1].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         StopCoroutine("MagicStop");
+        //player[0].gameObject.transform.Find("SuperMode2").gameObject.SetActive(false);
+        //player[1].gameObject.transform.Find("SuperMode2").gameObject.SetActive(false);
 
 
     }
@@ -725,11 +727,15 @@ public class GameManager : MonoBehaviour
         isGiant = true;
         player[0].gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
         player[1].gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
+        player[0].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        player[1].gameObject.transform.GetChild(1).gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         magicStop = false;
         isGiant = false;
         player[0].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         player[1].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        player[0].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        player[1].gameObject.transform.GetChild(1).gameObject.SetActive(false);
         Debug.Log("코루틴 끝");
     }
 

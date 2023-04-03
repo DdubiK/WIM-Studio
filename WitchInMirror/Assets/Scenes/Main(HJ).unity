@@ -890,7 +890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &353541215
 Transform:
   m_ObjectHideFlags: 0
@@ -1171,22 +1171,23 @@ MonoBehaviour:
   jumpUp: 0
   disToGround: {x: 0, y: 0, z: 0}
   disToJumpPos: {x: 0, y: 0, z: 0}
+  doublejump: 0
   Maxmagic: 400
   Minmagic: 0
   magic: 200
   upMagic: 10
-  magicstopTime: 0
   magicReverse: 0
   magicStop: 0
   magicDecreasePer: 10
-  time: 0
   playtime: 0
   itemReverse: 0
-  itemreverseTime: 0
+  StageLvTimer: 0
+  StageLvTime: 10
+  StageLv: 0
   mist: {fileID: 418039970}
   isDamaged: 0
   isShield: 0
-  coroutineStart1: 0
+  isGiant: 0
   coroutineStart2: 0
   mapEditor: {fileID: 431284961}
 --- !u!114 &431284959
@@ -1500,19 +1501,20 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   posidx: 0
   poolposidx: 0
-  last_obj:
-    ID: 0
-    Obj: {fileID: 0}
-    colcheck: 0
-    effect: {fileID: 0}
   resourcePaths:
   - 
   - Map/Texture/Projectile01
   - Map/Texture/Projectile02
   - Map/Texture/Projectile03
-  Effectobj: []
-  Effectani: []
-  aniList: []
+  last_obj:
+    ID: 0
+    Obj: {fileID: 0}
+    colcheck: 0
+    effect: {fileID: 0}
+  effectpsList: []
+  poolSize: 0
+  effectIdx: []
+  effectPaths: []
 --- !u!1 &477734383
 GameObject:
   m_ObjectHideFlags: 0
