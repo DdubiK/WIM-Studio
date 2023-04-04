@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textScore;
     public TextMeshProUGUI textHighScore;
 
-    public float distance;
+
     public TextMeshProUGUI dis_text;
 
 
@@ -308,15 +308,13 @@ public class GameManager : MonoBehaviour
 
     public void distanceUI()
     {
-        distance += Time.deltaTime;
+        distance += Time.deltaTime*Time.timeScale;
         dis_text.text = Mathf.Round(distance) + "m";
     }
 
 
 
     #endregion
-
-
 
 
     #region 캐릭터, 마력, 시스템
@@ -347,6 +345,7 @@ public class GameManager : MonoBehaviour
     public float playtime;
     public bool itemReverse;
     //public float itemreverseTime;
+    public float distance;
 
     //스테이지 레벨 증가
     public float StageLvTimer = 0;
@@ -405,8 +404,7 @@ public class GameManager : MonoBehaviour
         }
         if (!isGround && !jumpUp &&jumpCount>0&& Vector2.Distance(player[0].transform.position, disToGround) <= disGround)
         {
-            player[0].GetComponent<Rigidbody2D>().gravityScale = 1;
-            player[1].GetComponent<Rigidbody2D>().gravityScale = -1;
+
             isGround = true;
             jumpCount = 0;
             GroundCheck -= GroundChecking;
@@ -419,10 +417,9 @@ public class GameManager : MonoBehaviour
     {
         if (isGround)
         {
-            player[0].GetComponent<Rigidbody2D>().gravityScale = (1 + StageLv * 1.15f);
-            player[1].GetComponent<Rigidbody2D>().gravityScale = -(1 + StageLv * 1.15f);
-            player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump * (1 + StageLv * 0.5f));
-            player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump * (1 + StageLv * 0.5f));
+
+            player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump );
+            player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump);
             isGround = false;
             jumpUp = true;
             GroundCheck += GroundChecking;
@@ -432,8 +429,8 @@ public class GameManager : MonoBehaviour
         if (!isGround && !jumpUp && jumpCount==1 && !isGiant && GroundCheck == GroundChecking)
         {
 
-            player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump * (1 + StageLv * 0.5f) * 0.7f);
-            player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump * (1 + StageLv * 0.5f) * 0.7f);
+            player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump * 0.7f);
+            player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump *0.7f);
             jumpCount++;
 
             SoundPlay(2);
@@ -515,6 +512,7 @@ public class GameManager : MonoBehaviour
         {
             StageLvTimer = 0;
             StageLv++;
+            Time.timeScale = 1 + (StageLv * 0.5f);
         }
         else
             StageLvTimer += Time.deltaTime;
