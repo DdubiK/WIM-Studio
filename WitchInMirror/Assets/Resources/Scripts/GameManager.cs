@@ -130,12 +130,13 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject objCanvas;
     public GameObject danger;
-<<<<<<< HEAD
     public GameObject mapEffect1;
     public GameObject mapEffect4;
-=======
->>>>>>> origin/main
     public TextMeshProUGUI textScore;
+
+    public float distance;
+    public TextMeshProUGUI dis_text;
+
 
     [Header("사운드")]
     public AudioMixer audioMixer;
@@ -147,6 +148,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject bar;
     public GameObject magicbar;
+
+
 
 
     void UIStart()
@@ -178,10 +181,7 @@ public class GameManager : MonoBehaviour
         MagicUI();
         //UpdateGUIState();
         MagicLow();
-<<<<<<< HEAD
-=======
         distanceUI();
->>>>>>> origin/main
     }
 
 
@@ -221,25 +221,17 @@ public class GameManager : MonoBehaviour
         if (magic <= 120 || magic >= 680)
         {
             danger.SetActive(true);
-<<<<<<< HEAD
             if (magic <= 120) mapEffect4.SetActive(true);
             if (magic >= 680) mapEffect1.SetActive(true);
-=======
->>>>>>> origin/main
         }
         else
         {
             danger.SetActive(false);
-<<<<<<< HEAD
             mapEffect1.SetActive(false);
             mapEffect4.SetActive(false);
-=======
->>>>>>> origin/main
         }
     }
 
-
-<<<<<<< HEAD
     public void SetPause()
     {
         if (!isPause)
@@ -302,51 +294,6 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-
-
-
-    #endregion
-
-
-    #region 캐릭터, 마력, 시스템
-    [Header("캐릭터")]
-    public GameObject[] player = new GameObject[2];
-    public float jump = 3f;
-    public float Score = 0;
-    public bool isGround;
-    public bool jumpUp;
-    public Vector3 disToGround;
-    public Vector3 disToJumpPos;
-    public Action GroundCheck = null;
-    public bool doublejump = false;
-
-    [Header("마력")]
-    public float Maxmagic = 400;
-    public float Minmagic = 0;
-    public float magic;
-    public float upMagic = 10f;
-    //public float magicstopTime;
-    public bool magicReverse;
-    public bool magicStop;
-    public float magicDecreasePer = 15f;
-
-    [Header("시스템")]
-    //public float time;
-    public float playtime;
-    public bool itemReverse;
-    //public float itemreverseTime;
-
-    //스테이지 레벨 증가
-    public float StageLvTimer = 0;
-    public float StageLvTime = 10;
-    public int StageLv = 0;
-
-
-    void CharStart()
-    {
-=======
-    public float distance;
-    public TextMeshProUGUI dis_text;
 
     public void distanceUI()
     {
@@ -354,72 +301,11 @@ public class GameManager : MonoBehaviour
         dis_text.text = Mathf.Round(distance) + "m";
     }
 
-    public void SetPause()
-    {
-        if (!isPause)
-        {
-            isPause = true;
-            Time.timeScale = 0.0f;
-            pausePanel.gameObject.SetActive(true);
-        }
-    }
-
-    public void PauseContinue()
-    {
-        if (isPause)
-        {
-            isPause = false;
-            Time.timeScale = 1f;
-            pausePanel.gameObject.SetActive(false);
-        }
-    }
-
-    public void OnApplicationQuit()
-    {
-        Application.Quit();
-    }
-
-    public void SetBGMVolume()
-    {
-        audioMixer.SetFloat("BGM", Mathf.Log10(BGMSlider.value) * 20);
-    }
-
-    public void SetSFXVolume()
-    {
-        audioMixer.SetFloat("SFX", Mathf.Log10(SFXSlider.value) * 20);
-    }
-
-    public void MagicUI()
-    {
-        RectTransform rectTransform = bar.GetComponent<RectTransform>();
-        RectTransform rectTransform1 = magicbar.GetComponent<RectTransform>();
-
-        float magic_x = ((magic - Minmagic) / (Maxmagic - Minmagic)) * rectTransform.rect.width + (rectTransform.anchoredPosition.x - rectTransform.rect.width / 2);
-        //Debug.Log(magic_x);
-        rectTransform1.anchoredPosition = new Vector2(magic_x, rectTransform1.anchoredPosition.y);
-
-    }
-
-    public void MagicCheck()
-    {
-        if (magic <= Minmagic)
-        {
-            magic = Minmagic;
-            SetGUIState(E_SCENE.GAMEOVER);
-            //Debug.Log("GameOver");
-            return;
-        }
-        if (magic >= Maxmagic)
-        {
-            magic = Maxmagic;
-            SetGUIState(E_SCENE.GAMEOVER);
-            return;
-        }
-    }
-
 
 
     #endregion
+
+
 
 
     #region 캐릭터, 마력, 시스템
@@ -458,16 +344,15 @@ public class GameManager : MonoBehaviour
 
     void CharStart()
     {
->>>>>>> origin/main
+
         magic = 400f;
         Maxmagic = 800;
         Minmagic = 0;
         Score = 0;
         StageLvTime = 10;
-<<<<<<< HEAD
-=======
+
         jumpCount = 0;
->>>>>>> origin/main
+
         isGround = true;
         jumpUp = false;
         disToGround = new Vector3(-1.9f, 0, 0);
@@ -495,18 +380,7 @@ public class GameManager : MonoBehaviour
         //distanc로 거리 체크 하여 설정
         //Debug.Log(Vector2.Distance(player[0].transform.position, disToGround));
         //Debug.Log(Vector2.Distance(player[0].transform.position, disToJumpPos));
-<<<<<<< HEAD
 
-        if (!isGround && Vector2.Distance(player[0].transform.position, disToJumpPos) < 0.2f)
-        {
-            jumpUp = false;
-            Debug.Log(Vector2.Distance(player[0].transform.position, disToJumpPos));
-        }
-        if (!isGround && !jumpUp && Vector2.Distance(player[0].transform.position, disToGround) <= 0.5f)
-        {
-            isGround = true;
-            doublejump = false;
-=======
         float disGround = 0.25f;
         if (isGiant)
         {
@@ -524,7 +398,6 @@ public class GameManager : MonoBehaviour
             player[1].GetComponent<Rigidbody2D>().gravityScale = -1;
             isGround = true;
             jumpCount = 0;
->>>>>>> origin/main
             GroundCheck -= GroundChecking;
             return;
         }
@@ -535,22 +408,6 @@ public class GameManager : MonoBehaviour
     {
         if (isGround)
         {
-<<<<<<< HEAD
-            player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump);
-            player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump);
-            isGround = false;
-            jumpUp = true;
-            GroundCheck += GroundChecking;
-
-            SoundPlay(2);
-        }
-        if (!isGround && !jumpUp && !doublejump && !isGiant && GroundCheck == GroundChecking)
-        {
-
-            player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump * 0.7f);
-            player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump * 0.7f);
-            doublejump = true;
-=======
             player[0].GetComponent<Rigidbody2D>().gravityScale = (1 + StageLv * 1.25f);
             player[1].GetComponent<Rigidbody2D>().gravityScale = -(1 + StageLv * 1.25f);
             player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump * (1 + StageLv * 0.5f));
@@ -567,7 +424,7 @@ public class GameManager : MonoBehaviour
             player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump * (1 + StageLv * 0.5f) * 0.7f);
             player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump * (1 + StageLv * 0.5f) * 0.7f);
             jumpCount++;
->>>>>>> origin/main
+
             SoundPlay(2);
         }
     }

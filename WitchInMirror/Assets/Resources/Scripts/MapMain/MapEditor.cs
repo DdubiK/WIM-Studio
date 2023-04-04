@@ -53,10 +53,7 @@ public class MapEditor : MonoBehaviour
     public Vector3[] Initposlist = new Vector3[144];
     public Vector3[] Poolposlist = new Vector3[36];
 
-    public int posidx = 0;
-    public int poolposidx = 0;
-
-    int resourceidx = 0; //오브젝트 리소스 접근 idx
+    //오브젝트 리소스 접근 idx
     public string[] resourcePaths; //아이템 리소스 파일 위치
 
     public RuningObject last_obj;
@@ -124,6 +121,8 @@ public class MapEditor : MonoBehaviour
 
     public void createobj()
     {
+        int posidx = 0;
+        int resourceidx = 0;
         for (int i = 0; i < 24; i++)
         {
             for (int j = 0; j < 6; j++)
@@ -157,20 +156,7 @@ public class MapEditor : MonoBehaviour
                 }
             }
         }
-        posidx = 0;
-        resourceidx = 0;
 
-
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    GameObject EObj = new GameObject();
-        //    EObj.name = "Eobj" + (i + 1);
-        //    EObj.AddComponent<SpriteRenderer>();
-        //    EObj.transform.position = new Vector2(-20,0);
-        //    EffectobjList.Add(EObj) ;
-
-        //    EffectInActive.Enqueue(EObj);
-        //}
         Initialize(10);
         InitializePool();
 
@@ -181,6 +167,8 @@ public class MapEditor : MonoBehaviour
     #region 오브젝트 풀링
     public void pulling()
     {
+        int poolposidx = 0;
+        int resourceidx = 0;
         int RandomPattern = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count);
         //int datacount = 0;
         //if (datacount >= DBLoader.MapPatternArray.Pattern.Count) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
@@ -203,7 +191,7 @@ public class MapEditor : MonoBehaviour
                     {
                         //int percent = Random.Range(0, 100);
                         //if (percent >= itemPercent)
-                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
                         //if (percent < itemPercent)
                         //{
                         //    int[] itemProbabilities = { 65, 12, 8, 3, 3, 4, 5 }; //각 4,5,6,7,8,9 인덱스 확률
@@ -236,10 +224,10 @@ public class MapEditor : MonoBehaviour
                         string resourcePath = resourcePaths[a.ID];
                         //if (percent <= obstaclePercent)
                         //{
-                            if (resourcePath != null)
-                            {
-                                a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                            }
+                        if (resourcePath != null)
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                        }
                         //}
                         //else
                         //{
@@ -334,7 +322,7 @@ public class MapEditor : MonoBehaviour
     public string[] effectPaths; //아이템 리소스 파일 위치
 
 
-    public void CopyParticleSystem(ParticleSystem destination, ParticleSystem source )
+    public void CopyParticleSystem(ParticleSystem destination, ParticleSystem source)
     {
         if (destination.isPlaying)
         {
@@ -405,7 +393,7 @@ public class MapEditor : MonoBehaviour
         destTransform.rotation = sourceTransform.rotation;
         destTransform.localScale = sourceTransform.localScale;
     }
-   
+
     private void InitializePool()
     {
         poolSize = 10;
@@ -430,13 +418,13 @@ public class MapEditor : MonoBehaviour
             "Prefabs/Effects/SuperMode1",
             "Prefabs/Effects/SuperMode2",
         };
-        for (int j =0;j< effectPaths.Length;j++)
+        for (int j = 0; j < effectPaths.Length; j++)
         {
             GameObject effectprepab = Resources.Load<GameObject>(effectPaths[j]);
             effectIdx.Add(effectprepab);
         }
     }
-   
+
 
     public Animator GetObjectEffect()
     {
@@ -457,7 +445,7 @@ public class MapEditor : MonoBehaviour
     }
     public Animator CreateEffectPsObj()
     {
-        GameObject PsObj =Instantiate(Resources.Load<GameObject>("Prefabs/Effects/GetMagicEffect"));
+        GameObject PsObj = Instantiate(Resources.Load<GameObject>("Prefabs/Effects/GetMagicEffect"));
         PsObj.name = "MEobj";
         PsObj.transform.position = new Vector2(-20, 0);
 
@@ -535,11 +523,11 @@ public class MapEditor : MonoBehaviour
             int sample = 0;
             foreach (RuningObject element in queActive)
             {
-                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed*(1+GameManager.instance.StageLv*0.5f));//스테이지 레벨에 따른 장애물 속도 증가
+                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed * (1 + GameManager.instance.StageLv * 0.5f));//스테이지 레벨에 따른 장애물 속도 증가
 
                 if (element.Obj.transform.position.x < -3.0f)
                 {
-                    if(element.Obj.transform.childCount > 0)
+                    if (element.Obj.transform.childCount > 0)
                     {
                         Destroy(element.Obj.transform.GetChild(0).gameObject);
                     }
