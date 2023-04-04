@@ -177,6 +177,9 @@ public class GameManager : MonoBehaviour
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump9"));
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump12"));
         audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/jump13"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/GetMagic0"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/GetMagic1"));
+        audioClip.Add(Resources.Load<AudioClip>("Audio/Sources/GetMagic2"));
         audioSource.clip = audioClip[0];
 
         audioSource.clip = bgmSource.clip;

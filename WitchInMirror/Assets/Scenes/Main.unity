@@ -1048,6 +1048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec1e28fc760afa478ac936161e92a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: []
   runobj: []
   EffectobjList: []
   objmoveSpeed: 1
@@ -1928,7 +1929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6077168872989578692, guid: d6ee33f971e8da54ca8a909fe4fdaa5c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.032470163
+      value: 1.023
       objectReference: {fileID: 0}
     - target: {fileID: 6077168872989578692, guid: d6ee33f971e8da54ca8a909fe4fdaa5c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2785,7 +2786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8953909735390984801, guid: 9a12b090b783e1442803bf172d924126, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.032470163
+      value: 1.027
       objectReference: {fileID: 0}
     - target: {fileID: 8953909735390984801, guid: 9a12b090b783e1442803bf172d924126, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4277,7 +4278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1727626132299242, guid: e2fe1b303d824d849bafd51892247653, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4159976647224570, guid: e2fe1b303d824d849bafd51892247653, type: 3}
       propertyPath: m_RootOrder
@@ -6673,7 +6674,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab8eda4ebbfee474aa90b6f82348aa54, type: 2}
+  - {fileID: 2100000, guid: 737ae8a7b411c2d4d89819b7b36c8281, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

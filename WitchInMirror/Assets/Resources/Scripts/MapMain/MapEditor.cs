@@ -11,28 +11,26 @@ public class MapEditor : MonoBehaviour
         SetPosList(6, 6, ref Poolposlist, 2.5f);
         PathInit();
         createobj();
-
-
     }
+    public List<Object> sprite;
     public void PathInit()
     {
+
         resourcePaths = new string[] //아이템 리소스 파일 위치
 {
     null,
     "Map/Texture/Enemy01_idle",
     "Map/Texture/Projectile01",
     "Map/Texture/Projectile02",
-    "Map/Texture/Projectile03",
-    "Sprites/ItemSprite/ItemSprite_1",
-    "Map/Texture/Projectile05",
-    "Map/Texture/Projectile06",
-    "Map/Texture/Item03_Heart",
-    "Map/Texture/ItemSprite_1",
+    "Sprites/ItemObject1",
+    "Sprites/ItemObject2",
+    "Sprites/ItemObject7",
+    "Sprites/ItemObject5",
+    "Sprites/ItemObject4",
+    "Sprites/ItemObject3",
+
 };
-        for(int i=0;i<resourcePaths.Length;i++)
-        {
-            Debug.Log("path[i]:" + i + ":" + resourcePaths[i]);
-        }
+        //"Sprites/ItemObject6"    
     }
 
 
@@ -585,7 +583,7 @@ public class MapEditor : MonoBehaviour
                                     Eobj.player = GameManager.instance.player[1];
                                     Eobj.downCheck = true;
                                 }
-                                GameManager.instance.SoundPlay(1);
+                                GameManager.instance.SoundPlay(11);
                                 Eobj.transform.position = element.Obj.transform.position;
                                 ParticleSystem particle = Eobj.GetComponent<ParticleSystem>();
                                 //particle = ;
@@ -600,6 +598,7 @@ public class MapEditor : MonoBehaviour
                                 break;
                             case 4:
                             case 5:
+                                //GameManager.instance.SoundPlay(12);
                                 if (element.ID == 4) GameManager.instance.MagicItem(1);
                                 if (element.ID == 5) GameManager.instance.MagicItem(2);
                                 element.effect = effectIdx[3];
@@ -611,6 +610,7 @@ public class MapEditor : MonoBehaviour
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
                             case 6:
+                                //GameManager.instance.SoundPlay(11);
                                 Debug.Log("아이템 6 == 쉴드");
                                 GameManager.instance.ShieldItem();
                                 Destroy(element.Obj.transform.GetChild(0).gameObject);
@@ -620,6 +620,7 @@ public class MapEditor : MonoBehaviour
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
                             case 7:
+                                //GameManager.instance.SoundPlay(12);
                                 Debug.Log("아이템 7 == 체질변화(지속감소되는 마력이 증가/감소)");
                                 GameManager.instance.MagicReverseItem();
                                 Destroy(element.Obj.transform.GetChild(0).gameObject);
@@ -630,6 +631,7 @@ public class MapEditor : MonoBehaviour
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
                             case 8:
+                                //GameManager.instance.SoundPlay(12);
                                 Debug.Log("아이템 8 == 아이템성질변화(+면 -로 반대로 10초 유지)");
                                 GameManager.instance.ItemReverseItem();
                                 Destroy(element.Obj.transform.GetChild(0).gameObject);
@@ -639,6 +641,7 @@ public class MapEditor : MonoBehaviour
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 break;
                             case 9:
+                                //GameManager.instance.SoundPlay(12);
                                 Debug.Log("아이템 9 == 거대화");
                                 GameManager.instance.MagicStopItem();
                                 Destroy(element.Obj.transform.GetChild(0).gameObject);
