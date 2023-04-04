@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetResolutions();
+        SLManager.RemoteStart();
         SetGUIState(E_SCENE.TITLE);
         CharStart();
         UIStart();
@@ -68,6 +69,15 @@ public class GameManager : MonoBehaviour
                 break;
             case E_SCENE.GAMEOVER:
                 Time.timeScale = 0;
+                SLManager._load();
+                if (Score > SLManager.Score)
+                {
+                   
+                    SLManager.Score = Score;
+                    SLManager._save();
+                    
+                }
+                textHighScore.text = "" + SLManager.Score;
                 textScore.text = "" + Score;
                 //SceneUpdate -= UIUpdate;
                 SceneUpdate -= CharUpdate;
@@ -133,6 +143,7 @@ public class GameManager : MonoBehaviour
     public GameObject mapEffect1;
     public GameObject mapEffect4;
     public TextMeshProUGUI textScore;
+    public TextMeshProUGUI textHighScore;
 
     public float distance;
     public TextMeshProUGUI dis_text;
@@ -312,13 +323,14 @@ public class GameManager : MonoBehaviour
     [Header("캐릭터")]
     public GameObject[] player = new GameObject[2];
     public float jump = 3f;
-    public float Score = 0;
+    public int Score = 0;
     public bool isGround;
     public bool jumpUp;
     public Vector3 disToGround;
     public Vector3 disToJumpPos;
     public Action GroundCheck = null;
     public int jumpCount = 0;
+    public int HighScore = 0;
 
     [Header("마력")]
     public float Maxmagic = 400;

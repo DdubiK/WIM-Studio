@@ -6,23 +6,19 @@ using Newtonsoft.Json.Linq;
 using UnityEngine.UI;
 using System.IO;
 
-public class SLManager : MonoBehaviour
+public static class SLManager 
 {
 
-    private string m_sSaveFileDirectory;  // 저장할 폴더 경로
-    private string m_sSaveFileName = "/InventoryData.json"; // 파일 이름
+    private static string m_sSaveFileDirectory;  // 저장할 폴더 경로
+    private static string m_sSaveFileName = "/HighScore.json"; // 파일 이름
 
-    public List<int[]> data = new List<int[]>();
-
+    //public List<int[]> data = new List<int[]>();
+    public static int Score;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        RemoteStart();
-    }
 
     #region 시작 원격 설정
-    public void RemoteStart()
+    public static void RemoteStart()
     {
         m_sSaveFileDirectory = Application.dataPath + "/Save/";
         string filecheck = m_sSaveFileDirectory + m_sSaveFileName;
@@ -39,7 +35,7 @@ public class SLManager : MonoBehaviour
     #endregion
 
     #region 리셋 세이브 로드
-    public void _reset()
+    public static void _reset()
     {
 
         //string jdata = JsonConvert.SerializeObject(gData, Formatting.Indented);
@@ -49,25 +45,18 @@ public class SLManager : MonoBehaviour
     }
 
 
-    public void _save()
+    public static void _save()
     {
 
         //List 못읽음
-        string jdata = JsonUtility.ToJson(data);
+        string jdata = JsonConvert.SerializeObject(Score);
 
         File.WriteAllText(m_sSaveFileDirectory + m_sSaveFileName, jdata);
 
     }
 
-    public void _load()
+    public static void _load()
     {
-
-
-        List<int[]> a = new List<int[]>();
-
-        a.Add(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
-        a.Add(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 });
-        a.Add(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 12 });
 
         string filecheck = m_sSaveFileDirectory + m_sSaveFileName;
 
@@ -81,7 +70,7 @@ public class SLManager : MonoBehaviour
 
 
 
-            data = JsonConvert.DeserializeObject<List<int[]>>(jdata);
+            Score = JsonConvert.DeserializeObject<int>(jdata);
 
             //GameManager.instance.getSaveLoad().gData = gData;
             //Debug.Log("파일 불러오기");
@@ -92,7 +81,7 @@ public class SLManager : MonoBehaviour
         else
         {
 
-            data = a;
+            Score = 0;
 
             //Debug.Log("파일 새로 생성");
 
