@@ -173,6 +173,7 @@ void UIUpdate()
     MagicUI();
     //UpdateGUIState();
     MagicLow();
+        distanceUI();
 }
 
 
@@ -219,7 +220,17 @@ public void MagicLow()
     }
 }
 
-public void SetPause()
+
+    public float distance;
+    public TextMeshProUGUI dis_text;
+
+    public void distanceUI()
+    {
+        distance += Time.deltaTime;
+        dis_text.text = Mathf.Round(distance) + "m" ;
+    }
+
+    public void SetPause()
 {
     if (!isPause)
     {
@@ -284,11 +295,11 @@ public void MagicCheck()
 
 
 
-#endregion
+    #endregion
 
 
-#region 캐릭터, 마력, 시스템
-[Header("캐릭터")]
+    #region 캐릭터, 마력, 시스템
+    [Header("캐릭터")]
 public GameObject[] player = new GameObject[2];
 public float jump = 3f;
 public float Score = 0;
