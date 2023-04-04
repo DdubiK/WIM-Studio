@@ -523,7 +523,7 @@ public class MapEditor : MonoBehaviour
             int sample = 0;
             foreach (RuningObject element in queActive)
             {
-                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed * (1 + GameManager.instance.StageLv * 0.5f));//스테이지 레벨에 따른 장애물 속도 증가
+                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed * (1 + GameManager.instance.StageLv * 0.15f));//스테이지 레벨에 따른 장애물 속도 증가
 
                 if (element.Obj.transform.position.x < -3.0f)
                 {

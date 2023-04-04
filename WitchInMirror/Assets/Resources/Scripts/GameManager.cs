@@ -338,18 +338,17 @@ public class GameManager : MonoBehaviour
 
     //스테이지 레벨 증가
     public float StageLvTimer = 0;
-    public float StageLvTime = 10;
+    public float StageLvTime;
     public int StageLv = 0;
 
 
     void CharStart()
     {
-
         magic = 400f;
         Maxmagic = 800;
         Minmagic = 0;
         Score = 0;
-        StageLvTime = 10;
+        StageLvTime = 30;
 
         jumpCount = 0;
 
@@ -408,8 +407,8 @@ public class GameManager : MonoBehaviour
     {
         if (isGround)
         {
-            player[0].GetComponent<Rigidbody2D>().gravityScale = (1 + StageLv * 1.25f);
-            player[1].GetComponent<Rigidbody2D>().gravityScale = -(1 + StageLv * 1.25f);
+            player[0].GetComponent<Rigidbody2D>().gravityScale = (1 + StageLv * 1.15f);
+            player[1].GetComponent<Rigidbody2D>().gravityScale = -(1 + StageLv * 1.15f);
             player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump * (1 + StageLv * 0.5f));
             player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump * (1 + StageLv * 0.5f));
             isGround = false;
@@ -448,11 +447,6 @@ public class GameManager : MonoBehaviour
                 magic += upMagic;
                 Debug.Log("+magic");
             }
-            if (magicStop == true)
-            {
-                magic += upMagic;
-                Debug.Log("-magic");
-            }
         }
         else
         {
@@ -478,11 +472,6 @@ public class GameManager : MonoBehaviour
         else
         {
             if (magicStop == false)
-            {
-                magic += upMagic;
-                Debug.Log("-magic");
-            }
-            if (magicStop == true)
             {
                 magic += upMagic;
                 Debug.Log("-magic");
