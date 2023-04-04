@@ -7,7 +7,7 @@ public class Mist : MonoBehaviour
     public List<GameObject> mistPosition = new List<GameObject>();
     public List<GameObject> makePosition = new List<GameObject>();
     public int min = 0;
-    public int max = 4;
+    public int max = 12;
     public float count = 0;
     //public float mistTime;
     public bool addList;
@@ -41,14 +41,14 @@ public class Mist : MonoBehaviour
  
     public void RandomPos() //안개 랜덤 생성 12개 이상 시 빠져 나오기.
     {
-        if (count > 12)
+        if (count > max)
         {
             return;
         }
         else
         {
             int currentNumber = Random.Range(min, max);
-            while (true)
+            while (count < max)
             {
                 //currentNumber = Random.Range(min, max);
                 if (makePosition.Contains(mistPosition[currentNumber]))
@@ -60,17 +60,12 @@ public class Mist : MonoBehaviour
                     makePosition.Add(mistPosition[currentNumber]);
                     GameObject addMist = mistPosition[currentNumber];
                     addMist.SetActive(true);
-                    addMist.gameObject.layer = 3;
                     StartCoroutine("RemoveMist", addMist);
                     count++;
                     break;
                 }
             }
         }
-    }
-    public void MistTimer()
-    {
-        //mistTime += Time.deltaTime;
     }
     IEnumerator RemoveMist(GameObject addmist) // 안개 생성 코루틴, 시간마다 투명도 감소 , 일정 시간 지날 시 active false와 , 리스트 제거
     {
