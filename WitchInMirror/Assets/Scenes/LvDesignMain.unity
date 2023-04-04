@@ -888,7 +888,7 @@ MonoBehaviour:
   mapEffect1: {fileID: 2049701383}
   mapEffect4: {fileID: 598222370}
   textScore: {fileID: 272542983}
-  distance: 0
+  textHighScore: {fileID: 0}
   dis_text: {fileID: 1332031425}
   audioMixer: {fileID: 24100000, guid: 6bfd5df1d1b2d5c4c8dd5f68d14f3cd7, type: 2}
   BGMSlider: {fileID: 1792660137}
@@ -908,6 +908,7 @@ MonoBehaviour:
   disToGround: {x: 0, y: 0, z: 0}
   disToJumpPos: {x: 0, y: 0, z: 0}
   jumpCount: 0
+  HighScore: 0
   Maxmagic: 400
   Minmagic: 0
   magic: 200
@@ -917,6 +918,7 @@ MonoBehaviour:
   magicDecreasePer: 10
   playtime: 0
   itemReverse: 0
+  distance: 0
   StageLvTimer: 0
   StageLvTime: 10
   StageLv: 0
@@ -6876,7 +6878,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab8eda4ebbfee474aa90b6f82348aa54, type: 2}
+  - {fileID: 2100000, guid: 737ae8a7b411c2d4d89819b7b36c8281, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

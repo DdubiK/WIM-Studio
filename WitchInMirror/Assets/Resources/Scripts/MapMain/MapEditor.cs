@@ -23,12 +23,16 @@ public class MapEditor : MonoBehaviour
     "Map/Texture/Projectile01",
     "Map/Texture/Projectile02",
     "Map/Texture/Projectile03",
-    "Map/Texture/Projectile04",
+    "Sprites/ItemSprite/ItemSprite_1",
     "Map/Texture/Projectile05",
     "Map/Texture/Projectile06",
     "Map/Texture/Item03_Heart",
-    "Map/Texture/Item01_PowerUp"
+    "Map/Texture/ItemSprite_1",
 };
+        for(int i=0;i<resourcePaths.Length;i++)
+        {
+            Debug.Log("path[i]:" + i + ":" + resourcePaths[i]);
+        }
     }
 
 
@@ -259,7 +263,7 @@ public class MapEditor : MonoBehaviour
                     {
                         //int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
-
+                       
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);

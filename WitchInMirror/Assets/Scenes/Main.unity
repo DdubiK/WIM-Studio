@@ -889,7 +889,6 @@ MonoBehaviour:
   mapEffect4: {fileID: 598222370}
   textScore: {fileID: 272542983}
   textHighScore: {fileID: 990262275}
-  distance: 0
   dis_text: {fileID: 1332031425}
   audioMixer: {fileID: 24100000, guid: 6bfd5df1d1b2d5c4c8dd5f68d14f3cd7, type: 2}
   BGMSlider: {fileID: 1792660137}
@@ -919,6 +918,7 @@ MonoBehaviour:
   magicDecreasePer: 10
   playtime: 0
   itemReverse: 0
+  distance: 0
   StageLvTimer: 0
   StageLvTime: 10
   StageLv: 0
