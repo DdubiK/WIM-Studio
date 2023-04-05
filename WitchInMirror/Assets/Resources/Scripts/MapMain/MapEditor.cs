@@ -541,6 +541,8 @@ public class MapEditor : MonoBehaviour
 
                 if (element.Obj.transform.position.x < -3.0f)
                 {
+                    SpriteRenderer sr = element.Obj.GetComponent<SpriteRenderer>();
+                    sr.color = new Color(1f, 1f, 1f);
                     if (element.Obj.transform.childCount > 0)
                     {
                         Destroy(element.Obj.transform.GetChild(0).gameObject);

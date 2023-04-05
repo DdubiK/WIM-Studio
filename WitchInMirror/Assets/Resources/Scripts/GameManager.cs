@@ -443,7 +443,7 @@ public class GameManager : MonoBehaviour
     public void timer()
     {
         //time += Time.deltaTime;
-        playtime += Time.deltaTime;
+        playtime += Time.deltaTime / Time.timeScale;
         //itemreverseTime += Time.deltaTime;
         //magicstopTime += Time.deltaTime;
     }
@@ -513,8 +513,17 @@ public class GameManager : MonoBehaviour
     {
         if (StageLvTimer >= StageLvTime)
         {
-            StageLvTimer = 0;
-            StageLv++;
+            if(StageLv >=6)
+            {
+                StageLvTimer = 0;
+                StageLv = 6;
+                magicDecreasePer += 5;
+            }
+            else
+            {
+                StageLvTimer = 0;
+                StageLv++;
+            }
             Time.timeScale = 1 + (StageLv * 0.08f); // 이것보다 작아야된다.
         }
         else
@@ -534,6 +543,7 @@ public class GameManager : MonoBehaviour
         playtime = 0;
         StageLvTimer = 0;
         StageLv = 0;
+        distance = 0;
         resetInit();
     }
 
@@ -745,11 +755,11 @@ public class GameManager : MonoBehaviour
                 timer += 0.1f;
                 player[0].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
                 player[1].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.1f / Time.timeScale);
                 timer += 0.1f;
                 player[0].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
                 player[1].gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.1f / Time.timeScale);
             }
             else
             {
@@ -762,7 +772,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ItemReverse()
     {
         itemReverse = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(10f / Time.timeScale);
         itemReverse = false;
         //Debug.Log("코루틴끝!!!!!!!!!!!!");
 
@@ -779,7 +789,7 @@ public class GameManager : MonoBehaviour
                 magicReverse = true;
                 break;
         }
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(10f / Time.timeScale);
 
         magicReverse = false;
         Debug.Log("코루틴 끝");
@@ -795,7 +805,7 @@ public class GameManager : MonoBehaviour
         player[1].gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
         player[0].gameObject.transform.GetChild(1).gameObject.SetActive(true);
         player[1].gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(8f /Time.timeScale);
         magicStop = false;
         isGiant = false;
         player[0].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
