@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
@@ -20,8 +21,8 @@ public class MapEditor : MonoBehaviour
 {
     null,
     "Map/Texture/Enemy01_idle",
-    "Map/Texture/Projectile01",
-    "Map/Texture/Projectile02",
+    "Sprites/magic",
+    "Sprites/magic",
     "Sprites/ItemObject1",
     "Sprites/ItemObject2",
     "Sprites/ItemObject7",
@@ -239,15 +240,20 @@ public class MapEditor : MonoBehaviour
                     }
                     if (a.ID == 2) //마력
                     {
-                        string resourcePath = resourcePaths[a.ID];
-                        if (resourcePath != null)
-                        {
-                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                        }
                         if (j >= 3 && j < 6)
                         {
                             a.ID = 3;
                         }
+                        string resourcePath = resourcePaths[a.ID];
+                        if (resourcePath != null &&!(a.ID ==3))
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                            Animator animator = a.Obj.AddComponent<Animator>();
+                            AnimatorController controller = Resources.Load<AnimatorController>("Animator/Magic_Idle");
+                            animator.runtimeAnimatorController = controller;
+                            animator.Play(controller.animationClips[0].name);
+                        }
+
                     }
                     if (a.ID == 3) //마력
                     {
@@ -255,6 +261,12 @@ public class MapEditor : MonoBehaviour
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                            Animator animator = a.Obj.AddComponent<Animator>();
+                            AnimatorController controller = Resources.Load<AnimatorController>("Animator/Magic_Idle");
+                            animator.runtimeAnimatorController = controller;
+                            SpriteRenderer spriterender = a.Obj.GetComponent<SpriteRenderer>();
+                            spriterender.color = new Color(0.5f, 0.5f, 0.5f);
+                            animator.Play(controller.animationClips[0].name);
                         }
                     }
                     if (a.ID > 3) //아이템(4 : 마력대폭증가 , 5: 마력대폭감소 , 6: 쉴드 , 7: 체질변화 , 8: 아이템성질변화 , 9: 거대화 )  
@@ -301,7 +313,7 @@ public class MapEditor : MonoBehaviour
                     {
                         last_obj = a;
                     }
-                    //Debug.Log("obj:" + a.Obj.name + ",ID:" + a.ID);
+                    Debug.Log("obj:" + a.Obj.name + ",ID:" + a.ID);
                 }
             }
             poolposidx = 0;
@@ -533,6 +545,11 @@ public class MapEditor : MonoBehaviour
                     {
                         Destroy(element.Obj.transform.GetChild(0).gameObject);
                     }
+                    if(element.Obj.GetComponent<Animator>())
+                    {
+                        Animator ani = element.Obj.GetComponent<Animator>();
+                        Destroy(ani);
+                    }
                     sample++;
                 }
 
@@ -591,9 +608,16 @@ public class MapEditor : MonoBehaviour
                                 Eobj.Pooling();
                                 Sprite b = element.Obj.GetComponent<SpriteRenderer>().sprite;
                                 Eobj.GetComponent<SpriteRenderer>().sprite = b;
+                                if (!p1 && p2)
+                                {
+                                    SpriteRenderer spriterender = Eobj.GetComponent<SpriteRenderer>();
+                                    spriterender.color = new Color(0.5f, 0.5f, 0.5f);
+                                }
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
                                 Animator psAni = GetObjectEffect();
                                 psAni.transform.position = element.Obj.transform.position;
+                                Animator idleani = element.Obj.GetComponent<Animator>();
+                                Destroy(idleani);
                                 psAni.Play("ItemEffect");
                                 break;
                             case 4:

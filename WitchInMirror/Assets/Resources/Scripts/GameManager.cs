@@ -515,7 +515,7 @@ public class GameManager : MonoBehaviour
         {
             StageLvTimer = 0;
             StageLv++;
-            Time.timeScale = 1 + (StageLv * 0.5f);
+            Time.timeScale = 1 + (StageLv * 0.08f); // 이것보다 작아야된다.
         }
         else
             StageLvTimer += Time.deltaTime;
@@ -575,6 +575,8 @@ public class GameManager : MonoBehaviour
         magicStop = false;
         player[0].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         player[1].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        player[0].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        player[1].gameObject.transform.GetChild(1).gameObject.SetActive(false);
         StopCoroutine("MagicStop");
         //player[0].gameObject.transform.Find("SuperMode2").gameObject.SetActive(false);
         //player[1].gameObject.transform.Find("SuperMode2").gameObject.SetActive(false);
@@ -586,9 +588,9 @@ public class GameManager : MonoBehaviour
     {
         if (magicStop == false)
         {
-            player[0].gameObject.transform.Find("Shield").gameObject.SetActive(true);
-            player[1].gameObject.transform.Find("Shield").gameObject.SetActive(true);
-            isShield = true;
+            player[0].transform.GetChild(0).gameObject.SetActive(true);
+            player[1].transform.GetChild(0).gameObject.SetActive(true);
+            isShield = true;            
         }
     }
 
@@ -598,9 +600,10 @@ public class GameManager : MonoBehaviour
         {
             if (isShield)
             {
-                player[0].gameObject.transform.Find("Shield").gameObject.SetActive(false);
-                player[1].gameObject.transform.Find("Shield").gameObject.SetActive(false);
+                player[0].transform.GetChild(0).gameObject.SetActive(false);
+                player[1].transform.GetChild(0).gameObject.SetActive(false);
                 isShield = false;
+
             }
             else
             {
@@ -609,7 +612,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     public void MagicReverseItem()
     {

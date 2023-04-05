@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 76bb941fd4373d34d8d6b164e1fa202f
+guid: fff462fadab4b9147b99fb53b23d50a0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 6000
+  spritePixelsToUnits: 1400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -117,106 +117,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: magic_0
+      name: Shield1_0
       rect:
         serializedVersion: 2
-        x: 3363
-        y: 65
-        width: 1150
-        height: 2000
-      alignment: 9
-      pivot: {x: 0.49197584, y: 0.2939073}
+        x: 220
+        y: 90
+        width: 800
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44f6a2d7398fe8a4399a0af3c3f8f597
-      internalID: 409830580
+      spriteID: be39a6db3f2009b4490c8a772a2faf79
+      internalID: 661467834
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: magic_2
+      name: Shield1_1
       rect:
         serializedVersion: 2
-        x: 4840
-        y: 60
-        width: 1150
-        height: 2000
-      alignment: 9
-      pivot: {x: 0.51625794, y: 0.30409348}
+        x: 1110
+        y: 90
+        width: 800
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd379d15a7e658942ac09b4e798a48b7
-      internalID: -2116009296
+      spriteID: 36784a3dde8ee8f4e96d9fa00b8cee9c
+      internalID: -1719640964
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: magic_3
+      name: Shield1_27
       rect:
         serializedVersion: 2
-        x: 215
-        y: 65
-        width: 830
-        height: 2000
-      alignment: 9
-      pivot: {x: 0.48872674, y: 0.30350876}
+        x: 2900
+        y: 90
+        width: 800
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae01f4e0ca00bc44a9330b6be06b45ea
-      internalID: 1906711154
+      spriteID: e33bb7d35ce13c44cadc65630ca8fd6a
+      internalID: -981619729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: magic_4
+      name: Shield1_52
       rect:
         serializedVersion: 2
-        x: 1228
-        y: 60
-        width: 852
-        height: 2000
-      alignment: 9
-      pivot: {x: 0.51690954, y: 0.2988304}
+        x: 2030
+        y: 90
+        width: 800
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00f5ac8b89b80444cb43abb7b25f1bbb
-      internalID: 384730143
+      spriteID: ca2f3a7ecf21842449a838ab23d1d177
+      internalID: -356967690
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: magic_5
+      name: Shield1_72
       rect:
         serializedVersion: 2
-        x: 2106
-        y: 60
-        width: 1150
-        height: 2000
-      alignment: 9
-      pivot: {x: 0.49465057, y: 0.28621733}
+        x: 3770
+        y: 90
+        width: 800
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb126d7b6e0113a42afa7bc7225987dc
-      internalID: -286059623
+      spriteID: 9e4c8b31c3ee2b943bba6817ae09ec5b
+      internalID: -158033724
       vertices: []
       indices: 
       edges: []
@@ -232,13 +232,92 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      magic_1: 521135494
-      magic_3: 1906711154
-      magic_2: -2116009296
-      magic_5: -286059623
-      magic_0: 409830580
-      magic_4: 384730143
-      magic_6: -1450584514
+      Shield1_26: -1066415960
+      Shield1_4: 1266064527
+      Shield1_31: -218242993
+      Shield1_78: 1502023364
+      Shield1_37: 2142050972
+      Shield1_54: -1397925786
+      Shield1_49: -1844176650
+      Shield1_36: -1902347556
+      Shield1_62: -978474048
+      Shield1_52: -356967690
+      Shield1_72: -158033724
+      Shield1_23: 2005974980
+      Shield1_50: 1254385256
+      Shield1_57: 48295012
+      Shield1_17: 692453379
+      Shield1_66: -798572151
+      Shield1_19: -641875578
+      Shield1_81: 1403451847
+      Shield1_51: 1944266627
+      Shield1_42: 1524166494
+      Shield1_58: -1992478836
+      Shield1_34: -781399421
+      Shield1_68: 622967423
+      Shield1_56: -1239670630
+      Shield1_55: 635256643
+      Shield1_46: 1828568063
+      Shield1_38: -613996809
+      Shield1_63: 1600109264
+      Shield1_73: 321052394
+      Shield1_70: -372028894
+      Shield1_82: -20128169
+      Shield1_9: -1275901785
+      Shield1_41: 1190307524
+      Shield1_29: 126395281
+      Shield1_84: -1596344646
+      Shield1_18: 1227926961
+      Shield1_6: 2083493158
+      Shield1_28: -939925382
+      Shield1_33: -827200861
+      Shield1_48: -1507762034
+      Shield1_21: 945035807
+      Shield1_74: -79972630
+      Shield1_83: -1218610871
+      Shield1_1: -1719640964
+      Shield1_12: 771746744
+      Shield1_40: -1908692312
+      Shield1_3: 1830964765
+      Shield1_75: -1943725164
+      Shield1_10: -2075922327
+      Shield1_5: 2054200529
+      Shield1_13: -416582078
+      Shield1_39: -1227469614
+      Shield1_0: 661467834
+      Shield1_15: -642736182
+      Shield1_53: 1785324335
+      Shield1_80: -1030650630
+      Shield1_16: -629119899
+      Shield1_20: 1602280159
+      Shield1_11: 459194388
+      Shield1_14: 1053124141
+      Shield1_67: 1957257136
+      Shield1_71: 797230631
+      Shield1_69: -1714258986
+      Shield1_61: -1909388474
+      Shield1_24: -360735434
+      Shield1_35: -5288097
+      Shield1_30: 375631672
+      Shield1_60: -678095807
+      Shield1_79: -654130970
+      Shield1_32: 1093162519
+      Shield1_47: 1895775686
+      Shield1_2: -1443102291
+      Shield1_64: -2094931962
+      Shield1_43: 10623034
+      Shield1_44: -511551858
+      Shield1_45: 944375950
+      Shield1_22: 628405389
+      Shield1_25: -701847034
+      Shield1_85: 2084114239
+      Shield1_7: -1831467660
+      Shield1_65: 347499337
+      Shield1_77: 1993890688
+      Shield1_27: -981619729
+      Shield1_59: 1133893461
+      Shield1_76: -689288888
+      Shield1_8: 1823254456
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
