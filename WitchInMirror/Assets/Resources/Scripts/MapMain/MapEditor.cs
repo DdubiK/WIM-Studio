@@ -21,7 +21,7 @@ public class MapEditor : MonoBehaviour
         resourcePaths = new string[] //아이템 리소스 파일 위치
 {
     null,
-    "Map/Texture/Enemy01_idle",
+    "Sprites/Obstacle",
     "Sprites/magic",
     "Sprites/magic",
     "Sprites/ItemObject1",
@@ -180,35 +180,49 @@ public class MapEditor : MonoBehaviour
         int PatternArrange = 0;
         int zeroPatternPer = Random.Range(0, 10);
         
-        switch (GameManager.instance.StageLv)
+        switch (GameManager.instance.StageLv) //Stage lv따라서 / 최하 / 하 / 중 / 상 난이도중 무엇을 뽑을지 이때 0이 나올 확률 (숨쉴 확률)을 얼마나 줄지.
         {
             case 0:
-                if (zeroPatternPer <= 0) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 23);
+                PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 48);
                 break;
             case 1:
+                PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 48);
+                break;
+            case 2:
                 if (zeroPatternPer <= 0) PatternArrange = 0;
                 else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 23);
                 break;
-            case 2:
-                if (zeroPatternPer <= 1) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 10);
-                break;
             case 3:
-                if (zeroPatternPer <= 1) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 10);
+                if (zeroPatternPer <= 0) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 23);
                 break;
             case 4:
-                if (zeroPatternPer <= 2) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 10);
+                if (zeroPatternPer <= 0) PatternArrange = 0;
+                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
                 break;
             case 5:
-                if (zeroPatternPer <= 2) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count);
+                if (zeroPatternPer <= 0) PatternArrange = 0;
+                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
                 break;
             case 6:
+                if (zeroPatternPer <= 1) PatternArrange = 0;
+                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
+                break;
+            case 7:
+                if (zeroPatternPer <= 1) PatternArrange = 0;
+                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
+                break;
+            case 8:
+                if (zeroPatternPer <= 1) PatternArrange = 0;
+                else PatternArrange = Random.Range(41, DBLoader.MapPatternArray.Pattern.Count);
+                break;
+            case 9:
+                if (zeroPatternPer <= 1) PatternArrange = 0;
+                else PatternArrange = Random.Range(41, DBLoader.MapPatternArray.Pattern.Count);
+                break;
+            case 10:
                 if (zeroPatternPer <= 2) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count);
+                else PatternArrange = Random.Range(54, DBLoader.MapPatternArray.Pattern.Count);
                 break;
 
         }
@@ -219,8 +233,7 @@ public class MapEditor : MonoBehaviour
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    bool ani1 = false;
-                    bool ani2 = false;
+
                     RuningObject a = queInActive.Dequeue();
                     //a.ID = DBLoader.MapPatternArray.Pattern[datacount][resourceidx];
                     //a.ID = DBLoader.MapPatternArray.Pattern[RandomPattern][resourceidx];
@@ -244,8 +257,9 @@ public class MapEditor : MonoBehaviour
                             a.ID = 0;
 
                         }
-                        if (percent < itemPercent)
+                        if (percent < itemPercent) //Itempercent == 아이템을 줄 확률이에요. 5% ->아이템
                         {
+                            //어떤 아이템이 나올것이냐?
                             int[] itemProbabilities = { 12, 8, 3, 3, 4, 5 }; //각 4,5,6,7,8,9 인덱스 확률
                             int ran = Random.Range(0, 100);
                             int cumulativeProbability = 0;
@@ -309,7 +323,7 @@ public class MapEditor : MonoBehaviour
                             Animator animator = a.Obj.GetComponent<Animator>();
                             animator.enabled = true;
                             animator.Play("magic_idle",0,0);
-                            ani1 = true;
+
                         }
                        
                         if (j >= 3 && j < 6)
@@ -337,7 +351,7 @@ public class MapEditor : MonoBehaviour
                             animator.Play("magic2_idle",0,0);
                             SpriteRenderer spr = a.Obj.GetComponent<SpriteRenderer>();
                             spr.color = new Color(1f, 1f, 1f);
-                            ani2 = true;
+
                         }
                     }
                     if (a.ID > 3) //아이템(4 : 마력대폭증가 , 5: 마력대폭감소 , 6: 쉴드 , 7: 체질변화 , 8: 아이템성질변화 , 9: 거대화 )  
@@ -669,7 +683,7 @@ public class MapEditor : MonoBehaviour
                             case 3:
                                 if (element.ID == 2) GameManager.instance.MagicUp();
                                 if (element.ID == 3) GameManager.instance.MagicDown();
-                                GameManager.instance.UpScore(10);
+                                //GameManager.instance.UpScore(10);
                                 Effect Eobj = GetEffect();
                                 if (p1)
                                 {

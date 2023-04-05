@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
                     
                 }
                 textHighScore.text = "" + SLManager.Score;
-                textScore.text = "" + Score;
+                textScore.text = "" + (Score+Mathf.Round(distance) *100f);
                 //SceneUpdate -= UIUpdate;
                 SceneUpdate -= CharUpdate;
                 SceneUpdate -= MapUpdate;
@@ -314,7 +314,7 @@ public class GameManager : MonoBehaviour
 
     public void distanceUI()
     {
-        distance += Time.deltaTime*Time.timeScale;
+        distance += Time.deltaTime*Time.timeScale *2f;
         dis_text.text = Mathf.Round(distance) + "m";
     }
 
@@ -478,7 +478,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("-magic");
             }
         }
-        Score += 100;
+        UpScore(20);
     }
 
     public void MagicDown()
@@ -499,7 +499,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("-magic");
             }
         }
-        Score += 100;
+        UpScore(20);
     }
 
 
@@ -523,10 +523,10 @@ public class GameManager : MonoBehaviour
     {
         if (StageLvTimer >= StageLvTime)
         {
-            if(StageLv >=6)
+            if(StageLv >=10)
             {
                 StageLvTimer = 0;
-                StageLv = 6;
+                StageLv = 10;
                 magicDecreasePer += 5;
             }
             else
@@ -534,7 +534,7 @@ public class GameManager : MonoBehaviour
                 StageLvTimer = 0;
                 StageLv++;
             }
-            Time.timeScale = 1 + (StageLv * 0.08f); // 이것보다 작아야된다.
+            Time.timeScale = 1 + (StageLv * 0.04f); // 이것보다 작아야된다.
             InGameTimeScale = Time.timeScale;
         }
         else
@@ -733,10 +733,10 @@ public class GameManager : MonoBehaviour
         switch (_idx)
         {
             case 1:
-                magic += 50f;
+                magic += 100f;
                 break;
             case 2:
-                magic -= 50f;
+                magic -= 100f;
                 break;
         }
     }
