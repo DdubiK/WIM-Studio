@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
+using UnityEngine.Animations;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
@@ -12,6 +12,7 @@ public class MapEditor : MonoBehaviour
         SetPosList(6, 6, ref Poolposlist, 2.5f);
         PathInit();
         createobj();
+        itemPercent = 5;
     }
     public List<Object> sprite;
     public void PathInit()
@@ -133,6 +134,10 @@ public class MapEditor : MonoBehaviour
                 GameObject obj = new GameObject();
                 obj.name = "obj" + (i + 1) + "," + (j + 1);
                 obj.AddComponent<SpriteRenderer>();
+                Animator animator = obj.AddComponent<Animator>();
+                RuntimeAnimatorController controller = Resources.Load<RuntimeAnimatorController>("Animator/Magic_Idle");
+                animator.runtimeAnimatorController = controller;
+                animator.enabled = false;
                 runobj.Add(obj);
                 RuningObject a = new RuningObject();
                 a.ID = 0;
@@ -172,64 +177,120 @@ public class MapEditor : MonoBehaviour
     {
         int poolposidx = 0;
         int resourceidx = 0;
-        int RandomPattern = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count);
-        //int datacount = 0;
-        //if (datacount >= DBLoader.MapPatternArray.Pattern.Count) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
-        //{
-        //    datacount = 0;
-        //}
+        int PatternArrange = 0;
+        int zeroPatternPer = Random.Range(0, 10);
+        
+        switch (GameManager.instance.StageLv)
+        {
+            case 0:
+                if (zeroPatternPer <= 0) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 23);
+                break;
+            case 1:
+                if (zeroPatternPer <= 0) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 23);
+                break;
+            case 2:
+                if (zeroPatternPer <= 1) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 10);
+                break;
+            case 3:
+                if (zeroPatternPer <= 1) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 10);
+                break;
+            case 4:
+                if (zeroPatternPer <= 2) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 10);
+                break;
+            case 5:
+                if (zeroPatternPer <= 2) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count);
+                break;
+            case 6:
+                if (zeroPatternPer <= 2) PatternArrange = 0;
+                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count);
+                break;
+
+        }
+        //int RandomPattern = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count); //0~26개 , 13개 , 10개
         if (queInActive.Count > 36 && (2.5f - last_obj.Obj.transform.position.x) >= 0.3f)
         {
             for (int i = 0; i < 6; i++)
             {
                 for (int j = 0; j < 6; j++)
                 {
+                    bool ani1 = false;
+                    bool ani2 = false;
                     RuningObject a = queInActive.Dequeue();
                     //a.ID = DBLoader.MapPatternArray.Pattern[datacount][resourceidx];
-                    a.ID = DBLoader.MapPatternArray.Pattern[RandomPattern][resourceidx];
+                    //a.ID = DBLoader.MapPatternArray.Pattern[RandomPattern][resourceidx];
+                    a.ID = DBLoader.MapPatternArray.Pattern[PatternArrange][resourceidx];
                     a.colcheck = false;
                     a.Obj.GetComponent<SpriteRenderer>().sortingOrder = 2;
                     a.Obj.transform.position = Poolposlist[poolposidx];
+                    SpriteRenderer sr = a.Obj.GetComponent<SpriteRenderer>();
+                    sr.color = new Color(1f, 1f, 1f);
+                    sr.flipY = false;
+                    sr = null;
                     if (a.ID == 0) //없음
                     {
-                        //int percent = Random.Range(0, 100);
-                        //if (percent >= itemPercent)
+                        Animator animator = a.Obj.GetComponent<Animator>();
+                        animator.enabled = false;
                         a.Obj.GetComponent<SpriteRenderer>().sprite = null;
-                        //if (percent < itemPercent)
-                        //{
-                        //    int[] itemProbabilities = { 65, 12, 8, 3, 3, 4, 5 }; //각 4,5,6,7,8,9 인덱스 확률
-                        //    int ran = Random.Range(0, 100);
-                        //    int cumulativeProbability = 0;
-                        //    for (int k = 0; k < itemProbabilities.Length; k++)
-                        //    {
-                        //        cumulativeProbability += itemProbabilities[k];
-                        //        if (ran < cumulativeProbability)
-                        //        {
-                        //            a.ID = k + 4;
-                        //            break;
-                        //        }
-                        //    }
-                        //    if (j >= 3 && j < 6)
-                        //    {
-                        //        int downitemper = 7;
-                        //        int reran = Random.Range(0, 10);
-                        //        if(reran <= downitemper)
-                        //        {
-                        //            a.ID = 0;
-                        //            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
-                        //        }
-                        //    }
-                        //}
+                        int percent = Random.Range(0, 100);
+                        if (percent >= itemPercent)
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                            a.ID = 0;
+
+                        }
+                        if (percent < itemPercent)
+                        {
+                            int[] itemProbabilities = { 12, 8, 3, 3, 4, 5 }; //각 4,5,6,7,8,9 인덱스 확률
+                            int ran = Random.Range(0, 100);
+                            int cumulativeProbability = 0;
+                            //Debug.Log("" + itemProbabilities.Length);
+                            for (int k = 0; k < itemProbabilities.Length; k++)
+                            {
+                                cumulativeProbability += itemProbabilities[k];
+                                if (ran < cumulativeProbability)
+                                {
+                                    a.ID = k + 4;
+                                    //Debug.Log("a.ID:" + a.ID);
+                                    break;
+                                }
+                                else
+                                {
+                                    a.ID = 0;
+                                    a.Obj.GetComponent<SpriteRenderer>().sprite = null; 
+                                    break;
+                                }
+                            }
+                            //if (j >= 3 && j < 6)
+                            //{
+                            //    int downitemper = 7;
+                            //    int reran = Random.Range(0, 10);
+                            //    if (reran <= downitemper)
+                            //    {
+                            //        a.ID = 0;
+                            //        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                            //    }
+                            //}
+                            //}
+                        }
                     }
                     if (a.ID == 1) //장애물
                     {
-                        int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
                         //if (percent <= obstaclePercent)
                         //{
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                        }
+                        if (j >= 3 && j < 6)
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().flipY = true;
                         }
                         //}
                         //else
@@ -240,20 +301,24 @@ public class MapEditor : MonoBehaviour
                     }
                     if (a.ID == 2) //마력
                     {
-                        if (j >= 3 && j < 6)
-                        {
-                            a.ID = 3;
-                        }
+
                         string resourcePath = resourcePaths[a.ID];
-                        if (resourcePath != null &&!(a.ID ==3))
+                        if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                            Animator animator = a.Obj.AddComponent<Animator>();
-                            AnimatorController controller = Resources.Load<AnimatorController>("Animator/Magic_Idle");
-                            animator.runtimeAnimatorController = controller;
-                            animator.Play(controller.animationClips[0].name);
+                            Animator animator = a.Obj.GetComponent<Animator>();
+                            animator.enabled = true;
+                            animator.Play("magic_idle");
+                            ani1 = true;
                         }
+                       
+                        if (j >= 3 && j < 6)
+                        {
+                            
+                            a.ID = 3;
 
+                        }
+                        
                     }
                     if (a.ID == 3) //마력
                     {
@@ -261,22 +326,28 @@ public class MapEditor : MonoBehaviour
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
-                            Animator animator = a.Obj.AddComponent<Animator>();
-                            AnimatorController controller = Resources.Load<AnimatorController>("Animator/Magic_Idle");
-                            animator.runtimeAnimatorController = controller;
-                            SpriteRenderer spriterender = a.Obj.GetComponent<SpriteRenderer>();
-                            spriterender.color = new Color(0.5f, 0.5f, 0.5f);
-                            animator.Play(controller.animationClips[0].name);
+                            Animator animator = a.Obj.GetComponent<Animator>();
+                            //animator.enabled = false;
+                            animator.enabled = true;                           
+                            animator.Play("magic2_idle");
+                            SpriteRenderer spr = a.Obj.GetComponent<SpriteRenderer>();
+                            spr.color = new Color(1f, 1f, 1f);
+                            ani2 = true;
                         }
                     }
                     if (a.ID > 3) //아이템(4 : 마력대폭증가 , 5: 마력대폭감소 , 6: 쉴드 , 7: 체질변화 , 8: 아이템성질변화 , 9: 거대화 )  
                     {
+                        Debug.Log("오류:" + a.ID);
                         //int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
-                       
+
                         if (resourcePath != null)
                         {
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
+                        }
+                        if (j >= 3 && j < 6)
+                        {
+                            a.Obj.GetComponent<SpriteRenderer>().flipY = true;
                         }
                         //GameObject pobj = GetObjectEffect();
                         //pobj.AddComponent<ParticleSystem>();
@@ -296,13 +367,15 @@ public class MapEditor : MonoBehaviour
                         effectPs.Play();
                         // b의 Particle System Component 설정을 a의 Particle System Component로 복사합니다.
                     }
+                    Debug.Log("name:" + a.Obj.name + ",j:" + j + ",ID:" + a.ID + ",poolidx :" + poolposidx + ",residx :" + resourceidx + ", vec: " + Poolposlist[poolposidx]
+                        +",ancheck1: "+ani1+ ",ancheck2: " + ani2);
                     resourceidx++;
                     poolposidx++;
 
-                    if (resourceidx >= DBLoader.MapPatternArray.Pattern[RandomPattern].Length) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
-                    {
-                        resourceidx = 0;
-                    }
+                    //if (resourceidx >= DBLoader.MapPatternArray.Pattern[PatternArrange].Length) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
+                    //{
+                    //    resourceidx = 0;
+                    //}
                     //if (resourceidx >= DBLoader.MapPatternArray.Pattern[datacount].Length) // 인덱스가 배열 범위를 벗어나면 0으로 초기화
                     //{
                     //    resourceidx = 0;
@@ -313,7 +386,8 @@ public class MapEditor : MonoBehaviour
                     {
                         last_obj = a;
                     }
-                    Debug.Log("obj:" + a.Obj.name + ",ID:" + a.ID);
+                    //Debug.Log("obj:" + a.Obj.name + ",ID:" + a.ID);
+
                 }
             }
             poolposidx = 0;
@@ -541,16 +615,15 @@ public class MapEditor : MonoBehaviour
 
                 if (element.Obj.transform.position.x < -3.0f)
                 {
-                    SpriteRenderer sr = element.Obj.GetComponent<SpriteRenderer>();
-                    sr.color = new Color(1f, 1f, 1f);
+
                     if (element.Obj.transform.childCount > 0)
                     {
                         Destroy(element.Obj.transform.GetChild(0).gameObject);
                     }
-                    if(element.Obj.GetComponent<Animator>())
+                    if (element.Obj.GetComponent<Animator>())
                     {
                         Animator ani = element.Obj.GetComponent<Animator>();
-                        Destroy(ani);
+                        ani.enabled = false;
                     }
                     sample++;
                 }
@@ -619,7 +692,7 @@ public class MapEditor : MonoBehaviour
                                 Animator psAni = GetObjectEffect();
                                 psAni.transform.position = element.Obj.transform.position;
                                 Animator idleani = element.Obj.GetComponent<Animator>();
-                                Destroy(idleani);
+                                idleani.enabled = false;
                                 psAni.Play("ItemEffect");
                                 break;
                             case 4:

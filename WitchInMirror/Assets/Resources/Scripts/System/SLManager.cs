@@ -20,7 +20,11 @@ public static class SLManager
     #region 시작 원격 설정
     public static void RemoteStart()
     {
+#if UNITY_EDITOR_WIN
         m_sSaveFileDirectory = Application.dataPath + "/Save/";
+#elif UNITY_ANDROID
+        m_sSaveFileDirectory = Application.persistentDataPath + "/Save/";
+#endif
         string filecheck = m_sSaveFileDirectory + m_sSaveFileName;
 
         if (!Directory.Exists(m_sSaveFileDirectory)) // 해당 경로가 존재하지 않는다면

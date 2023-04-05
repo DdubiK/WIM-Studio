@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
         audioSource.clip = audioClip[0];
 
         audioSource.clip = bgmSource.clip;
-        UIratio();
+        //UIratio();
 
         SFXSlider.value = 0.5f;
         BGMSlider.value = 0.5f;
@@ -539,6 +539,7 @@ public class GameManager : MonoBehaviour
         isGround = true;
         jumpUp = false;
         isGiant = false;
+        magicDecreasePer = 15f;
         Score = 0;
         playtime = 0;
         StageLvTimer = 0;
