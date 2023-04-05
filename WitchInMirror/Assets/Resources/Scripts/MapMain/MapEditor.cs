@@ -308,7 +308,7 @@ public class MapEditor : MonoBehaviour
                             a.Obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(resourcePath);
                             Animator animator = a.Obj.GetComponent<Animator>();
                             animator.enabled = true;
-                            animator.Play("magic_idle");
+                            animator.Play("magic_idle",0,0);
                             ani1 = true;
                         }
                        
@@ -322,6 +322,11 @@ public class MapEditor : MonoBehaviour
                     }
                     if (a.ID == 3) //¸¶·Â
                     {
+                        if(a.Obj.GetComponent<Animator>())
+                        {
+                            Animator animator = a.Obj.GetComponent<Animator>();
+                            animator.enabled = false;
+                        }
                         string resourcePath = resourcePaths[a.ID];
                         if (resourcePath != null)
                         {
@@ -329,7 +334,7 @@ public class MapEditor : MonoBehaviour
                             Animator animator = a.Obj.GetComponent<Animator>();
                             //animator.enabled = false;
                             animator.enabled = true;                           
-                            animator.Play("magic2_idle");
+                            animator.Play("magic2_idle",0,0);
                             SpriteRenderer spr = a.Obj.GetComponent<SpriteRenderer>();
                             spr.color = new Color(1f, 1f, 1f);
                             ani2 = true;
