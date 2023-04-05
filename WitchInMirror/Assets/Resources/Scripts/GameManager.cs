@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
 
-
     private void Awake()
     {
         if (!instance) instance = this;
@@ -40,10 +39,11 @@ public class GameManager : MonoBehaviour
     public Action SceneUpdate = null;
     public E_SCENE curScene;
 
+    public float InGameTimeScale = 0;
 
     public void EventSenceChange(int idx)
     {
-        Debug.Log("check");
+        //Debug.Log("check");
         SetGUIState((E_SCENE)idx);
     }
 
@@ -58,7 +58,9 @@ public class GameManager : MonoBehaviour
         switch (scene)
         {
             case E_SCENE.TITLE:
+                isPause = false;
                 Time.timeScale = 0;
+                pausePanel.gameObject.SetActive(false);
                 break;
             case E_SCENE.PLAY:
                 Time.timeScale = 1;
@@ -251,6 +253,7 @@ public class GameManager : MonoBehaviour
         if (!isPause)
         {
             isPause = true;
+            InGameTimeScale = Time.timeScale;
             Time.timeScale = 0.0f;
             pausePanel.gameObject.SetActive(true);
         }
@@ -261,7 +264,7 @@ public class GameManager : MonoBehaviour
         if (isPause)
         {
             isPause = false;
-            Time.timeScale = 1f;
+            Time.timeScale = InGameTimeScale;
             pausePanel.gameObject.SetActive(false);
         }
     }
@@ -313,6 +316,13 @@ public class GameManager : MonoBehaviour
     {
         distance += Time.deltaTime*Time.timeScale;
         dis_text.text = Mathf.Round(distance) + "m";
+    }
+
+
+    public void reStart()
+    {
+        SceneUpdate -= CharUpdate;
+        SceneUpdate -= MapUpdate;
     }
 
 
@@ -525,6 +535,7 @@ public class GameManager : MonoBehaviour
                 StageLv++;
             }
             Time.timeScale = 1 + (StageLv * 0.08f); // 이것보다 작아야된다.
+            InGameTimeScale = Time.timeScale;
         }
         else
             StageLvTimer += Time.deltaTime;
@@ -540,6 +551,7 @@ public class GameManager : MonoBehaviour
         jumpUp = false;
         isGiant = false;
         magicDecreasePer = 15f;
+        InGameTimeScale = 1;
         Score = 0;
         playtime = 0;
         StageLvTimer = 0;

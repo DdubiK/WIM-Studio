@@ -342,7 +342,7 @@ public class MapEditor : MonoBehaviour
                     }
                     if (a.ID > 3) //아이템(4 : 마력대폭증가 , 5: 마력대폭감소 , 6: 쉴드 , 7: 체질변화 , 8: 아이템성질변화 , 9: 거대화 )  
                     {
-                        Debug.Log("오류:" + a.ID);
+                        //Debug.Log("오류:" + a.ID);
                         //int percent = Random.Range(0, 10);
                         string resourcePath = resourcePaths[a.ID];
 
@@ -372,8 +372,7 @@ public class MapEditor : MonoBehaviour
                         effectPs.Play();
                         // b의 Particle System Component 설정을 a의 Particle System Component로 복사합니다.
                     }
-                    Debug.Log("name:" + a.Obj.name + ",j:" + j + ",ID:" + a.ID + ",poolidx :" + poolposidx + ",residx :" + resourceidx + ", vec: " + Poolposlist[poolposidx]
-                        +",ancheck1: "+ani1+ ",ancheck2: " + ani2);
+                    //Debug.Log("name:" + a.Obj.name + ",j:" + j + ",ID:" + a.ID + ",poolidx :" + poolposidx + ",residx :" + resourceidx + ", vec: " + Poolposlist[poolposidx]+",ancheck1: "+ani1+ ",ancheck2: " + ani2);
                     resourceidx++;
                     poolposidx++;
 
@@ -611,12 +610,13 @@ public class MapEditor : MonoBehaviour
     #region 오브젝트 중재자
     public void moveojb()
     {
+        //Debug.Log("vecL : "+Vector2.left+", TimeScale : " +Time.timeScale+", deltaTime : "+Time.deltaTime+", movespeed :"+ objmoveSpeed +", 증가량 : "+ GameManager.instance.StageLv);
         if (queActive.Count > 0)
         {
             int sample = 0;
             foreach (RuningObject element in queActive)
             {
-                element.Obj.transform.Translate(Vector3.left * Time.deltaTime * objmoveSpeed * (1 + GameManager.instance.StageLv * 0.15f));//스테이지 레벨에 따른 장애물 속도 증가
+                element.Obj.transform.Translate(Vector2.left * Time.deltaTime * objmoveSpeed * (1 + GameManager.instance.StageLv * 0.15f));//스테이지 레벨에 따른 장애물 속도 증가
 
                 if (element.Obj.transform.position.x < -3.0f)
                 {
