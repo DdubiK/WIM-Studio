@@ -679,7 +679,7 @@ public class MapEditor : MonoBehaviour
                             case 1:
                                 Debug.Log("장애물 1");
                                 GameManager.instance.Damaged();
-
+                                
                                 //Debug.Log("충돌"+element.Obj.name);
                                 break;
                             case 2:
@@ -729,6 +729,7 @@ public class MapEditor : MonoBehaviour
                                 effectobj.transform.position = element.Obj.transform.position;
                                 Destroy(effectobj, 1f);
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                GameManager.instance.SoundPlay(13);
                                 break;
                             case 6:
                                 //GameManager.instance.SoundPlay(11);
@@ -739,6 +740,7 @@ public class MapEditor : MonoBehaviour
                                 effectobj.transform.position = element.Obj.transform.position;
                                 Destroy(effectobj, 1f);
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                GameManager.instance.SoundPlay(13);
                                 break;
                             case 7:
                                 //GameManager.instance.SoundPlay(12);
@@ -750,6 +752,7 @@ public class MapEditor : MonoBehaviour
                                 Destroy(effectobj, 1f);
 
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                GameManager.instance.SoundPlay(13);
                                 break;
                             case 8:
                                 //GameManager.instance.SoundPlay(12);
@@ -760,6 +763,7 @@ public class MapEditor : MonoBehaviour
                                 effectobj.transform.position = element.Obj.transform.position;
                                 Destroy(effectobj, 1f);
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                GameManager.instance.SoundPlay(13);
                                 break;
                             case 9:
                                 //GameManager.instance.SoundPlay(12);
@@ -770,6 +774,7 @@ public class MapEditor : MonoBehaviour
                                 effectobj.transform.position = element.Obj.transform.position;
                                 Destroy(effectobj, 1f);
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                GameManager.instance.SoundPlay(13);
                                 break;
                             case 10:
                                 //GameManager.instance.SoundPlay(12);
@@ -780,6 +785,7 @@ public class MapEditor : MonoBehaviour
                                 effectobj.transform.position = element.Obj.transform.position;
                                 Destroy(effectobj, 1f);
                                 element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                GameManager.instance.SoundPlay(13);
                                 break;
                         }
                         element.colcheck = true;
