@@ -550,6 +550,7 @@ public class GameManager : MonoBehaviour
         isGround = true;
         jumpUp = false;
         isGiant = false;
+        GroundCheck = null;
         magicDecreasePer = 15f;
         InGameTimeScale = 1;
         Score = 0;
