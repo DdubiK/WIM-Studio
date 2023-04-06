@@ -438,7 +438,8 @@ public class GameManager : MonoBehaviour
         }
         if (!isGround && !jumpUp &&jumpCount>0&& Vector2.Distance(player[0].transform.position, disToGround) <= disGround)
         {
-
+            player[0].GetComponent<Animator>().Play("Run",0,0);
+            player[1].GetComponent<Animator>().Play("Run2",0,0);
             isGround = true;
             jumpCount = 0;
             GroundCheck -= GroundChecking;
@@ -451,6 +452,9 @@ public class GameManager : MonoBehaviour
     {
         if (isGround)
         {
+
+            player[0].GetComponent<Animator>().Play("Jump1",0,0);
+            player[1].GetComponent<Animator>().Play("Jump2",0,0);
 
             player[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, jump );
             player[1].GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -jump);

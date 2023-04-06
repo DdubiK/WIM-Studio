@@ -21,7 +21,7 @@ public class MapEditor : MonoBehaviour
         resourcePaths = new string[] //아이템 리소스 파일 위치
 {
     null,
-    "Sprites/Obstacle",
+    "Sprites/Obstacle2",
     "Sprites/magic",
     "Sprites/magic",
     "Sprites/ItemObject1",
