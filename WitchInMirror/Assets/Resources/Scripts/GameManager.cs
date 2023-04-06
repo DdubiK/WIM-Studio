@@ -171,6 +171,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameoverchar;
     public GameObject gameoverchar2;
     public Sprite[] emotion = new Sprite [3];
+    public GameObject StateImage;
+    public List<GameObject> state_img;
 
     [Header("»ç¿îµå")]
     public AudioMixer audioMixer;
@@ -210,6 +212,9 @@ public class GameManager : MonoBehaviour
 
         SFXSlider.value = 0.5f;
         BGMSlider.value = 0.5f;
+        state_img.Add(StateImage.transform.GetChild(0).gameObject);
+        state_img.Add(StateImage.transform.GetChild(1).gameObject);
+        state_img.Add(StateImage.transform.GetChild(2).gameObject);
 
     }
 
@@ -219,6 +224,7 @@ public class GameManager : MonoBehaviour
         //UpdateGUIState();
         MagicLow();
         distanceUI();
+        ShowState();
     }
 
     public void SetHelp()
@@ -365,8 +371,17 @@ public class GameManager : MonoBehaviour
     {
         distance += Time.deltaTime*Time.timeScale ;
         dis_text.text = Mathf.Round(distance) + "m";
-        InGameTextScore.text = "" + (Score + (int)(Mathf.Round(distance) * 100f));
+        InGameTextScore.text = "" + (Score + (int)(Mathf.Round(distance) * 100f)+" Point");
 
+    }
+    public void ShowState()
+    {
+        if (magicReverse) state_img[0].gameObject.SetActive(true);
+        else state_img[0].gameObject.SetActive(false);
+        if (itemReverse) state_img[1].gameObject.SetActive(true);
+        else state_img[1].gameObject.SetActive(false);
+        if(magicStop) state_img[2].gameObject.SetActive(true);
+        else state_img[2].gameObject.SetActive(false);
     }
 
 

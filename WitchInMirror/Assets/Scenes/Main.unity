@@ -383,6 +383,11 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &369797496 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 369797496, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
+  m_PrefabInstance: {fileID: 2059725144235761717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &418039970 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3155737030511631255, guid: 7bf1bbff432c0614bbc8c409e257b885, type: 3}
@@ -464,6 +469,8 @@ MonoBehaviour:
   - {fileID: 1499196037, guid: 687eb26b65547df4aa41be9d2f497ff3, type: 3}
   - {fileID: 396110398, guid: 687eb26b65547df4aa41be9d2f497ff3, type: 3}
   - {fileID: 673695144, guid: 687eb26b65547df4aa41be9d2f497ff3, type: 3}
+  StateImage: {fileID: 369797496}
+  state_img: []
   audioMixer: {fileID: 24100000, guid: 6bfd5df1d1b2d5c4c8dd5f68d14f3cd7, type: 2}
   BGMSlider: {fileID: 1792660137}
   SFXSlider: {fileID: 1281993462}
@@ -2695,6 +2702,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 892628632}
     m_Modifications:
+    - target: {fileID: 1171217362, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a5574fa45b3c5984a99488dd8d4d7b92, type: 3}
+    - target: {fileID: 1794925801, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c88b2eaacda437d4c953b7095fd2523e, type: 3}
     - target: {fileID: 3635635036896554184, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2703,10 +2718,6 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 431284957}
-    - target: {fileID: 6335513640176118472, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
-      propertyPath: m_text
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7461344322084711057, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2738,10 +2749,6 @@ PrefabInstance:
     - target: {fileID: 7461344323713257072, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_Name
       value: Play
-      objectReference: {fileID: 0}
-    - target: {fileID: 7461344323713257072, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7461344323713257073, guid: 57b1822599c9fca4381c6a4aab7453eb, type: 3}
       propertyPath: m_Pivot.x

@@ -179,50 +179,49 @@ public class MapEditor : MonoBehaviour
         int resourceidx = 0;
         int PatternArrange = 0;
         int zeroPatternPer = Random.Range(0, 10);
-        
         switch (GameManager.instance.StageLv) //Stage lv따라서 / 최하 / 하 / 중 / 상 난이도중 무엇을 뽑을지 이때 0이 나올 확률 (숨쉴 확률)을 얼마나 줄지.
         {
             case 0:
-                PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 48);
+                PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 56);
                 break;
             case 1:
-                PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 48);
+                PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 56);
                 break;
             case 2:
                 if (zeroPatternPer <= 0) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 23);
+                else PatternArrange = Random.Range(1, DBLoader.MapPatternArray.Pattern.Count - 31);
                 break;
             case 3:
                 if (zeroPatternPer <= 0) PatternArrange = 0;
-                else PatternArrange = Random.Range(0, DBLoader.MapPatternArray.Pattern.Count - 23);
+                else PatternArrange = Random.Range(1, DBLoader.MapPatternArray.Pattern.Count - 31);
                 break;
             case 4:
                 if (zeroPatternPer <= 0) PatternArrange = 0;
-                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
+                else PatternArrange = Random.Range(21, DBLoader.MapPatternArray.Pattern.Count - 31);
                 break;
             case 5:
                 if (zeroPatternPer <= 0) PatternArrange = 0;
-                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
+                else PatternArrange = Random.Range(21, DBLoader.MapPatternArray.Pattern.Count - 31);
                 break;
             case 6:
                 if (zeroPatternPer <= 1) PatternArrange = 0;
-                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
+                else PatternArrange = Random.Range(21, DBLoader.MapPatternArray.Pattern.Count - 10);
                 break;
             case 7:
                 if (zeroPatternPer <= 1) PatternArrange = 0;
-                else PatternArrange = Random.Range(16, DBLoader.MapPatternArray.Pattern.Count - 23);
+                else PatternArrange = Random.Range(21, DBLoader.MapPatternArray.Pattern.Count - 10);
                 break;
             case 8:
                 if (zeroPatternPer <= 1) PatternArrange = 0;
-                else PatternArrange = Random.Range(41, DBLoader.MapPatternArray.Pattern.Count);
+                else PatternArrange = Random.Range(46, DBLoader.MapPatternArray.Pattern.Count);
                 break;
             case 9:
                 if (zeroPatternPer <= 1) PatternArrange = 0;
-                else PatternArrange = Random.Range(41, DBLoader.MapPatternArray.Pattern.Count);
+                else PatternArrange = Random.Range(46, DBLoader.MapPatternArray.Pattern.Count);
                 break;
             case 10:
                 if (zeroPatternPer <= 2) PatternArrange = 0;
-                else PatternArrange = Random.Range(54, DBLoader.MapPatternArray.Pattern.Count);
+                else PatternArrange = Random.Range(66, DBLoader.MapPatternArray.Pattern.Count);
                 break;
 
         }
