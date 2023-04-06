@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
                 break;
             case E_SCENE.GAMEOVER:
                 Time.timeScale = 0;
+                Score += (int)(Mathf.Round(distance) * 100f);
                 SLManager._load();
                 if (Score > SLManager.Score)
                 {
@@ -79,7 +80,6 @@ public class GameManager : MonoBehaviour
                     SLManager._save();
                     
                 }
-                Score += (int)(Mathf.Round(distance) * 100f);
                 textHighScore.text = "" + SLManager.Score;
                 textScore.text = "" + Score;
                 //SceneUpdate -= UIUpdate;
