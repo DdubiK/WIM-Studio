@@ -79,8 +79,9 @@ public class GameManager : MonoBehaviour
                     SLManager._save();
                     
                 }
+                Score += (int)(Mathf.Round(distance) * 100f);
                 textHighScore.text = "" + SLManager.Score;
-                textScore.text = "" + (Score+Mathf.Round(distance) *100f);
+                textScore.text = "" + Score;
                 //SceneUpdate -= UIUpdate;
                 SceneUpdate -= CharUpdate;
                 SceneUpdate -= MapUpdate;
@@ -163,6 +164,7 @@ public class GameManager : MonoBehaviour
     public GameObject danger;
     public GameObject mapEffect1;
     public GameObject mapEffect4;
+    public TextMeshProUGUI InGameTextScore;
     public TextMeshProUGUI textScore;
     public TextMeshProUGUI textHighScore;
     public TextMeshProUGUI dis_text;
@@ -363,6 +365,8 @@ public class GameManager : MonoBehaviour
     {
         distance += Time.deltaTime*Time.timeScale *2f;
         dis_text.text = Mathf.Round(distance) + "m";
+        InGameTextScore.text = "" + (Score + (int)(Mathf.Round(distance) * 100f));
+
     }
 
 
@@ -410,6 +414,7 @@ public class GameManager : MonoBehaviour
     public float StageLvTime;
     public int StageLv = 0;
 
+    public List<BackGround> backScroll;
 
     void CharStart()
     {
@@ -425,6 +430,13 @@ public class GameManager : MonoBehaviour
         jumpUp = false;
         disToGround = new Vector3(-1.9f, 0, 0);
         disToJumpPos = new Vector3(-1.9f, 0.7f, 0);
+
+        backScroll[0].scrollSpeed = 0.05f;
+        backScroll[1].scrollSpeed = 0.025f;
+        backScroll[2].scrollSpeed = 0.075f;
+        backScroll[3].scrollSpeed = 0.1f;
+        backScroll[4].scrollSpeed = 0.3f;
+        //backScroll[4].scrollSpeed = 0.05f;
     }
 
     //
@@ -440,6 +452,7 @@ public class GameManager : MonoBehaviour
     public void UpScore(int _point)
     {
         Score += _point;
+        //InGameTextScore.text = ""+Score;
     }
 
     //거리로 점프 체크
@@ -585,6 +598,11 @@ public class GameManager : MonoBehaviour
             }
             Time.timeScale = 1 + (StageLv * 0.04f); // 이것보다 작아야된다.
             InGameTimeScale = Time.timeScale;
+            backScroll[0].scrollSpeed = 0.05f * Time.timeScale;
+            backScroll[1].scrollSpeed = 0.025f * Time.timeScale;
+            backScroll[2].scrollSpeed = 0.075f * Time.timeScale;
+            backScroll[3].scrollSpeed = 0.1f * Time.timeScale;
+            backScroll[4].scrollSpeed = 0.3f * Time.timeScale;
         }
         else
             StageLvTimer += Time.deltaTime;
@@ -609,6 +627,11 @@ public class GameManager : MonoBehaviour
         StageLvTimer = 0;
         StageLv = 0;
         distance = 0;
+        backScroll[0].scrollSpeed = 0.05f * Time.timeScale;
+        backScroll[1].scrollSpeed = 0.025f * Time.timeScale;
+        backScroll[2].scrollSpeed = 0.075f * Time.timeScale;
+        backScroll[3].scrollSpeed = 0.1f * Time.timeScale;
+        backScroll[4].scrollSpeed = 0.3f * Time.timeScale;
         resetInit();
     }
 
