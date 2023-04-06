@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
 
     public void MagicLow()
     {
-        if (magic <= 120 || magic >= 680)
+        if (magic <= 200 || magic >= 800)
         {
             danger.SetActive(true);
             if (magic <= 120) mapEffect4.SetActive(true);
@@ -368,8 +368,8 @@ public class GameManager : MonoBehaviour
 
     void CharStart()
     {
-        magic = 400f;
-        Maxmagic = 800;
+        magic = 500f;
+        Maxmagic = 1000;
         Minmagic = 0;
         Score = 0;
         StageLvTime = 30;
@@ -544,8 +544,8 @@ public class GameManager : MonoBehaviour
 
     public void resetCharState()
     {
-        magic = 400f;
-        Maxmagic = 800;
+        magic = 500;
+        Maxmagic = 1000;
         Minmagic = 0;
         isGround = true;
         jumpUp = false;
