@@ -139,6 +139,8 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public List<GameObject> listGUIScenes;
     private bool isPause = false;
+    public GameObject HelpPanel;
+    public GameObject HelpPlayPanel;
     public GameObject pausePanel;
     public GameObject objCanvas;
     public GameObject danger;
@@ -200,6 +202,25 @@ public class GameManager : MonoBehaviour
         distanceUI();
     }
 
+    public void SetHelp()
+    {
+        HelpPanel.gameObject.SetActive(true);
+    }
+
+    public void HelpBack()
+    {
+        HelpPanel.gameObject.SetActive(false);
+    }
+
+    public void SetPlayHelp()
+    {
+        HelpPlayPanel.gameObject.SetActive(true);
+    }
+
+    public void HelpPlayBack()
+    {
+        HelpPlayPanel.gameObject.SetActive(false);
+    }
 
     public void SoundPlay(int soundnumber)
     {
