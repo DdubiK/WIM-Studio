@@ -30,7 +30,7 @@ public class MapEditor : MonoBehaviour
     "Sprites/ItemObject5",
     "Sprites/ItemObject4",
     "Sprites/ItemObject3",
-
+    "Sprites/ItemObject6"
 };
         //"Sprites/ItemObject6"    
     }
@@ -260,7 +260,7 @@ public class MapEditor : MonoBehaviour
                         if (percent < itemPercent) //Itempercent == 아이템을 줄 확률이에요. 5% ->아이템
                         {
                             //어떤 아이템이 나올것이냐?
-                            int[] itemProbabilities = { 12, 8, 3, 3, 4, 5 }; //각 4,5,6,7,8,9 인덱스 확률
+                            int[] itemProbabilities = { 12, 8, 3, 3, 4, 3 ,1}; //각 4,5,6,7,8,9,10 인덱스 확률
                             int ran = Random.Range(0, 100);
                             int cumulativeProbability = 0;
                             //Debug.Log("" + itemProbabilities.Length);
@@ -762,6 +762,16 @@ public class MapEditor : MonoBehaviour
                                 //GameManager.instance.SoundPlay(12);
                                 Debug.Log("아이템 9 == 거대화");
                                 GameManager.instance.MagicStopItem();
+                                Destroy(element.Obj.transform.GetChild(0).gameObject);
+                                effectobj = Instantiate(effectIdx[2]);
+                                effectobj.transform.position = element.Obj.transform.position;
+                                Destroy(effectobj, 1f);
+                                element.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                break;
+                            case 10:
+                                //GameManager.instance.SoundPlay(12);
+                                Debug.Log("아이템 10 == 빗자루");
+                                GameManager.instance.BroomstickItem();
                                 Destroy(element.Obj.transform.GetChild(0).gameObject);
                                 effectobj = Instantiate(effectIdx[2]);
                                 effectobj.transform.position = element.Obj.transform.position;

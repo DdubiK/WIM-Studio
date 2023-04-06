@@ -44,7 +44,6 @@ public class DBLoader : MonoBehaviour
     #region 데이터 읽어오기
     public void ReadData()
     {
-
         if (Resources.Load<TextAsset>("DataBase/CharDataTable") != null)
         {
             string jdata = Resources.Load<TextAsset>("DataBase/CharDataTable").text;

@@ -606,7 +606,10 @@ public class GameManager : MonoBehaviour
 
 
     }
-
+    public void BroomstickItem()
+    {
+        magic = 400;
+    }
     public void ShieldItem()
     {
         if (magicStop == false)
