@@ -12,7 +12,7 @@ public class MapEditor : MonoBehaviour
         SetPosList(6, 6, ref Poolposlist, 2.5f);
         PathInit();
         createobj();
-        itemPercent = 5;
+        itemPercent = 3;
     }
     public List<Object> sprite;
     public void PathInit()
@@ -269,16 +269,20 @@ public class MapEditor : MonoBehaviour
                                 cumulativeProbability += itemProbabilities[k];
                                 if (ran < cumulativeProbability)
                                 {
-                                    a.ID = k + 4;
-                                    //Debug.Log("a.ID:" + a.ID);
-                                    break;
+                                    if (k == 0)
+                                    {
+                                        a.ID = 0;
+                                        a.Obj.GetComponent<SpriteRenderer>().sprite = null;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        a.ID = k + 3;
+                                        //Debug.Log("a.ID:" + a.ID);
+                                        break;
+                                    }
                                 }
-                                else
-                                {
-                                    a.ID = 0;
-                                    a.Obj.GetComponent<SpriteRenderer>().sprite = null; 
-                                    break;
-                                }
+
                             }
                             //if (j >= 3 && j < 6)
                             //{

@@ -363,7 +363,7 @@ public class GameManager : MonoBehaviour
 
     public void distanceUI()
     {
-        distance += Time.deltaTime*Time.timeScale *2f;
+        distance += Time.deltaTime*Time.timeScale ;
         dis_text.text = Mathf.Round(distance) + "m";
         InGameTextScore.text = "" + (Score + (int)(Mathf.Round(distance) * 100f));
 
@@ -683,7 +683,7 @@ public class GameManager : MonoBehaviour
     }
     public void BroomstickItem()
     {
-        magic = 400;
+        magic = 500;
     }
     public void ShieldItem()
     {
