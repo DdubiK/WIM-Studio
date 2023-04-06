@@ -84,6 +84,14 @@ public class GameManager : MonoBehaviour
                 //SceneUpdate -= UIUpdate;
                 SceneUpdate -= CharUpdate;
                 SceneUpdate -= MapUpdate;
+                if (magic == 0)
+                    gameoverchar.gameObject.SetActive(true);
+                else
+                    gameoverchar.gameObject.SetActive(false);
+                if (magic == 800)
+                    gameoverchar2.gameObject.SetActive(true);
+                else
+                    gameoverchar2.gameObject.SetActive(false);
                 break;
         }
         ShowGUIState(scene);
@@ -148,10 +156,9 @@ public class GameManager : MonoBehaviour
     public GameObject mapEffect4;
     public TextMeshProUGUI textScore;
     public TextMeshProUGUI textHighScore;
-
-
     public TextMeshProUGUI dis_text;
-
+    public GameObject gameoverchar;
+    public GameObject gameoverchar2;
 
     [Header("»ç¿îµå")]
     public AudioMixer audioMixer;
