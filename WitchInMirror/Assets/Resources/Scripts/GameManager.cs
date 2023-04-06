@@ -84,14 +84,23 @@ public class GameManager : MonoBehaviour
                 //SceneUpdate -= UIUpdate;
                 SceneUpdate -= CharUpdate;
                 SceneUpdate -= MapUpdate;
-                if (magic == 0)
-                    gameoverchar.gameObject.SetActive(true);
+                if (magic <= 0)
+                {
+                   
+                        gameoverchar.gameObject.SetActive(true);
+                }
+                  
                 else
                     gameoverchar.gameObject.SetActive(false);
-                if (magic == 800)
+                if (magic >= 800)
+                {
+                   
                     gameoverchar2.gameObject.SetActive(true);
+                }
+              
                 else
                     gameoverchar2.gameObject.SetActive(false);
+
                 break;
         }
         ShowGUIState(scene);
@@ -159,6 +168,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI dis_text;
     public GameObject gameoverchar;
     public GameObject gameoverchar2;
+    public Sprite[] emotion = new Sprite [3];
 
     [Header("»ç¿îµå")]
     public AudioMixer audioMixer;
@@ -265,14 +275,23 @@ public class GameManager : MonoBehaviour
         if (magic <= 200 || magic >= 800)
         {
             danger.SetActive(true);
-            if (magic <= 120) mapEffect4.SetActive(true);
-            if (magic >= 680) mapEffect1.SetActive(true);
+            if (magic <= 120) 
+            { 
+                mapEffect4.SetActive(true);
+                magicbar.GetComponent<Image>().sprite = emotion[0];
+            }
+            if (magic >= 680) 
+            { 
+                mapEffect1.SetActive(true);
+                magicbar.GetComponent<Image>().sprite = emotion[2];
+            }
         }
         else
         {
             danger.SetActive(false);
             mapEffect1.SetActive(false);
             mapEffect4.SetActive(false);
+            magicbar.GetComponent<Image>().sprite = emotion[1];
         }
     }
 
@@ -352,8 +371,6 @@ public class GameManager : MonoBehaviour
         SceneUpdate -= CharUpdate;
         SceneUpdate -= MapUpdate;
     }
-
-
 
     #endregion
 
@@ -584,6 +601,8 @@ public class GameManager : MonoBehaviour
         isGiant = false;
         GroundCheck = null;
         magicDecreasePer = 15f;
+        player[0].GetComponent<Animator>().Play("Run", 0, 0);
+        player[1].GetComponent<Animator>().Play("Run2", 0, 0);
         InGameTimeScale = 1;
         Score = 0;
         playtime = 0;
